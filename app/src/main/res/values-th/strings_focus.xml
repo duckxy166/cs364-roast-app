@@ -1,3 +1,24 @@
 <resources>
     <string name="focus_title">โหมดโฟกัส</string>
+    <string name="focus_subtitle">เปิดหน้านี้ค้างไว้จนกว่าจะครบเวลา</string>
+    <string name="focus_label_minutes">เวลาที่ต้องการโฟกัส (นาที)</string>
+    <string name="focus_preset_1_min">1 นาที</string>
+    <string name="focus_preset_5_min">5 นาที</string>
+    <string name="focus_preset_15_min">15 นาที</string>
+    <string name="focus_preset_25_min">25 นาที</string>
+    <string name="focus_default_minutes">25</string>
+    <string name="focus_default_timer">25:00</string>
+    <string name="focus_btn_start">เริ่มจับเวลาโฟกัส</string>
+    <string name="focus_btn_abandon">เลิกโฟกัส</string>
+    <string name="focus_status_ready">พร้อมเริ่มโหมดโฟกัส</string>
+    <string name="focus_status_running">กำลังโฟกัส… ห้ามสลับไปแอปอื่น</string>
+    <string name="focus_status_paused_resumed">กลับมาจับเวลาต่อจากที่ค้างไว้</string>
+    <string name="focus_status_completed">โฟกัสสำเร็จครบเวลา! บันทึกผลเรียบร้อยแล้ว</string>
+    <string name="focus_error_invalid_minutes">กรุณาใส่เวลาอย่างน้อย 1 นาที</string>
+    <string name="focus_confirm_abandon_title">ยืนยันการทิ้งโหมดโฟกัส?</string>
+    <string name="focus_confirm_abandon_message">กำลังจับเวลาโฟกัสอยู่ คุณต้องการทิ้งการโฟกัสครั้งนี้และออกจากหน้านี้หรือไม่?</string>
+    <string name="focus_completed_count_format">โฟกัสสำเร็จสะสม: %1$d ครั้ง</string>
+    <string name="focus_history_header">ประวัติการโฟกัสสำเร็จล่าสุด</string>
+    <string name="focus_history_empty">ยังไม่มีประวัติการโฟกัสที่สำเร็จ</string>
+    <string name="focus_history_item_format">✓ %1$d นาที — สำเร็จเมื่อ %2$s</string>
 </resources>

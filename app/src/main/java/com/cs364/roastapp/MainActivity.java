@@ -1,14 +1,6 @@
 package com.cs364.roastapp;
 
-import android.os.Bundle;
+import com.cs364.roastapp.core.HomeActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+public class MainActivity extends HomeActivity {
 }

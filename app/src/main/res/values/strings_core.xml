@@ -1,0 +1,11 @@
+<resources>
+    <string name="core_title_home">Home</string>
+    <string name="core_btn_onboarding">Onboarding (Permissions)</string>
+    <string name="core_btn_tracking">Tracked Apps</string>
+    <string name="core_btn_focus">Focus Mode</string>
+    <string name="core_btn_settings">Settings</string>
+    <string name="core_back_to_home">Back to Home</string>
+    <string name="core_press_back_again_to_exit">Press back again to exit</string>
+    <string name="core_confirm_yes">Confirm</string>
+    <string name="core_confirm_cancel">Cancel</string>
+</resources>

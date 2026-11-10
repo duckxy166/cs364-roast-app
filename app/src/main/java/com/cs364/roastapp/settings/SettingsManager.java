@@ -31,6 +31,10 @@ public class SettingsManager {
     }
 
     public String getLanguage() {
+        String saved = prefs.getString(KEY_LANGUAGE, null);
+        if (saved != null) {
+            return LANG_TH.equalsIgnoreCase(saved) ? LANG_TH : LANG_EN;
+        }
         LocaleListCompat currentLocales = AppCompatDelegate.getApplicationLocales();
         Locale firstLocale = currentLocales.isEmpty() ? null : currentLocales.get(0);
         if (firstLocale != null) {
@@ -41,10 +45,6 @@ public class SettingsManager {
             if (LANG_EN.equalsIgnoreCase(lang)) {
                 return LANG_EN;
             }
-        }
-        String saved = prefs.getString(KEY_LANGUAGE, null);
-        if (saved != null) {
-            return LANG_TH.equalsIgnoreCase(saved) ? LANG_TH : LANG_EN;
         }
         String defaultLang = Locale.getDefault().getLanguage();
         return LANG_TH.equalsIgnoreCase(defaultLang) ? LANG_TH : LANG_EN;
@@ -58,14 +58,11 @@ public class SettingsManager {
     }
 
     public boolean isNightMode() {
+        if (prefs.contains(KEY_NIGHT_MODE)) {
+            return prefs.getBoolean(KEY_NIGHT_MODE, false);
+        }
         int currentMode = AppCompatDelegate.getDefaultNightMode();
-        if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
-            return true;
-        }
-        if (currentMode == AppCompatDelegate.MODE_NIGHT_NO) {
-            return false;
-        }
-        return prefs.getBoolean(KEY_NIGHT_MODE, false);
+        return currentMode == AppCompatDelegate.MODE_NIGHT_YES;
     }
 
     public void setNightMode(boolean nightMode) {

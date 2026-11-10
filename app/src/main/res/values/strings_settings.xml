@@ -1,3 +1,20 @@
 <resources>
     <string name="settings_title">Settings</string>
+    <string name="settings_subtitle">Customize language, theme, and alert thresholds</string>
+
+    <string name="settings_section_language">Language</string>
+    <string name="settings_language_description">Switch in-app language without changing device language</string>
+    <string name="settings_language_thai">ไทย (Thai)</string>
+    <string name="settings_language_english">English</string>
+
+    <string name="settings_section_theme">Theme</string>
+    <string name="settings_theme_description">Choose Day or Night appearance across all screens</string>
+    <string name="settings_theme_day">Day (Light)</string>
+    <string name="settings_theme_night">Night (Dark)</string>
+
+    <string name="settings_section_demo">Demo Mode</string>
+    <string name="settings_demo_switch_label">Enable Demo Mode (Fast Thresholds)</string>
+    <string name="settings_demo_description">Shortens alert intervals to seconds so all 3 roast levels trigger within 30 seconds after reaching the limit</string>
+    <string name="settings_thresholds_summary_normal">Current Mode: Normal\n• Level 1: At limit (0s)\n• Level 2: +5 minutes\n• Level 3: +10 minutes (repeats every 5m)</string>
+    <string name="settings_thresholds_summary_demo">Current Mode: Demo\n• Level 1: At limit (0s)\n• Level 2: +10 seconds\n• Level 3: +20 seconds (repeats every 20s)</string>
 </resources>

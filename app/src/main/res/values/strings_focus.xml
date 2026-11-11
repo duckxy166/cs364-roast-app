@@ -1,3 +1,24 @@
 <resources>
     <string name="focus_title">Focus Mode</string>
+    <string name="focus_subtitle">Stay on this screen until the timer finishes</string>
+    <string name="focus_label_minutes">Focus duration (minutes)</string>
+    <string name="focus_preset_1_min">1 min</string>
+    <string name="focus_preset_5_min">5 min</string>
+    <string name="focus_preset_15_min">15 min</string>
+    <string name="focus_preset_25_min">25 min</string>
+    <string name="focus_default_minutes">25</string>
+    <string name="focus_default_timer">25:00</string>
+    <string name="focus_btn_start">Start Focus</string>
+    <string name="focus_btn_abandon">Abandon Focus</string>
+    <string name="focus_status_ready">Ready to start focusing</string>
+    <string name="focus_status_running">Focusing… Do not leave the app</string>
+    <string name="focus_status_paused_resumed">Resumed from where you left off</string>
+    <string name="focus_status_completed">Focus session completed! Saved to history.</string>
+    <string name="focus_error_invalid_minutes">Please enter at least 1 minute</string>
+    <string name="focus_confirm_abandon_title">Abandon Focus Session?</string>
+    <string name="focus_confirm_abandon_message">Your focus timer is still running. Are you sure you want to give up and leave?</string>
+    <string name="focus_completed_count_format">Completed sessions: %1$d</string>
+    <string name="focus_history_header">Recent Completed Sessions</string>
+    <string name="focus_history_empty">No completed focus sessions yet</string>
+    <string name="focus_history_item_format">✓ %1$d min — Completed at %2$s</string>
 </resources>

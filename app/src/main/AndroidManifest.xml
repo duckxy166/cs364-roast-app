@@ -84,6 +84,11 @@
             </intent-filter>
         </receiver>
 
+        <provider
+            android:name=".settings.SettingsInitProvider"
+            android:authorities="${applicationId}.settingsinitprovider"
+            android:exported="false" />
+
     </application>
 
 </manifest>

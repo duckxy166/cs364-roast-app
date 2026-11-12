@@ -1,2 +1,24 @@
 <resources>
+    <string name="roast_channel_level1_name">Time\'s up alerts</string>
+    <string name="roast_channel_level1_desc">Plain alert when an app reaches its daily limit</string>
+    <string name="roast_channel_level2_name">Roast alerts</string>
+    <string name="roast_channel_level2_desc">Vibrating alert with a roast when you keep going over the limit</string>
+
+    <string name="roast_level1_title">Time\'s up</string>
+    <string name="roast_level1_text">You\'ve used up today\'s time for %1$s</string>
+    <string name="roast_level2_title">Still on %1$s?</string>
+
+    <string-array name="roast_level2_lines">
+        <item>Five minutes over. Your phone is not going anywhere, but your day is.</item>
+        <item>Still here? The app will survive without you.</item>
+        <item>Your thumb deserves a break even if you don\'t.</item>
+        <item>Scrolling won\'t finish your homework.</item>
+        <item>You set the limit yourself. Remember?</item>
+        <item>The feed is endless. Your time isn\'t.</item>
+        <item>Put it down before it puts you down.</item>
+        <item>Nothing new here. Go live a little.</item>
+    </string-array>
+
+    <string name="roast_test_btn">[TEST] Roast: next level</string>
+    <string name="roast_test_reset">Roast test reset</string>
 </resources>

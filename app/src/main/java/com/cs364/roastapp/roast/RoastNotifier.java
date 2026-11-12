@@ -3,6 +3,7 @@ package com.cs364.roastapp.roast;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -26,6 +27,7 @@ public class RoastNotifier {
 
     public static final String CHANNEL_LEVEL_1 = "roast_level_1";
     public static final String CHANNEL_LEVEL_2 = "roast_level_2";
+    public static final String CHANNEL_LEVEL_3 = "roast_level_3";
 
     private static final long[] VIBRATE_PATTERN = {0L, 400L, 200L, 400L};
 
@@ -68,8 +70,36 @@ public class RoastNotifier {
         vibrate();
     }
 
+    public String showLevel3(String packageName, int lineIndex) {
+        Context ctx = localizedContext();
+        ensureChannels(ctx);
+        String appLabel = getAppLabel(packageName);
+        String[] lines = ctx.getResources().getStringArray(R.array.roast_level3_lines);
+        String line = (lineIndex >= 0 && lineIndex < lines.length) ? lines[lineIndex] : "";
+
+        PendingIntent deleteIntent = RoastDismissReceiver.createPendingIntent(ctx, packageName);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_LEVEL_3)
+                .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                .setContentTitle(ctx.getString(R.string.roast_level3_title, appLabel))
+                .setContentText(line)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(line))
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVibrate(VIBRATE_PATTERN)
+                .setDeleteIntent(deleteIntent)
+                .setAutoCancel(true);
+        notifySafely(packageName, builder);
+        vibrate();
+        return line;
+    }
+
     public void cancel(String packageName) {
-        NotificationManagerCompat.from(appContext).cancel(notificationId(packageName));
+        if (packageName == null) {
+            NotificationManagerCompat.from(appContext).cancelAll();
+        } else {
+            NotificationManagerCompat.from(appContext).cancel(notificationId(packageName));
+        }
     }
 
     private Context localizedContext() {
@@ -101,8 +131,17 @@ public class RoastNotifier {
         level2.enableVibration(true);
         level2.setVibrationPattern(VIBRATE_PATTERN);
 
+        NotificationChannel level3 = new NotificationChannel(
+                CHANNEL_LEVEL_3,
+                ctx.getString(R.string.roast_channel_level3_name),
+                NotificationManager.IMPORTANCE_HIGH);
+        level3.setDescription(ctx.getString(R.string.roast_channel_level3_desc));
+        level3.enableVibration(true);
+        level3.setVibrationPattern(VIBRATE_PATTERN);
+
         nm.createNotificationChannel(level1);
         nm.createNotificationChannel(level2);
+        nm.createNotificationChannel(level3);
     }
 
     private synchronized String pickLevel2Line(Context ctx) {
@@ -119,6 +158,9 @@ public class RoastNotifier {
     }
 
     private String getAppLabel(String packageName) {
+        if (packageName == null) {
+            return "";
+        }
         PackageManager pm = appContext.getPackageManager();
         try {
             ApplicationInfo info = pm.getApplicationInfo(packageName, 0);
@@ -152,6 +194,9 @@ public class RoastNotifier {
     }
 
     private static int notificationId(String packageName) {
+        if (packageName == null) {
+            return 1000;
+        }
         return 1000 + (packageName.hashCode() & 0x0FFFFFFF);
     }
 }

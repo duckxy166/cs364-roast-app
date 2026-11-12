@@ -36,4 +36,13 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.btn_roast_test).setOnClickListener(v ->
                 com.cs364.roastapp.roast.RoastTestHelper.nextStep(this));
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RoastTrigger trigger = AppServices.getRoastTrigger(this);
+        if (trigger instanceof com.cs364.roastapp.roast.RoastManager rm) {
+            rm.resetPackage(null);
+        }
+    }
 }

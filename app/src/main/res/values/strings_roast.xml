@@ -3,10 +3,13 @@
     <string name="roast_channel_level1_desc">Plain alert when an app reaches its daily limit</string>
     <string name="roast_channel_level2_name">Roast alerts</string>
     <string name="roast_channel_level2_desc">Vibrating alert with a roast when you keep going over the limit</string>
+    <string name="roast_channel_level3_name">Voice roast alerts</string>
+    <string name="roast_channel_level3_desc">Voice and alert when severely exceeding the limit</string>
 
     <string name="roast_level1_title">Time\'s up</string>
     <string name="roast_level1_text">You\'ve used up today\'s time for %1$s</string>
     <string name="roast_level2_title">Still on %1$s?</string>
+    <string name="roast_level3_title">Put it down! (%1$s)</string>
 
     <string-array name="roast_level2_lines">
         <item>Five minutes over. Your phone is not going anywhere, but your day is.</item>
@@ -17,6 +20,17 @@
         <item>The feed is endless. Your time isn\'t.</item>
         <item>Put it down before it puts you down.</item>
         <item>Nothing new here. Go live a little.</item>
+    </string-array>
+
+    <string-array name="roast_level3_lines">
+        <item>Time\'s up. Put the phone down. Now.</item>
+        <item>Still scrolling? Is your work done yet?</item>
+        <item>Your thumb works harder than you do.</item>
+        <item>Nothing new down there. Just your time disappearing.</item>
+        <item>Battery\'s full. Your future isn\'t.</item>
+        <item>You said five more minutes. How many times now?</item>
+        <item>The screen doesn\'t love you back. Let it go.</item>
+        <item>That\'s enough. Go do something useful.</item>
     </string-array>
 
     <string name="roast_test_btn">[TEST] Roast: next level</string>

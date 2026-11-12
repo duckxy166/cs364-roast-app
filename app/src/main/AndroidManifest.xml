@@ -66,6 +66,10 @@
             android:parentActivityName=".core.HomeActivity"
             android:screenOrientation="portrait" />
 
+        <receiver
+            android:name=".roast.RoastDismissReceiver"
+            android:exported="false" />
+
         <service
             android:name=".tracking.UsageTrackingService"
             android:exported="false"

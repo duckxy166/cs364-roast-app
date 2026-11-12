@@ -24,11 +24,15 @@ public class RoastManager implements RoastTrigger {
     public RoastManager(Context context) {
         this.appContext = context.getApplicationContext();
         this.notifier = new RoastNotifier(appContext);
-        this.level3Alert = new LogLevel3Alert();
+        this.level3Alert = new VoiceRoastAlert(appContext, notifier);
     }
 
     public void setLevel3Alert(Level3Alert alert) {
         this.level3Alert = alert != null ? alert : new LogLevel3Alert();
+    }
+
+    public Level3Alert getLevel3Alert() {
+        return level3Alert;
     }
 
     @Override

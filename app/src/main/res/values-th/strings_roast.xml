@@ -3,10 +3,13 @@
     <string name="roast_channel_level1_desc">แจ้งเตือนธรรมดาเมื่อใช้แอปครบเวลาที่ตั้งไว้ต่อวัน</string>
     <string name="roast_channel_level2_name">แจ้งเตือนคำด่า</string>
     <string name="roast_channel_level2_desc">แจ้งเตือนพร้อมสั่นและคำด่าเมื่อยังใช้ต่อเกินเวลา</string>
+    <string name="roast_channel_level3_name">แจ้งเตือนเสียงด่า</string>
+    <string name="roast_channel_level3_desc">เล่นเสียงพากย์ด่าและแจ้งเตือนเมื่อใช้เกินเวลาอย่างหนัก</string>
 
     <string name="roast_level1_title">หมดเวลาแล้ว</string>
     <string name="roast_level1_text">วันนี้ใช้ %1$s ครบเวลาที่ตั้งไว้แล้ว</string>
     <string name="roast_level2_title">ยังเล่น %1$s อยู่อีกเหรอ</string>
+    <string name="roast_level3_title">วางมือถือเดี๋ยวนี้! (%1$s)</string>
 
     <string-array name="roast_level2_lines">
         <item>เกินมาห้านาทีแล้ว มือถือไม่หนีไปไหน แต่วันของเธอกำลังหมดไป</item>
@@ -17,6 +20,17 @@
         <item>ฟีดมันไม่มีวันหมด แต่เวลาเธอมีวันหมด</item>
         <item>วางมันลงก่อนที่มันจะทำให้เธอพัง</item>
         <item>ไม่มีอะไรใหม่แล้ว ออกไปใช้ชีวิตบ้างเถอะ</item>
+    </string-array>
+
+    <string-array name="roast_level3_lines">
+        <item>เกินเวลาแล้วนะ วางมือถือเดี๋ยวนี้</item>
+        <item>ยังไม่เลิกอีกเหรอ งานเสร็จแล้วหรือไง</item>
+        <item>นิ้วโป้งเธอขยันกว่าตัวเธออีกนะ</item>
+        <item>เลื่อนต่อไปก็ไม่มีอะไรใหม่หรอก มีแต่เวลาที่หายไป</item>
+        <item>แบตเหลือเยอะ แต่อนาคตเหลือน้อยลงทุกนาที</item>
+        <item>บอกว่าอีกห้านาที นี่ผ่านมากี่รอบแล้ว</item>
+        <item>จอมันไม่ได้รักเธอ วางมันลงเถอะ</item>
+        <item>พอได้แล้ว ไปทำอะไรที่มีประโยชน์เดี๋ยวนี้</item>
     </string-array>
 
     <string name="roast_test_btn">[ทดสอบ] การเตือน: ระดับถัดไป</string>

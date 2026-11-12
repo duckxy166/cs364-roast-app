@@ -32,5 +32,8 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(this, FocusActivity.class)));
         btnSettings.setOnClickListener(v ->
                 startActivity(new Intent(this, SettingsActivity.class)));
+
+        findViewById(R.id.btn_roast_test).setOnClickListener(v ->
+                com.cs364.roastapp.roast.RoastTestHelper.nextStep(this));
     }
 }

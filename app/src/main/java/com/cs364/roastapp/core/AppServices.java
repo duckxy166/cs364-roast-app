@@ -44,7 +44,7 @@ public final class AppServices {
         if (roastTrigger == null) {
             synchronized (AppServices.class) {
                 if (roastTrigger == null) {
-                    roastTrigger = new LogRoastTrigger();
+                    roastTrigger = new com.cs364.roastapp.roast.RoastManager(context);
                 }
             }
         }

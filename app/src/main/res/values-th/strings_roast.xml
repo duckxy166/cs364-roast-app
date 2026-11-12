@@ -1,2 +1,24 @@
 <resources>
+    <string name="roast_channel_level1_name">แจ้งเตือนหมดเวลา</string>
+    <string name="roast_channel_level1_desc">แจ้งเตือนธรรมดาเมื่อใช้แอปครบเวลาที่ตั้งไว้ต่อวัน</string>
+    <string name="roast_channel_level2_name">แจ้งเตือนคำด่า</string>
+    <string name="roast_channel_level2_desc">แจ้งเตือนพร้อมสั่นและคำด่าเมื่อยังใช้ต่อเกินเวลา</string>
+
+    <string name="roast_level1_title">หมดเวลาแล้ว</string>
+    <string name="roast_level1_text">วันนี้ใช้ %1$s ครบเวลาที่ตั้งไว้แล้ว</string>
+    <string name="roast_level2_title">ยังเล่น %1$s อยู่อีกเหรอ</string>
+
+    <string-array name="roast_level2_lines">
+        <item>เกินมาห้านาทีแล้ว มือถือไม่หนีไปไหน แต่วันของเธอกำลังหมดไป</item>
+        <item>ยังอยู่อีกเหรอ แอปมันอยู่ได้โดยไม่มีเธอนะ</item>
+        <item>นิ้วโป้งก็อยากพักบ้างนะ ถึงเธอจะไม่อยากก็ตาม</item>
+        <item>ไถฟีดต่อไปการบ้านก็ไม่เสร็จเองหรอก</item>
+        <item>ตั้งเวลาเองแท้ ๆ จำไม่ได้แล้วเหรอ</item>
+        <item>ฟีดมันไม่มีวันหมด แต่เวลาเธอมีวันหมด</item>
+        <item>วางมันลงก่อนที่มันจะทำให้เธอพัง</item>
+        <item>ไม่มีอะไรใหม่แล้ว ออกไปใช้ชีวิตบ้างเถอะ</item>
+    </string-array>
+
+    <string name="roast_test_btn">[ทดสอบ] การเตือน: ระดับถัดไป</string>
+    <string name="roast_test_reset">รีเซ็ตการทดสอบการเตือนแล้ว</string>
 </resources>

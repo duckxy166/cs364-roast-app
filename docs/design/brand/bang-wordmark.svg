@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 250" role="img" aria-label="วางเดี๋ยวนี้! Put It Down! Stacked wordmark">
+  <rect x="14" y="58" width="120" height="120" rx="34" fill="#3448F0"/>
+  <path d="M63.2 81h21.6l-4.5 54H67.7z" fill="#FF795C"/>
+  <circle cx="74" cy="155" r="9.6" fill="#FF795C"/>
+  <text x="166" y="85" font-family="Noto Sans Thai,Tahoma,sans-serif" font-size="50" font-weight="800" fill="#252033">วาง</text>
+  <text x="166" y="145" font-family="Noto Sans Thai,Tahoma,sans-serif" font-size="50" font-weight="800" fill="#252033">เดี๋ยวนี้<tspan fill="#FF795C">!</tspan></text>
+  <text x="167" y="196" font-family="Manrope,Arial,sans-serif" font-size="27" font-weight="800" fill="#252033">Put It Down<tspan fill="#FF795C">!</tspan></text>
+</svg>

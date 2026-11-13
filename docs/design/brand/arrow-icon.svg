@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Put It Down! Arrow and dot icon">
+  <rect width="96" height="96" rx="27" fill="#FF795C"/>
+  <path d="M48 23v36m-15-14 15 15 15-15" fill="none" stroke="#252033" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="48" cy="79" r="4.5" fill="#252033"/>
+</svg>

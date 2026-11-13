@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Put It Down mascot</title>
+  <desc id="desc">An original smiling coral pebble character.</desc>
+  <g transform="rotate(-9 120 120)">
+    <path d="M35 107C33 50 70 25 121 25s88 22 88 85v38c0 48-29 70-81 70-55 0-94-23-94-70z" fill="#D95540"/>
+    <path d="M28 97C28 44 65 20 114 20s87 22 87 78v37c0 46-30 69-80 69-53 0-93-23-93-69z" fill="#FF795C"/>
+    <rect x="77" y="81" width="17" height="29" rx="8.5" fill="#252033"/>
+    <rect x="137" y="81" width="17" height="29" rx="8.5" fill="#252033"/>
+    <path d="M96 136c2 29 39 29 42 0" fill="none" stroke="#252033" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="160dp" android:height="160dp" android:viewportWidth="240" android:viewportHeight="240">
+    <path android:fillColor="@color/pid_error" android:pathData="M35,107C33,50 70,25 121,25S209,47 209,110V148C209,196 180,218 128,218C73,218 34,195 34,148Z"/>
+    <path android:fillColor="@color/pid_brand_coral" android:pathData="M28,97C28,44 65,20 114,20S201,42 201,98V135C201,181 171,204 121,204C68,204 28,181 28,135Z"/>
+    <path android:fillColor="@color/pid_brand_ink" android:pathData="M75,84L104,89L102,105L73,100ZM132,84L161,89L159,105L130,100Z"/>
+    <path android:strokeColor="@color/pid_brand_ink" android:strokeWidth="7" android:strokeLineCap="round" android:fillColor="@android:color/transparent" android:pathData="M97,141Q121,146 143,131"/>
+</vector>

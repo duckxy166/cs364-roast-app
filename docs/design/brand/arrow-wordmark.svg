@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 190" role="img" aria-label="วางเดี๋ยวนี้! Put It Down! Horizontal wordmark">
+  <rect x="12" y="35" width="120" height="120" rx="34" fill="#FF795C"/>
+  <path d="M72 64v45m-19-17 19 19 19-19" fill="none" stroke="#252033" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="72" cy="134" r="5.6" fill="#252033"/>
+  <text x="162" y="100" font-family="Noto Sans Thai,Tahoma,sans-serif" font-size="48" font-weight="800" fill="#252033">วางเดี๋ยวนี้<tspan fill="#FF795C">!</tspan></text>
+  <text x="163" y="145" font-family="Manrope,Arial,sans-serif" font-size="32" font-weight="800" fill="#252033">Put It Down<tspan fill="#FF795C">!</tspan></text>
+</svg>

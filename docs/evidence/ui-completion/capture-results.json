@@ -1,0 +1,47 @@
+[
+  {
+    "prefix": "phone390-day",
+    "size": "1080x2280",
+    "density": "443",
+    "theme": "day",
+    "language": "th",
+    "fontScale": "1.0",
+    "result": "passed"
+  },
+  {
+    "prefix": "phone390-night",
+    "size": "1080x2280",
+    "density": "443",
+    "theme": "night",
+    "language": "th",
+    "fontScale": "1.0",
+    "result": "passed"
+  },
+  {
+    "prefix": "tablet800-day",
+    "size": "1600x2560",
+    "density": "320",
+    "theme": "day",
+    "language": "th",
+    "fontScale": "1.0",
+    "result": "passed"
+  },
+  {
+    "prefix": "tablet800-night",
+    "size": "1600x2560",
+    "density": "320",
+    "theme": "night",
+    "language": "en",
+    "fontScale": "1.0",
+    "result": "passed"
+  },
+  {
+    "prefix": "compact360-large-text",
+    "size": "900x1600",
+    "density": "400",
+    "theme": "day",
+    "language": "en",
+    "fontScale": "1.3",
+    "result": "passed"
+  }
+]

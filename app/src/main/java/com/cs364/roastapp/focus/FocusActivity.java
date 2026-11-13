@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -47,6 +46,7 @@ public class FocusActivity extends AppCompatActivity {
 
     private final Handler timerHandler = new Handler(Looper.getMainLooper());
     private boolean isSessionActive = false;
+    private boolean showCompletedFeedback = false;
     private boolean isTickerRunning = false;
     private boolean wasPausedDuringSession = false;
     private long selectedDurationMinutes = DEFAULT_MINUTES;
@@ -98,6 +98,7 @@ public class FocusActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             isSessionActive = savedInstanceState.getBoolean(KEY_IS_SESSION_ACTIVE, false);
+            showCompletedFeedback = savedInstanceState.getBoolean("ui_completed_feedback", false);
             selectedDurationMinutes = savedInstanceState.getLong(KEY_SELECTED_MINUTES, DEFAULT_MINUTES);
             remainingMillis = savedInstanceState.getLong(
                     KEY_REMAINING_MILLIS,
@@ -177,6 +178,7 @@ public class FocusActivity extends AppCompatActivity {
                 updatePresetSelection();
                 long parsed = parseMinutesInput();
                 if (parsed > 0L) {
+                    ((com.google.android.material.textfield.TextInputLayout)findViewById(R.id.input_layout_focus_minutes)).setError(null);
                     selectedDurationMinutes = parsed;
                     remainingMillis = parsed * MILLIS_PER_MINUTE;
                     updateTimerDisplay(remainingMillis);
@@ -218,11 +220,13 @@ public class FocusActivity extends AppCompatActivity {
     private void startFocusSession() {
         long minutes = parseMinutesInput();
         if (minutes < 1L) {
-            Toast.makeText(this, R.string.focus_error_invalid_minutes, Toast.LENGTH_SHORT).show();
+            ((com.google.android.material.textfield.TextInputLayout)findViewById(R.id.input_layout_focus_minutes)).setError(getString(R.string.focus_error_invalid_minutes));
+            minutesEdit.requestFocus();
             return;
         }
         selectedDurationMinutes = minutes;
         remainingMillis = minutes * MILLIS_PER_MINUTE;
+        showCompletedFeedback = false;
         isSessionActive = true;
         wasPausedDuringSession = false;
 
@@ -277,6 +281,7 @@ public class FocusActivity extends AppCompatActivity {
             long now = SystemClock.elapsedRealtime();
             remainingMillis = Math.max(0L, targetEndElapsedRealtime - now);
         }
+        outState.putBoolean("ui_completed_feedback", showCompletedFeedback);
         outState.putBoolean(KEY_IS_SESSION_ACTIVE, isSessionActive);
         outState.putLong(KEY_REMAINING_MILLIS, remainingMillis);
         outState.putLong(KEY_SELECTED_MINUTES, selectedDurationMinutes);
@@ -304,9 +309,9 @@ public class FocusActivity extends AppCompatActivity {
         AppServices.getDatabase(this).focusSessionDao().insert(entity);
 
         remainingMillis = selectedDurationMinutes * MILLIS_PER_MINUTE;
+        showCompletedFeedback = true;
         syncUiWithState();
         statusText.setText(R.string.focus_status_completed);
-        Toast.makeText(this, R.string.focus_status_completed, Toast.LENGTH_SHORT).show();
         refreshSessionHistory();
     }
 
@@ -336,6 +341,7 @@ public class FocusActivity extends AppCompatActivity {
     }
 
     private void abandonActiveSession() {
+        showCompletedFeedback = false;
         isSessionActive = false;
         isTickerRunning = false;
         wasPausedDuringSession = false;
@@ -347,6 +353,7 @@ public class FocusActivity extends AppCompatActivity {
 
     private void syncUiWithState() {
         updateTimerDisplay(remainingMillis);
+        findViewById(R.id.pid_focus_feedback).setVisibility(showCompletedFeedback && !isSessionActive ? View.VISIBLE : View.GONE);
         findViewById(R.id.text_focus_title).setVisibility(isSessionActive ? View.GONE : View.VISIBLE);
         ((TextView) findViewById(R.id.text_focus_subtitle)).setText(isSessionActive
                 ? R.string.pid_focus_intro : R.string.pid_focus_desc);
@@ -370,8 +377,11 @@ public class FocusActivity extends AppCompatActivity {
         long totalSeconds = millis <= 0L ? 0L : (millis + 999L) / 1000L;
         long minutes = totalSeconds / 60L;
         long seconds = totalSeconds % 60L;
-        String formatted = String.format(Locale.US, "%02d:%02d", minutes, seconds);
+        String formatted = totalSeconds >= 3600L
+                ? String.format(Locale.US, "%d:%02d:%02d", totalSeconds / 3600L, minutes % 60L, seconds)
+                : String.format(Locale.US, "%02d:%02d", minutes, seconds);
         timerText.setText(formatted);
+        ((TextView)findViewById(R.id.pid_timer_caption)).setText(totalSeconds >= 3600L ? R.string.pid_clock_hours : R.string.pid_keep_open);
     }
 
     private void refreshSessionHistory() {

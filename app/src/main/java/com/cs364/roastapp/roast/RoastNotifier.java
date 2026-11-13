@@ -41,7 +41,8 @@ public class RoastNotifier {
         ensureChannels(ctx);
         String appLabel = getAppLabel(packageName);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_LEVEL_1)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setSmallIcon(R.drawable.pid_ic_notification)
+                .setColor(ContextCompat.getColor(ctx, R.color.pid_brand_blue))
                 .setContentTitle(ctx.getString(R.string.roast_level1_title))
                 .setContentText(ctx.getString(R.string.roast_level1_text, appLabel))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -55,7 +56,8 @@ public class RoastNotifier {
         String appLabel = getAppLabel(packageName);
         String line = pickLevel2Line(ctx);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_LEVEL_2)
-                .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                .setSmallIcon(R.drawable.pid_ic_notification)
+                .setColor(ContextCompat.getColor(ctx, R.color.pid_brand_blue))
                 .setContentTitle(ctx.getString(R.string.roast_level2_title, appLabel))
                 .setContentText(line)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(line))
@@ -77,7 +79,8 @@ public class RoastNotifier {
         PendingIntent deleteIntent = RoastDismissReceiver.createPendingIntent(ctx, packageName);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_LEVEL_3)
-                .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                .setSmallIcon(R.drawable.pid_ic_notification)
+                .setColor(ContextCompat.getColor(ctx, R.color.pid_brand_blue))
                 .setContentTitle(ctx.getString(R.string.roast_level3_title, appLabel))
                 .setContentText(line)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(line))

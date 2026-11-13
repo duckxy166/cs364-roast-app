@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="pid_persona_title">สไตล์การเตือน</string>
+  <string name="pid_persona_description">เลือกน้ำเสียงที่ช่วยให้คุณวางมือถือได้</string>
+  <string name="pid_persona_choose">ให้ใครช่วยเตือน</string>
+  <string name="pid_persona_strict">โค้ชสายเข้ม\nพูดตรง ชวนให้กลับไปลงมือ</string>
+  <string name="pid_persona_sarcastic">เพื่อนสายแซว\nแซวขำ ๆ ให้รู้ตัวว่าไถนานแล้ว</string>
+  <string name="pid_persona_mom">แม่สายห่วง\nบ่นด้วยความห่วง อยากให้พักบ้าง</string>
+  <string name="pid_persona_sample_label">ตัวอย่างข้อความ · ไม่เล่นเสียง</string>
+  <string name="pid_persona_sample">ตั้งเวลาเองแล้ว ลองทำตามที่ตั้งใจไว้สิ</string>
+  <string name="pid_persona_sample_next">ดูอีกข้อความ</string>
+  <string name="pid_persona_your_lines">ข้อความของคุณ</string>
+  <string name="pid_persona_empty">ยังไม่มีข้อความของคุณ\nเพิ่มประโยคแรกได้จากช่องด้านบน</string>
+  <string name="pid_monitor_missing">สิทธิ์ยังไม่ครบ</string>
+  <string name="pid_monitor_missing_desc">เปิดสิทธิ์ที่จำเป็น เพื่อให้เราเตือนคุณได้ตามเวลา</string>
+  <string name="pid_monitor_check">ตรวจสอบสิทธิ์</string>
+  <string name="pid_monitor_stopped">การตรวจจับหยุดอยู่</string>
+  <string name="pid_monitor_stopped_desc">เปิดการตรวจจับอีกครั้ง เพื่อให้เราเตือนได้ตามเวลา</string>
+  <string name="pid_monitor_resume">เปิดการตรวจจับ</string>
+  <string name="pid_preview_level_1">ระดับ 1</string>
+  <string name="pid_preview_level_2">ระดับ 2</string>
+  <string name="pid_preview_level_3">ระดับ 3</string>
+  <string name="pid_preview_delivery_1">แจ้งเตือนเมื่อใช้ครบเวลาที่คุณตั้งไว้</string>
+  <string name="pid_preview_delivery_2">ข้อความพร้อมการสั่น เมื่อยังใช้ต่อเกินเวลา</string>
+  <string name="pid_preview_delivery_3">มีเสียงเตือน ปัดการแจ้งเตือนออกเพื่อหยุดเสียง</string>
+  <string name="pid_clock_hours">ชั่วโมง : นาที : วินาที</string>
+</resources>

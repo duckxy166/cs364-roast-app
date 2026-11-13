@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <instrumentation android:name="com.cs364.roastapp.ui.UiReferenceCapture"
         android:targetPackage="com.cs364.roastapp" android:label="UI reference capture (debug only)" />
+    <instrumentation android:name="com.cs364.roastapp.ui.RemainingUiCapture" android:targetPackage="com.cs364.roastapp" android:label="Remaining UI capture (debug only)" />
 </manifest>

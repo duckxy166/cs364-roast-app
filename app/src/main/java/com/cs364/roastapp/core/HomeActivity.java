@@ -17,9 +17,15 @@ public class HomeActivity extends AppCompatActivity {
         new com.cs364.roastapp.ui.AppLimitsUi(this, null).render(apps, true);
     }
     public void renderPermissionWarning(boolean missing) {
-        findViewById(R.id.btn_nav_onboarding).setVisibility(missing ? android.view.View.VISIBLE : android.view.View.GONE);
+        renderMonitoringState(missing ? com.cs364.roastapp.ui.MonitoringStatusUi.State.MISSING_PERMISSIONS
+                : com.cs364.roastapp.ui.MonitoringStatusUi.State.READY,
+                () -> startActivity(new Intent(this, OnboardingActivity.class)));
     }
 
+
+    public void renderMonitoringState(com.cs364.roastapp.ui.MonitoringStatusUi.State state, Runnable recovery) {
+        com.cs364.roastapp.ui.MonitoringStatusUi.render(this, state, recovery);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

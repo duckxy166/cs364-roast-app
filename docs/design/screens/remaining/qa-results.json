@@ -1,0 +1,13 @@
+{
+  "runtimeErrors": [],
+  "layoutProblems": [],
+  "checks": [
+    "empty/error/add/remove/cancel/Escape",
+    "draft persistence",
+    "preset synchronization",
+    "monitor recovery",
+    "history confirmation",
+    "320/360/736px Thai/English",
+    "live 500-minute hour format"
+  ]
+}

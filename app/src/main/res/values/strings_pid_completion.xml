@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="pid_persona_title">Your reminder style</string>
+  <string name="pid_persona_description">Choose the voice that helps you put it down.</string>
+  <string name="pid_persona_choose">Who should remind you?</string>
+  <string name="pid_persona_strict">Strict coach\nDirect words to get you moving</string>
+  <string name="pid_persona_sarcastic">Sarcastic friend\nA playful nudge when you keep scrolling</string>
+  <string name="pid_persona_mom">Caring mom\nA caring reminder to take a break</string>
+  <string name="pid_persona_sample_label">Message preview · no audio</string>
+  <string name="pid_persona_sample">You chose the limit. Stick to your plan.</string>
+  <string name="pid_persona_sample_next">Another example</string>
+  <string name="pid_persona_your_lines">Your messages</string>
+  <string name="pid_persona_empty">No messages yet.\nAdd your first line above.</string>
+  <string name="pid_monitor_missing">Permissions are missing</string>
+  <string name="pid_monitor_missing_desc">Enable the required permissions so we can remind you on time.</string>
+  <string name="pid_monitor_check">Check permissions</string>
+  <string name="pid_monitor_stopped">Monitoring is stopped</string>
+  <string name="pid_monitor_stopped_desc">Resume monitoring so reminders can work on time.</string>
+  <string name="pid_monitor_resume">Resume monitoring</string>
+  <string name="pid_preview_level_1">Level 1</string>
+  <string name="pid_preview_level_2">Level 2</string>
+  <string name="pid_preview_level_3">Level 3</string>
+  <string name="pid_preview_delivery_1">Notification when your chosen limit is reached.</string>
+  <string name="pid_preview_delivery_2">Text and vibration when you keep using the app.</string>
+  <string name="pid_preview_delivery_3">Audio reminder. Dismiss the notification to stop playback.</string>
+  <string name="pid_clock_hours">hours : minutes : seconds</string>
+</resources>

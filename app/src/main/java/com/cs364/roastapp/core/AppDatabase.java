@@ -8,12 +8,14 @@ import androidx.room.RoomDatabase;
 
 import com.cs364.roastapp.focus.FocusSessionDao;
 import com.cs364.roastapp.focus.FocusSessionEntity;
+import com.cs364.roastapp.roast.CustomRoastDao;
+import com.cs364.roastapp.roast.CustomRoastEntity;
 import com.cs364.roastapp.tracking.TrackedAppDao;
 import com.cs364.roastapp.tracking.TrackedAppEntity;
 
 @Database(
-        entities = {TrackedAppEntity.class, FocusSessionEntity.class},
-        version = 1,
+        entities = {TrackedAppEntity.class, FocusSessionEntity.class, CustomRoastEntity.class},
+        version = 2,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -24,6 +26,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract TrackedAppDao trackedAppDao();
 
     public abstract FocusSessionDao focusSessionDao();
+
+    public abstract CustomRoastDao customRoastDao();
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {

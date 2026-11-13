@@ -66,6 +66,12 @@
             android:parentActivityName=".core.HomeActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".roast.RoastPersonaActivity"
+            android:exported="false"
+            android:parentActivityName=".core.HomeActivity"
+            android:screenOrientation="portrait" />
+
         <receiver
             android:name=".roast.RoastDismissReceiver"
             android:exported="false" />

@@ -66,6 +66,13 @@
             android:text="@string/core_btn_settings" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_nav_roast_persona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/core_btn_roast_persona" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_roast_test"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"

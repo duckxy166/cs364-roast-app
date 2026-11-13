@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='utf-8'?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/pid_background">
+  <include
+      android:id="@+id/pid_navigation"
+      layout="@layout/pid_navigation"
+      android:layout_width="88dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+  <ScrollView
+      android:id="@+id/pid_scroll"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:fillViewport="true"
+      android:clipToPadding="false"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@id/pid_navigation">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="24dp"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintWidth_max="560dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_onboarding_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_back"
+            style="@style/Widget.PutItDown.Button.Back" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="156dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/pid_illustration_onboarding"
+            android:importantForAccessibility="no" />
+        <TextView
+            android:id="@+id/text_onboarding_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_onboarding_title"
+            android:textAppearance="@style/TextAppearance.PutItDown.Heading"
+            android:layout_marginTop="22dp" />
+        <TextView
+            android:id="@+id/pid_onboarding_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_onboarding_desc"
+            android:textAppearance="@style/TextAppearance.PutItDown.Supporting"
+            android:layout_marginTop="10dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="22dp"
+            android:gravity="center_vertical">
+          <LinearLayout
+              android:layout_width="0dp"
+              android:layout_weight="1"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_marginEnd="12dp">
+            <TextView
+                android:id="@+id/pid_permission_usage_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pid_permission_usage"
+                android:textAppearance="@style/TextAppearance.PutItDown.Label"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/pid_permission_usage_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pid_permission_usage_desc"
+                android:textAppearance="@style/TextAppearance.PutItDown.Supporting"
+                android:layout_marginTop="4dp" />
+          </LinearLayout>
+          <com.google.android.material.button.MaterialButton
+              android:id="@+id/pid_permission_usage"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/pid_enable_permission"
+              style="@style/Widget.PutItDown.Button.Secondary"
+              android:layout_marginTop="0dp"
+              android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="22dp"
+            android:gravity="center_vertical">
+          <LinearLayout
+              android:layout_width="0dp"
+              android:layout_weight="1"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_marginEnd="12dp">
+            <TextView
+                android:id="@+id/pid_permission_notifications_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pid_permission_notifications"
+                android:textAppearance="@style/TextAppearance.PutItDown.Label"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/pid_permission_notifications_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pid_permission_notifications_desc"
+                android:textAppearance="@style/TextAppearance.PutItDown.Supporting"
+                android:layout_marginTop="4dp" />
+          </LinearLayout>
+          <com.google.android.material.button.MaterialButton
+              android:id="@+id/pid_permission_notifications"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/pid_enable_permission"
+              style="@style/Widget.PutItDown.Button.Secondary"
+              android:layout_marginTop="0dp"
+              android:textSize="12sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/pid_onboarding_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_onboarding_note"
+            android:textAppearance="@style/TextAppearance.PutItDown.Supporting"
+            android:layout_marginTop="20dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pid_onboarding_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_go_home"
+            style="@style/Widget.PutItDown.Button.Primary"
+            android:enabled="false"
+            android:layout_marginTop="24dp" />
+      </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

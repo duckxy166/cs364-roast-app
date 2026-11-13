@@ -85,6 +85,14 @@ public class FocusActivity extends AppCompatActivity {
         completedCountText = findViewById(R.id.text_focus_completed_count);
         historyListText = findViewById(R.id.text_focus_history_list);
 
+        com.cs364.roastapp.ui.PutItDownNavigation.bind(this, R.id.btn_nav_focus, destination -> {
+            Runnable navigate = () -> com.cs364.roastapp.ui.PutItDownNavigation.open(this, destination);
+            if (isSessionActive) {
+                ConfirmDialog.show(this, R.string.focus_confirm_abandon_title,
+                        R.string.focus_confirm_abandon_message,
+                        () -> { abandonActiveSession(); navigate.run(); }, () -> {});
+            } else { navigate.run(); }
+        });
         setupPresetButtons();
         setupMinutesInputListener();
 
@@ -166,6 +174,7 @@ public class FocusActivity extends AppCompatActivity {
                 if (isSessionActive) {
                     return;
                 }
+                updatePresetSelection();
                 long parsed = parseMinutesInput();
                 if (parsed > 0L) {
                     selectedDurationMinutes = parsed;
@@ -174,6 +183,20 @@ public class FocusActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Presentation only: custom input must never leave a different preset selected.
+    private void updatePresetSelection() {
+        int[] ids = {R.id.btn_preset_1, R.id.btn_preset_5, R.id.btn_preset_15, R.id.btn_preset_25};
+        long[] minutes = {1L, 5L, 15L, 25L};
+        long value = parseMinutesInput();
+        for (int i = 0; i < ids.length; i++) {
+            com.google.android.material.button.MaterialButton button = findViewById(ids[i]);
+            if (button != null) {
+                button.setCheckable(true);
+                button.setChecked(value == minutes[i]);
+            }
+        }
     }
 
     private long parseMinutesInput() {
@@ -204,7 +227,7 @@ public class FocusActivity extends AppCompatActivity {
         wasPausedDuringSession = false;
 
         syncUiWithState();
-        statusText.setText(R.string.focus_status_running);
+        statusText.setText(R.string.pid_focusing);
         startTickerFromRemaining();
     }
 
@@ -233,7 +256,7 @@ public class FocusActivity extends AppCompatActivity {
             if (wasPausedDuringSession) {
                 statusText.setText(R.string.focus_status_paused_resumed);
             } else {
-                statusText.setText(R.string.focus_status_running);
+                statusText.setText(R.string.pid_focusing);
             }
             startTickerFromRemaining();
         }
@@ -324,6 +347,11 @@ public class FocusActivity extends AppCompatActivity {
 
     private void syncUiWithState() {
         updateTimerDisplay(remainingMillis);
+        findViewById(R.id.text_focus_title).setVisibility(isSessionActive ? View.GONE : View.VISIBLE);
+        ((TextView) findViewById(R.id.text_focus_subtitle)).setText(isSessionActive
+                ? R.string.pid_focus_intro : R.string.pid_focus_desc);
+        findViewById(R.id.pid_timer_container).setVisibility(isSessionActive ? View.VISIBLE : View.GONE);
+        updatePresetSelection();
         if (durationControlsLayout != null) {
             durationControlsLayout.setVisibility(isSessionActive ? View.GONE : View.VISIBLE);
         }
@@ -350,13 +378,13 @@ public class FocusActivity extends AppCompatActivity {
         FocusSessionDao dao = AppServices.getDatabase(this).focusSessionDao();
         int completedCount = dao.getCompletedCount();
         if (completedCountText != null) {
-            completedCountText.setText(getString(R.string.focus_completed_count_format, completedCount));
+            completedCountText.setText(getString(R.string.pid_session_count, completedCount));
         }
 
         if (historyListText != null) {
             List<FocusSessionEntity> sessions = dao.getAllSessions();
             if (sessions == null || sessions.isEmpty()) {
-                historyListText.setText(R.string.focus_history_empty);
+                historyListText.setText(R.string.pid_first_session);
             } else {
                 StringBuilder sb = new StringBuilder();
                 DateFormat timeFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);

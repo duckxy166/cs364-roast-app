@@ -1,85 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:padding="24dp">
-
-    <TextView
-        android:id="@+id/text_home_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textAppearance="?attr/textAppearanceHeadlineMedium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="32dp" />
-
-    <TextView
-        android:id="@+id/text_home_subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/core_title_home"
-        android:textAppearance="?attr/textAppearanceTitleMedium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_home_title" />
-
-    <LinearLayout
-        android:id="@+id/container_menu_buttons"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_home_subtitle">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_nav_onboarding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="@string/core_btn_onboarding" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_nav_tracking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="@string/core_btn_tracking" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_nav_focus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="@string/core_btn_focus" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_nav_settings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/core_btn_settings" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_nav_roast_persona"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/core_btn_roast_persona" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_roast_test"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/roast_test_btn" />
-
-    </LinearLayout>
-
+<?xml version='1.0' encoding='utf-8'?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fitsSystemWindows="true" android:background="@color/pid_background">
+  <include android:id="@+id/pid_navigation" layout="@layout/pid_navigation" android:layout_width="0dp" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
+  <ScrollView android:id="@+id/pid_scroll" android:layout_width="0dp" android:layout_height="0dp" android:fillViewport="true" android:clipToPadding="false" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@id/pid_navigation" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+      <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintWidth_max="560dp">
+        <TextView android:id="@+id/text_home_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/app_name" android:textAppearance="@style/TextAppearance.PutItDown.Label" android:drawableStart="@drawable/pid_ic_bang" android:drawablePadding="10dp" android:gravity="center_vertical" android:minHeight="48dp" android:textStyle="bold" />
+        <TextView android:id="@+id/text_home_subtitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_today" android:textAppearance="@style/TextAppearance.PutItDown.Heading" android:layout_marginTop="24dp" />
+        <TextView android:id="@+id/pid_home_description" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_today_desc" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" android:layout_marginTop="4dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_nav_onboarding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_permissions" style="@style/Widget.PutItDown.Button.Secondary" android:visibility="gone" android:layout_marginTop="20dp" app:icon="@drawable/pid_ic_permission" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="28dp">
+          <TextView android:id="@+id/pid_home_apps_heading" android:layout_width="0dp" android:layout_height="wrap_content" android:text="@string/pid_apps" android:textAppearance="@style/TextAppearance.PutItDown.Section" android:layout_weight="1" />
+          <com.google.android.material.button.MaterialButton android:id="@+id/pid_home_manage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/pid_manage" style="@style/Widget.PutItDown.Button.Back" app:icon="@drawable/pid_ic_chevron" app:iconGravity="textEnd" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/container_menu_buttons" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:id="@+id/pid_home_empty" android:paddingTop="24dp" android:paddingBottom="24dp" android:gravity="center">
+          <ImageView android:layout_width="88dp" android:layout_height="88dp" android:src="@drawable/pid_illustration_empty" android:importantForAccessibility="no" />
+          <TextView android:id="@+id/pid_home_empty_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_no_apps" android:textAppearance="@style/TextAppearance.PutItDown.Label" android:gravity="center" android:layout_marginTop="16dp" />
+          <com.google.android.material.button.MaterialButton android:id="@+id/pid_home_add" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_add_apps" style="@style/Widget.PutItDown.Button.Secondary" android:layout_marginTop="16dp" app:icon="@drawable/pid_ic_plus" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/pid_focus_panel" android:padding="18dp" android:layout_marginTop="24dp">
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+            <ImageView android:layout_width="40dp" android:layout_height="40dp" android:padding="10dp" android:src="@drawable/pid_ic_focus" app:tint="@color/pid_focus_on_blue" android:background="@drawable/pid_focus_emblem" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="12dp">
+              <TextView android:id="@+id/pid_home_focus_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_make_focus" android:textAppearance="@style/TextAppearance.PutItDown.Section" android:textColor="@color/pid_focus_on_blue" />
+              <TextView android:id="@+id/pid_home_focus_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_make_focus_desc" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" android:textColor="@color/pid_focus_on_blue" android:layout_marginTop="3dp" />
+            </LinearLayout>
+          </LinearLayout>
+          <com.google.android.material.button.MaterialButton android:id="@+id/pid_home_focus" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_open_focus" style="@style/Widget.PutItDown.Button.Primary" android:layout_marginTop="16dp" app:icon="@drawable/pid_ic_chevron" app:iconGravity="end" android:gravity="start|center_vertical" />
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_nav_roast_persona" style="@style/Widget.PutItDown.Button.Back" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/core_btn_roast_persona" android:gravity="start|center_vertical" app:icon="@drawable/pid_ic_chevron" app:iconGravity="end" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_roast_test" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/roast_test_btn" style="@style/Widget.PutItDown.Button.Secondary" android:visibility="gone" />
+      </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

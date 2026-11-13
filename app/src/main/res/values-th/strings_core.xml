@@ -4,6 +4,7 @@
     <string name="core_btn_tracking">รายการแอปที่คุม</string>
     <string name="core_btn_focus">โหมดโฟกัส</string>
     <string name="core_btn_settings">ตั้งค่า</string>
+    <string name="core_btn_roast_persona">บุคลิกคนด่าและคำด่าเอง</string>
     <string name="core_back_to_home">กลับหน้าหลัก</string>
     <string name="core_press_back_again_to_exit">กดอีกครั้งเพื่อออก</string>
     <string name="core_confirm_yes">ยืนยัน</string>

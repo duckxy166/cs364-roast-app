@@ -21,7 +21,6 @@ import com.cs364.roastapp.R;
 import com.cs364.roastapp.settings.SettingsManager;
 
 import java.util.Locale;
-import java.util.Random;
 
 public class RoastNotifier {
 
@@ -32,8 +31,6 @@ public class RoastNotifier {
     private static final long[] VIBRATE_PATTERN = {0L, 400L, 200L, 400L};
 
     private final Context appContext;
-    private final Random random = new Random();
-    private int lastLineIndex = -1;
 
     public RoastNotifier(Context context) {
         this.appContext = context.getApplicationContext();
@@ -144,17 +141,8 @@ public class RoastNotifier {
         nm.createNotificationChannel(level3);
     }
 
-    private synchronized String pickLevel2Line(Context ctx) {
-        String[] lines = ctx.getResources().getStringArray(R.array.roast_level2_lines);
-        if (lines.length == 0) {
-            return "";
-        }
-        int index = random.nextInt(lines.length);
-        if (lines.length > 1 && index == lastLineIndex) {
-            index = (index + 1) % lines.length;
-        }
-        lastLineIndex = index;
-        return lines[index];
+    private String pickLevel2Line(Context ctx) {
+        return RoastLineProvider.getInstance(appContext).getNextRoastLine(ctx);
     }
 
     private String getAppLabel(String packageName) {

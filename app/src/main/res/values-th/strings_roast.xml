@@ -33,6 +33,52 @@
         <item>พอได้แล้ว ไปทำอะไรที่มีประโยชน์เดี๋ยวนี้</item>
     </string-array>
 
+    <string name="roast_persona_title">บุคลิกคนด่า</string>
+    <string name="roast_persona_subtitle">เลือกสไตล์คนด่าและเพิ่มคำด่าของตัวเอง</string>
+    <string name="roast_persona_section">เลือกบุคลิก</string>
+    <string name="roast_persona_strict">โค้ชสายโหด (ดุ จริงจัง ตรงไปตรงมา)</string>
+    <string name="roast_persona_sarcastic">เพื่อนสายประชด (กวน ประชดประชัน)</string>
+    <string name="roast_persona_mom">แม่สายบ่น (เป็นห่วง บ่นไม่หยุด)</string>
+    <string name="roast_persona_sample_label">ตัวอย่างคำด่า (รวมคำด่าที่คุณเพิ่มเอง)</string>
+    <string name="roast_persona_sample_btn">สุ่มประโยคถัดไป</string>
+
+    <string name="roast_custom_section">คำด่าของตัวเอง</string>
+    <string name="roast_custom_hint">พิมพ์คำด่าเตือนสติตัวเอง</string>
+    <string name="roast_custom_add_btn">เพิ่มคำด่า</string>
+    <string name="roast_custom_error_empty">กรุณาพิมพ์คำด่าก่อนกดเพิ่ม</string>
+    <string name="roast_custom_added">เพิ่มคำด่าเรียบร้อยแล้ว</string>
+    <string name="roast_custom_empty">ยังไม่มีคำด่าของตัวเอง ลองเพิ่มด้านบนได้เลย</string>
+    <string name="roast_custom_delete_cd">ลบคำด่า</string>
+    <string name="roast_custom_delete_title">ลบคำด่านี้ไหม?</string>
+    <string name="roast_custom_delete_message">คำด่าที่เลือกจะถูกลบออกจากรายการถาวร</string>
+
+    <string-array name="roast_persona_strict_lines">
+        <item>เกินมาห้านาทีแล้ว มือถือไม่หนีไปไหน แต่วันของเธอกำลังหมดไป</item>
+        <item>ตั้งเวลาจำกัดไว้เอง ก็ต้องมีวินัยทำตามให้ได้</item>
+        <item>หยุดหาข้ออ้าง แล้วปิดแอปเดี๋ยวนี้</item>
+        <item>ทุกนาทีที่ไถต่อ คือเวลาที่ขโมยมาจากเป้าหมายของตัวเอง</item>
+        <item>ล็อกหน้าจอแล้วกลับไปทำงานได้แล้ว</item>
+        <item>พอได้แล้ว วางมือถือลงเดี๋ยวนี้</item>
+    </string-array>
+
+    <string-array name="roast_persona_sarcastic_lines">
+        <item>โอ้โห ยังไถอยู่อีกเหรอ เจอจุดจบของอินเทอร์เน็ตหรือยัง</item>
+        <item>วันนี้นิ้วโป้งออกกำลังกายหนักกว่าสมองอีกนะ</item>
+        <item>ข่าวด่วน: พรุ่งนี้ฟีดมันก็ยังน่าเบื่อเหมือนเดิมแหละ</item>
+        <item>คลิปสั้นอันที่ 47 คงเปลี่ยนชีวิตเธอได้สินะ</item>
+        <item>ยินดีด้วยที่เมินตัวจับเวลาของตัวเองได้สำเร็จอีกครั้ง</item>
+        <item>แอปมันไม่คิดถึงเธอหรอก สัญญาเลย</item>
+    </string-array>
+
+    <string-array name="roast_persona_mom_lines">
+        <item>ยังจ้องหน้าจออยู่อีกเหรอ เดี๋ยวตาเสียหมด!</item>
+        <item>ไหนบอกอีกห้านาที นี่ผ่านมากี่รอบแล้ว!</item>
+        <item>ไปกินน้ำแล้วพักสายตาเดี๋ยวนี้เลยนะ</item>
+        <item>การบ้านมันไม่เสร็จเองหรอกนะถ้ามัวแต่เล่นมือถือ</item>
+        <item>วางลงเดี๋ยวนี้ ก่อนแม่จะยึดโทรศัพท์</item>
+        <item>จะตั้งนาฬิกาเตือนไว้ทำไมถ้าไม่เคยคิดจะฟัง</item>
+    </string-array>
+
     <string name="roast_test_btn">[ทดสอบ] การเตือน: ระดับถัดไป</string>
     <string name="roast_test_reset">รีเซ็ตการทดสอบการเตือนแล้ว</string>
 </resources>

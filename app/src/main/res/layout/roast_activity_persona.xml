@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/text_persona_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/roast_persona_title"
+            android:textAppearance="?attr/textAppearanceHeadlineMedium" />
+
+        <TextView
+            android:id="@+id/text_persona_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="@string/roast_persona_subtitle"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/roast_persona_section"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_persona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_persona_strict"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@android:drawable/ic_dialog_alert"
+                android:drawablePadding="12dp"
+                android:text="@string/roast_persona_strict"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_persona_sarcastic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@android:drawable/ic_dialog_info"
+                android:drawablePadding="12dp"
+                android:text="@string/roast_persona_sarcastic"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_persona_mom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@android:drawable/ic_menu_myplaces"
+                android:drawablePadding="12dp"
+                android:text="@string/roast_persona_mom"
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+        </RadioGroup>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/roast_persona_sample_label"
+                    android:textAppearance="?attr/textAppearanceLabelMedium" />
+
+                <TextView
+                    android:id="@+id/text_persona_sample_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_preview_roast"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/roast_persona_sample_btn" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/roast_custom_section"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_custom_roast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/roast_custom_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_custom_roast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:maxLines="2" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_custom_roast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/roast_custom_add_btn" />
+
+        <TextView
+            android:id="@+id/text_custom_roast_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/roast_custom_empty"
+            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_custom_roasts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:nestedScrollingEnabled="false" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_roast_back"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/core_back_to_home" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -33,6 +33,52 @@
         <item>That\'s enough. Go do something useful.</item>
     </string-array>
 
+    <string name="roast_persona_title">Roast Persona</string>
+    <string name="roast_persona_subtitle">Choose who roasts you and add your own lines</string>
+    <string name="roast_persona_section">Select Persona</string>
+    <string name="roast_persona_strict">Strict Coach (Direct &amp; Tough)</string>
+    <string name="roast_persona_sarcastic">Sarcastic Friend (Witty &amp; Dry)</string>
+    <string name="roast_persona_mom">Nagging Mom (Worried &amp; Relentless)</string>
+    <string name="roast_persona_sample_label">Sample line (includes your custom roasts)</string>
+    <string name="roast_persona_sample_btn">Next sample</string>
+
+    <string name="roast_custom_section">Your Custom Roasts</string>
+    <string name="roast_custom_hint">Write a roast line for yourself</string>
+    <string name="roast_custom_add_btn">Add custom roast</string>
+    <string name="roast_custom_error_empty">Please enter a roast line first</string>
+    <string name="roast_custom_added">Custom roast added</string>
+    <string name="roast_custom_empty">No custom roasts yet. Add one above!</string>
+    <string name="roast_custom_delete_cd">Delete custom roast</string>
+    <string name="roast_custom_delete_title">Delete this roast?</string>
+    <string name="roast_custom_delete_message">This custom roast line will be permanently removed.</string>
+
+    <string-array name="roast_persona_strict_lines">
+        <item>Five minutes over. Your phone is not going anywhere, but your day is.</item>
+        <item>You set this limit yourself. Stick to it.</item>
+        <item>Stop making excuses and close the app now.</item>
+        <item>Discipline means putting it down even when you want one more scroll.</item>
+        <item>Every extra minute here is a minute stolen from your goals.</item>
+        <item>Lock the screen and get back to work.</item>
+    </string-array>
+
+    <string-array name="roast_persona_sarcastic_lines">
+        <item>Oh look, still scrolling. Did you find the end of the internet yet?</item>
+        <item>Your thumb is getting a better workout than your brain today.</item>
+        <item>Breaking news: the feed will still be boring tomorrow.</item>
+        <item>I\'m sure that 47th short video was life-changing.</item>
+        <item>Congrats on ignoring your own timer again.</item>
+        <item>The app won\'t miss you, I promise.</item>
+    </string-array>
+
+    <string-array name="roast_persona_mom_lines">
+        <item>Are you still staring at that screen? Your eyes are going to hurt!</item>
+        <item>You said just five more minutes half an hour ago!</item>
+        <item>Go drink some water and rest your eyes right now.</item>
+        <item>Your homework isn\'t going to finish itself while you\'re on your phone.</item>
+        <item>Put the phone down before I take it away myself.</item>
+        <item>Why do you even set a timer if you never listen to it?</item>
+    </string-array>
+
     <string name="roast_test_btn">[TEST] Roast: next level</string>
     <string name="roast_test_reset">Roast test reset</string>
 </resources>

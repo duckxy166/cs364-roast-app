@@ -1,0 +1,25 @@
+<resources>
+    <dimen name="pid_space_xs">4dp</dimen>
+    <dimen name="pid_space_sm">8dp</dimen>
+    <dimen name="pid_space_md">12dp</dimen>
+    <dimen name="pid_space_lg">16dp</dimen>
+    <dimen name="pid_space_xl">24dp</dimen>
+    <dimen name="pid_space_2xl">32dp</dimen>
+    <dimen name="pid_page_inset">24dp</dimen>
+    <dimen name="pid_card_padding">16dp</dimen>
+    <dimen name="pid_card_radius">16dp</dimen>
+    <dimen name="pid_button_radius">14dp</dimen>
+    <dimen name="pid_touch_target">48dp</dimen>
+    <dimen name="pid_primary_height">52dp</dimen>
+    <dimen name="pid_icon_size">20dp</dimen>
+    <dimen name="pid_brand_size">40dp</dimen>
+    <dimen name="pid_content_width">560dp</dimen>
+    <dimen name="pid_type_heading">28sp</dimen>
+    <dimen name="pid_type_section">18sp</dimen>
+    <dimen name="pid_type_body">16sp</dimen>
+    <dimen name="pid_type_label">14sp</dimen>
+    <dimen name="pid_type_supporting">12sp</dimen>
+    <dimen name="pid_type_timer">48sp</dimen>
+    <dimen name="pid_theme_preview_width">112dp</dimen>
+    <dimen name="pid_theme_preview_height">76dp</dimen>
+</resources>

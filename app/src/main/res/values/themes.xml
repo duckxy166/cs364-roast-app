@@ -1,3 +1,33 @@
 <resources>
-    <style name="Theme.RoastApp" parent="Theme.Material3.DayNight.NoActionBar" />
+ <style name="Theme.RoastApp.Base" parent="Theme.Material3.DayNight.NoActionBar">
+  <item name="colorPrimary">@color/pid_primary</item>
+  <item name="colorOnPrimary">@color/pid_on_primary</item>
+  <item name="colorPrimaryContainer">@color/pid_primary_container</item>
+  <item name="colorOnPrimaryContainer">@color/pid_on_primary_container</item>
+  <item name="colorSecondary">@color/pid_secondary</item>
+  <item name="colorOnSecondary">@color/pid_on_secondary</item>
+  <item name="colorSecondaryContainer">@color/pid_secondary_container</item>
+  <item name="colorOnSecondaryContainer">@color/pid_on_secondary_container</item>
+  <item name="colorSurface">@color/pid_surface</item>
+  <item name="colorOnSurface">@color/pid_on_surface</item>
+  <item name="colorOnSurfaceVariant">@color/pid_on_surface_variant</item>
+  <item name="colorSurfaceVariant">@color/pid_secondary_container</item>
+  <item name="colorOutline">@color/pid_outline</item>
+  <item name="colorOutlineVariant">@color/pid_outline_variant</item>
+  <item name="colorError">@color/pid_error</item>
+  <item name="colorOnError">@color/pid_on_error</item>
+  <item name="colorErrorContainer">@color/pid_error_container</item>
+  <item name="colorOnErrorContainer">@color/pid_on_error_container</item>
+  <item name="android:colorBackground">@color/pid_background</item>
+  <item name="android:windowBackground">@color/pid_background</item>
+  <item name="android:fontFamily">@font/pid_ui</item>
+  <item name="fontFamily">@font/pid_ui</item>
+  <item name="android:statusBarColor">@color/pid_background</item>
+  <item name="android:navigationBarColor">@color/pid_brand_ink</item>
+  <item name="android:windowLightStatusBar">@bool/pid_light_system_bars</item>
+  <item name="materialButtonStyle">@style/Widget.PutItDown.Button.Primary</item>
+  <item name="textInputStyle">@style/Widget.PutItDown.TextField</item>
+  <item name="materialCardViewStyle">@style/Widget.PutItDown.Card</item>
+ </style>
+ <style name="Theme.RoastApp" parent="Theme.RoastApp.Base"/>
 </resources>

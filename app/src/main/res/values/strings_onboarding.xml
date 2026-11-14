@@ -1,3 +1,5 @@
 <resources>
     <string name="onboarding_title">Onboarding</string>
+    <string name="onboarding_hint_usage">App usage access is still off. In the Settings screen, find this app and turn on \"Allow usage access\", then come back.</string>
+    <string name="onboarding_hint_notifications">Notifications are still off. Tap Enable again, or turn them on in this app\'s notification settings, then come back.</string>
 </resources>

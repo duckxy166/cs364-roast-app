@@ -27,7 +27,8 @@ public final class AppServices {
         if (usageSource == null) {
             synchronized (AppServices.class) {
                 if (usageSource == null) {
-                    usageSource = new FakeUsageSource();
+                    usageSource = new com.cs364.roastapp.tracking.UsageStatsUsageSource(
+                            context.getApplicationContext());
                 }
             }
         }

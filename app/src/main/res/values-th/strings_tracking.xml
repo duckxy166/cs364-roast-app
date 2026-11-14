@@ -1,3 +1,6 @@
 <resources>
     <string name="tracking_title">รายการแอปที่คุม</string>
+    <string name="tracking_service_channel">การตรวจจับการใช้งาน</string>
+    <string name="tracking_service_title">กำลังเฝ้าดูเวลาหน้าจอของคุณ</string>
+    <string name="tracking_service_text">จะเตือนเมื่อแอปที่คุมใช้เกินเวลาต่อวัน</string>
 </resources>

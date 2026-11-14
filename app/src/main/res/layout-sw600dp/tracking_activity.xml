@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/pid_background">
+  <include
+      android:id="@+id/pid_navigation"
+      layout="@layout/pid_navigation"
+      android:layout_width="88dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+  <ScrollView
+      android:id="@+id/pid_scroll"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:fillViewport="true"
+      android:clipToPadding="false"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@id/pid_navigation">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="24dp"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintWidth_max="560dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_tracking_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_back"
+            style="@style/Widget.PutItDown.Button.Back" />
+        <TextView
+            android:id="@+id/text_tracking_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_apps"
+            android:textAppearance="@style/TextAppearance.PutItDown.Heading"
+            android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/pid_tracking_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_apps_desc"
+            android:textAppearance="@style/TextAppearance.PutItDown.Supporting"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/pid_tracking_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_app_count_zero"
+            android:textAppearance="@style/TextAppearance.PutItDown.Supporting"
+            android:layout_marginTop="28dp" />
+        <LinearLayout
+            android:id="@+id/pid_apps_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/pid_apps_empty"
+            android:gravity="center"
+            android:paddingTop="36dp"
+            android:paddingBottom="24dp">
+          <ImageView
+              android:layout_width="120dp"
+              android:layout_height="120dp"
+              android:src="@drawable/pid_illustration_empty"
+              android:importantForAccessibility="no" />
+          <TextView
+              android:id="@+id/pid_apps_empty_title"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/pid_no_apps"
+              android:textAppearance="@style/TextAppearance.PutItDown.Section"
+              android:gravity="center"
+              android:layout_marginTop="20dp" />
+          <TextView
+              android:id="@+id/pid_apps_empty_desc"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/pid_empty_desc"
+              android:textAppearance="@style/TextAppearance.PutItDown.Supporting"
+              android:gravity="center"
+              android:layout_marginTop="8dp" />
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pid_apps_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pid_add_apps"
+            style="@style/Widget.PutItDown.Button.Primary"
+            android:layout_marginTop="16dp"
+            app:icon="@drawable/pid_ic_plus" />
+      </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

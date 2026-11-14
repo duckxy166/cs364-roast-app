@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:ns1="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/pid_card_background" android:padding="16dp" android:layout_marginBottom="10dp">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+    <ImageView android:id="@+id/pid_app_icon" android:layout_width="42dp" android:layout_height="42dp" android:background="@drawable/pid_soft_icon_background" android:padding="10dp" android:src="@drawable/pid_ic_apps" android:importantForAccessibility="no" />
+    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginStart="12dp">
+      <TextView android:id="@+id/pid_app_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_app_placeholder" android:textAppearance="@style/TextAppearance.PutItDown.Label" android:textStyle="bold" ns1:text="Instagram" />
+      <TextView android:id="@+id/pid_app_usage" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_usage_pending" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" ns1:text="ใช้ไป 18 / 30 นาที" />
+    </LinearLayout>
+    <TextView android:id="@+id/pid_app_remaining" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/pid_usage_pending" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" android:background="@drawable/pid_soft_icon_background" android:padding="8dp" android:textStyle="bold" android:textColor="@color/pid_on_secondary_container" ns1:text="เหลือ 12 นาที" />
+  </LinearLayout>
+  <ProgressBar android:id="@+id/pid_app_progress" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="14dp" android:max="100" android:progress="0" ns1:progress="60" style="?android:attr/progressBarStyleHorizontal" android:progressDrawable="@drawable/pid_progress_track" />
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="12dp">
+    <com.google.android.material.button.MaterialButton android:id="@+id/pid_app_edit" android:layout_width="0dp" android:layout_height="wrap_content" android:text="@string/pid_edit_limit" style="@style/Widget.PutItDown.Button.Secondary" android:layout_weight="1" android:layout_marginEnd="6dp" app:icon="@drawable/pid_ic_edit" android:textSize="12sp" android:paddingStart="8dp" android:paddingEnd="8dp" android:minWidth="0dp" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/pid_app_remove" android:layout_width="0dp" android:layout_height="wrap_content" android:text="@string/pid_remove" style="@style/Widget.PutItDown.Button.Secondary" android:layout_weight="1" android:layout_marginEnd="6dp" app:icon="@drawable/pid_ic_trash" android:textSize="12sp" android:paddingStart="8dp" android:paddingEnd="8dp" android:minWidth="0dp" />
+  </LinearLayout>
+</LinearLayout>

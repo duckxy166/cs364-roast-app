@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pid_nav_home"
+        android:title="@string/pid_home"
+        android:icon="@drawable/pid_ic_home" />
+    <item
+        android:id="@+id/btn_nav_tracking"
+        android:title="@string/pid_apps"
+        android:icon="@drawable/pid_ic_apps" />
+    <item
+        android:id="@+id/btn_nav_focus"
+        android:title="@string/pid_focus"
+        android:icon="@drawable/pid_ic_focus" />
+    <item
+        android:id="@+id/btn_nav_settings"
+        android:title="@string/pid_settings"
+        android:icon="@drawable/pid_ic_settings" />
+</menu>

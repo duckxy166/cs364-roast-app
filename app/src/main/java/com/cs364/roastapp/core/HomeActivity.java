@@ -13,25 +13,34 @@ import com.cs364.roastapp.settings.SettingsActivity;
 import com.cs364.roastapp.tracking.TrackedAppsActivity;
 
 public class HomeActivity extends AppCompatActivity {
+    public void renderAppUsage(java.util.List<com.cs364.roastapp.ui.AppLimitsUi.App> apps) {
+        new com.cs364.roastapp.ui.AppLimitsUi(this, null).render(apps, true);
+    }
+    public void renderPermissionWarning(boolean missing) {
+        renderMonitoringState(missing ? com.cs364.roastapp.ui.MonitoringStatusUi.State.MISSING_PERMISSIONS
+                : com.cs364.roastapp.ui.MonitoringStatusUi.State.READY,
+                () -> startActivity(new Intent(this, OnboardingActivity.class)));
+    }
+
+
+    public void renderMonitoringState(com.cs364.roastapp.ui.MonitoringStatusUi.State state, Runnable recovery) {
+        com.cs364.roastapp.ui.MonitoringStatusUi.render(this, state, recovery);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.core_activity_home);
 
-        Button btnOnboarding = findViewById(R.id.btn_nav_onboarding);
-        Button btnTracking = findViewById(R.id.btn_nav_tracking);
-        Button btnFocus = findViewById(R.id.btn_nav_focus);
-        Button btnSettings = findViewById(R.id.btn_nav_settings);
-
-        btnOnboarding.setOnClickListener(v ->
+        com.cs364.roastapp.ui.PutItDownNavigation.bind(this, R.id.pid_nav_home);
+        findViewById(R.id.btn_nav_onboarding).setOnClickListener(v ->
                 startActivity(new Intent(this, OnboardingActivity.class)));
-        btnTracking.setOnClickListener(v ->
+        findViewById(R.id.pid_home_manage).setOnClickListener(v ->
                 startActivity(new Intent(this, TrackedAppsActivity.class)));
-        btnFocus.setOnClickListener(v ->
+        findViewById(R.id.pid_home_add).setOnClickListener(v ->
+                startActivity(new Intent(this, TrackedAppsActivity.class)));
+        findViewById(R.id.pid_home_focus).setOnClickListener(v ->
                 startActivity(new Intent(this, FocusActivity.class)));
-        btnSettings.setOnClickListener(v ->
-                startActivity(new Intent(this, SettingsActivity.class)));
 
         findViewById(R.id.btn_nav_roast_persona).setOnClickListener(v ->
                 startActivity(new Intent(this, com.cs364.roastapp.roast.RoastPersonaActivity.class)));

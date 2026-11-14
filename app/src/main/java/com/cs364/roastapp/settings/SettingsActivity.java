@@ -43,6 +43,40 @@ public class SettingsActivity extends AppCompatActivity {
         demoModeSwitch = findViewById(R.id.switch_demo_mode);
         thresholdsSummaryText = findViewById(R.id.text_settings_thresholds_summary);
 
+        com.cs364.roastapp.ui.PutItDownNavigation.bind(this, R.id.btn_nav_settings);
+        android.view.View languageRow = findViewById(R.id.pid_language_row);
+        ((TextView) findViewById(R.id.pid_current_language)).setText(
+                SettingsManager.LANG_TH.equals(settingsManager.getLanguage()) ? "ไทย" : "English");
+        findViewById(R.id.pid_reminder_preview).setOnClickListener(v ->
+                com.cs364.roastapp.ui.ReminderPreviewUi.show(this));
+        languageRow.setOnClickListener(v -> {
+            com.google.android.material.bottomsheet.BottomSheetDialog sheet =
+                    new com.google.android.material.bottomsheet.BottomSheetDialog(this);
+            android.widget.LinearLayout content = new android.widget.LinearLayout(this);
+            content.setOrientation(android.widget.LinearLayout.VERTICAL);
+            int padding = (int) (24 * getResources().getDisplayMetrics().density);
+            content.setPadding(padding, padding, padding, padding);
+            TextView title = new TextView(this);
+            title.setText(R.string.pid_language);
+            title.setTextAppearance(R.style.TextAppearance_PutItDown_Section);
+            content.addView(title);
+            for (String language : new String[]{SettingsManager.LANG_TH, SettingsManager.LANG_EN}) {
+                com.google.android.material.button.MaterialButton choice = new com.google.android.material.button.MaterialButton(
+                        this, null, com.google.android.material.R.attr.borderlessButtonStyle);
+                choice.setText(SettingsManager.LANG_TH.equals(language) ? "ไทย" : "English");
+                choice.setMinHeight((int) (60 * getResources().getDisplayMetrics().density));
+                choice.setIconResource(settingsManager.getLanguage().equals(language) ? R.drawable.pid_ic_check : R.drawable.pid_ic_globe);
+                choice.setOnClickListener(view -> { sheet.dismiss(); settingsManager.setLanguage(language); });
+                content.addView(choice);
+            }
+            sheet.setContentView(content);
+            sheet.show();
+        });
+        findViewById(R.id.pid_thresholds_toggle).setOnClickListener(v -> {
+            boolean expanded = thresholdsSummaryText.getVisibility() == android.view.View.VISIBLE;
+            thresholdsSummaryText.setVisibility(expanded ? android.view.View.GONE : android.view.View.VISIBLE);
+            ((Button) v).setText(expanded ? R.string.pid_show_thresholds : R.string.pid_hide_thresholds);
+        });
         bindCurrentSettingsToUi();
         setupListeners();
 
@@ -125,7 +159,12 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void updateThresholdsSummary(boolean isDemoMode) {
+        TextView summary = findViewById(R.id.pid_schedule_summary);
+        summary.setText(isDemoMode ? R.string.pid_schedule_demo : R.string.pid_schedule_normal);
         if (thresholdsSummaryText != null) {
+            thresholdsSummaryText.setVisibility(isDemoMode ? android.view.View.VISIBLE : android.view.View.GONE);
+            ((Button) findViewById(R.id.pid_thresholds_toggle)).setText(
+                    isDemoMode ? R.string.pid_hide_thresholds : R.string.pid_show_thresholds);
             thresholdsSummaryText.setText(
                     isDemoMode
                             ? R.string.settings_thresholds_summary_demo

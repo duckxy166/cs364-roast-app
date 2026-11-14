@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,6 +37,7 @@ public class RoastPersonaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.roast_activity_persona);
+        com.cs364.roastapp.ui.PersonaPresentation.bind(this);
 
         lineProvider = RoastLineProvider.getInstance(this);
         customRoastDao = AppServices.getDatabase(this).customRoastDao();
@@ -118,7 +118,13 @@ public class RoastPersonaActivity extends AppCompatActivity {
         editCustomRoast.setText("");
         refreshCustomList();
         refreshSampleLine();
-        Toast.makeText(this, R.string.roast_custom_added, Toast.LENGTH_SHORT).show();
+        com.google.android.material.snackbar.Snackbar feedback = com.google.android.material.snackbar.Snackbar.make(
+                findViewById(R.id.pid_scroll), R.string.roast_custom_added,
+                com.google.android.material.snackbar.Snackbar.LENGTH_SHORT);
+        if (findViewById(R.id.pid_bottom_nav) instanceof com.google.android.material.bottomnavigation.BottomNavigationView) {
+            feedback.setAnchorView(findViewById(R.id.pid_navigation));
+        }
+        feedback.show();
     }
 
     private void confirmDelete(CustomRoastEntity item) {

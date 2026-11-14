@@ -121,18 +121,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setupListeners() {
-        if (languageGroup != null) {
-            languageGroup.setOnCheckedChangeListener((group, checkedId) -> {
-                if (isBindingUi) {
-                    return;
-                }
-                if (checkedId == R.id.radio_lang_th) {
-                    settingsManager.setLanguage(SettingsManager.LANG_TH);
-                } else if (checkedId == R.id.radio_lang_en) {
-                    settingsManager.setLanguage(SettingsManager.LANG_EN);
-                }
-            });
-        }
+        // Language selection is handled by the pid_language_row BottomSheetDialog;
+        // do not attach a listener to the hidden languageGroup, or onRestoreInstanceState
+        // after AppCompatDelegate.setApplicationLocales() recreate() will revert the choice.
 
         if (themeGroup != null) {
             themeGroup.setOnCheckedChangeListener((group, checkedId) -> {

@@ -40,14 +40,16 @@ public class RoastNotifier {
         Context ctx = localizedContext();
         ensureChannels(ctx);
         String appLabel = getAppLabel(packageName);
+        String text = ctx.getString(R.string.roast_level1_text, appLabel);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_LEVEL_1)
                 .setSmallIcon(R.drawable.pid_ic_notification)
                 .setColor(ContextCompat.getColor(ctx, R.color.pid_brand_blue))
                 .setContentTitle(ctx.getString(R.string.roast_level1_title))
-                .setContentText(ctx.getString(R.string.roast_level1_text, appLabel))
+                .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
         notifySafely(packageName, builder);
+        recordEvent(packageName, appLabel, 1, text);
     }
 
     public void showLevel2(String packageName) {
@@ -67,6 +69,7 @@ public class RoastNotifier {
                 .setAutoCancel(true);
         notifySafely(packageName, builder);
         vibrate();
+        recordEvent(packageName, appLabel, 2, line);
     }
 
     public String showLevel3(String packageName, int lineIndex) {
@@ -91,7 +94,23 @@ public class RoastNotifier {
                 .setAutoCancel(true);
         notifySafely(packageName, builder);
         vibrate();
+        recordEvent(packageName, appLabel, 3, line);
         return line;
+    }
+
+    private void recordEvent(String packageName, String appLabel, int level, String message) {
+        if (packageName == null) {
+            return;
+        }
+        com.cs364.roastapp.core.AppServices.getDatabase(appContext)
+                .roastEventDao()
+                .insert(new com.cs364.roastapp.history.RoastEventEntity(
+                        packageName,
+                        appLabel,
+                        level,
+                        message,
+                        System.currentTimeMillis()
+                ));
     }
 
     public void cancel(String packageName) {

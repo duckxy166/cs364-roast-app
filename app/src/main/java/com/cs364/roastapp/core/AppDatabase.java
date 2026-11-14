@@ -11,14 +11,21 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.cs364.roastapp.focus.FocusSessionDao;
 import com.cs364.roastapp.focus.FocusSessionEntity;
+import com.cs364.roastapp.history.RoastEventDao;
+import com.cs364.roastapp.history.RoastEventEntity;
 import com.cs364.roastapp.roast.CustomRoastDao;
 import com.cs364.roastapp.roast.CustomRoastEntity;
 import com.cs364.roastapp.tracking.TrackedAppDao;
 import com.cs364.roastapp.tracking.TrackedAppEntity;
 
 @Database(
-        entities = {TrackedAppEntity.class, FocusSessionEntity.class, CustomRoastEntity.class},
-        version = 3,
+        entities = {
+                TrackedAppEntity.class,
+                FocusSessionEntity.class,
+                CustomRoastEntity.class,
+                RoastEventEntity.class
+        },
+        version = 4,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -34,11 +41,20 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase db) {
+            db.execSQL("CREATE TABLE IF NOT EXISTS `roast_event` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `packageName` TEXT, `appLabel` TEXT, `level` INTEGER NOT NULL, `message` TEXT, `timestampMillis` INTEGER NOT NULL)");
+        }
+    };
+
     public abstract TrackedAppDao trackedAppDao();
 
     public abstract FocusSessionDao focusSessionDao();
 
     public abstract CustomRoastDao customRoastDao();
+
+    public abstract RoastEventDao roastEventDao();
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {
@@ -49,7 +65,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                     AppDatabase.class,
                                     DATABASE_NAME
                             )
-                            .addMigrations(MIGRATION_2_3)
+                            .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build();

@@ -36,7 +36,7 @@
 ## ไฟล์ในชุดนี้
 
 - `roast-club.html`: ต้นฉบับแบบพร้อมการโต้ตอบ
-- `screens/`: ภาพ PNG 43 ภาพ ทั้ง Day/Night และสถานะเพิ่มเติม
+- `screens/`: ภาพ PNG 49 ภาพ ทั้ง Day/Night และสถานะเพิ่มเติม
 - `assets/app-icon.svg`: ไอคอนเวกเตอร์
 - `assets/mascot.svg`: มาสคอตเวกเตอร์
 - `assets/empty-state.svg`: ภาพประกอบรายการว่าง

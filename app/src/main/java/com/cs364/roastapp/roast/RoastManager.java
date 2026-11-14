@@ -75,6 +75,13 @@ public class RoastManager implements RoastTrigger {
         }
     }
 
+    @Override
+    public void onLeftApp(String packageName) {
+        if (packageName != null) {
+            resetPackage(packageName);
+        }
+    }
+
     public void resetPackage(String packageName) {
         synchronized (this) {
             firedLevel.remove(packageName);

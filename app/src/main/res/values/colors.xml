@@ -1,0 +1,25 @@
+<resources>
+    <color name="pid_background">#FFF5EE</color>
+    <color name="pid_surface">#FFFDF9</color>
+    <color name="pid_on_surface">#252033</color>
+    <color name="pid_on_surface_variant">#6B5D6A</color>
+    <color name="pid_primary">#9B3820</color>
+    <color name="pid_on_primary">#FFFFFF</color>
+    <color name="pid_primary_container">#FF795C</color>
+    <color name="pid_on_primary_container">#252033</color>
+    <color name="pid_secondary">#3442AA</color>
+    <color name="pid_on_secondary">#FFFFFF</color>
+    <color name="pid_secondary_container">#E9E9FF</color>
+    <color name="pid_on_secondary_container">#3442AA</color>
+    <color name="pid_outline">#83747F</color>
+    <color name="pid_outline_variant">#D8CBD0</color>
+    <color name="pid_error">#A12D37</color>
+    <color name="pid_on_error">#FFFFFF</color>
+    <color name="pid_error_container">#FFE6DF</color>
+    <color name="pid_on_error_container">#A12D37</color>
+    <color name="pid_brand_blue">#3448F0</color>
+    <color name="pid_brand_coral">#FF795C</color>
+    <color name="pid_on_brand_blue">#FFF8F0</color>
+    <color name="pid_success">#386642</color>
+    <color name="pid_brand_ink">#252033</color>
+</resources>

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "com.cs364.roastapp:id/btn_focus_back",
+    "text": "Back",
+    "widthDp": 95.2,
+    "heightDp": 48.8
+  },
+  {
+    "id": "com.cs364.roastapp:id/edit_focus_minutes",
+    "text": "25",
+    "widthDp": 312.0,
+    "heightDp": 74.0
+  },
+  {
+    "id": "com.cs364.roastapp:id/btn_preset_1",
+    "text": "1 min",
+    "widthDp": 74.0,
+    "heightDp": 48.0
+  },
+  {
+    "id": "com.cs364.roastapp:id/btn_preset_5",
+    "text": "5 min",
+    "widthDp": 74.0,
+    "heightDp": 48.0
+  },
+  {
+    "id": "com.cs364.roastapp:id/btn_preset_15",
+    "text": "15 min",
+    "widthDp": 74.0,
+    "heightDp": 48.0
+  },
+  {
+    "id": "com.cs364.roastapp:id/btn_preset_25",
+    "text": "25 min",
+    "widthDp": 74.0,
+    "heightDp": 48.0
+  },
+  {
+    "id": "com.cs364.roastapp:id/pid_nav_home",
+    "text": "",
+    "widthDp": 90.0,
+    "heightDp": 80.0
+  },
+  {
+    "id": "com.cs364.roastapp:id/btn_nav_tracking",
+    "text": "",
+    "widthDp": 90.0,
+    "heightDp": 80.0
+  },
+  {
+    "id": "com.cs364.roastapp:id/btn_nav_settings",
+    "text": "",
+    "widthDp": 90.0,
+    "heightDp": 80.0
+  }
+]

@@ -1,6 +1,9 @@
 package com.cs364.roastapp.roast;
 
 import android.content.Context;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 
 import androidx.annotation.RawRes;
 
@@ -23,7 +26,27 @@ public final class VoiceClips {
             R.raw.roast_en_05, R.raw.roast_en_06, R.raw.roast_en_07, R.raw.roast_en_08
     };
 
+    /**
+     * Voice lines play at the alarm volume, not the media volume: people keep media low while
+     * scrolling, and a reminder that is as quiet as the video it interrupts is easy to miss.
+     * The preview uses the same attributes so it sounds exactly like a real reminder.
+     */
+    public static final AudioAttributes PLAYBACK_ATTRIBUTES = new AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+            .build();
+
+    /** The volume stream that {@link #PLAYBACK_ATTRIBUTES} is controlled by. */
+    public static final int VOLUME_STREAM = AudioManager.STREAM_ALARM;
+
     private VoiceClips() {
+    }
+
+    /** A prepared player for line {@code index}, or null if the clip cannot be loaded. */
+    public static MediaPlayer createPlayer(Context context, int index) {
+        AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        int session = audio != null ? audio.generateAudioSessionId() : AudioManager.AUDIO_SESSION_ID_GENERATE;
+        return MediaPlayer.create(context, clip(context, index), PLAYBACK_ATTRIBUTES, session);
     }
 
     public static int count() {

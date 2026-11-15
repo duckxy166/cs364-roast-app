@@ -76,12 +76,12 @@
   <string name="pid_view_all_format">View all (%1$d)</string>
   <string name="pid_keep_open">Keep this screen open</string>
   <string name="pid_preview_delivery_demo">Demo mode: sent the moment you go over a limit, then every 20 seconds until you leave the app.</string>
-  <string name="pid_preview_volume_off">Media volume is off. Turn it up to hear the voice.</string>
+  <string name="pid_preview_volume_off">Your alarm volume is low. Turn it up to hear reminders clearly.</string>
   <string name="pid_preview_next">Next line</string>
   <string name="pid_preview_counter">%1$d of %2$d</string>
   <string name="pid_preview_delivery">Sent the moment you go over a limit, then every 5 minutes until you leave the app. Swipe it away to stop the voice.</string>
   <string name="pid_preview_play">Play</string>
   <string name="pid_preview_stop">Stop</string>
   <string name="pid_voice">Voice reminders</string>
-  <string name="pid_voice_desc">Play a voice line with every reminder. Phones on silent or Do Not Disturb stay quiet.</string>
+  <string name="pid_voice_desc">Play a voice line with every reminder, at your alarm volume. Phones on silent or Do Not Disturb stay quiet.</string>
 </resources>

@@ -2,7 +2,6 @@ package com.cs364.roastapp.roast;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -83,14 +82,14 @@ public class VoiceRoastAlert {
         if (!new SettingsManager(appContext).isVoiceEnabled() || isSilentOrDnd()) {
             return;
         }
-        play(VoiceClips.clip(appContext, index));
+        play(index);
     }
 
-    private void play(int soundResId) {
+    private void play(int index) {
         releasePlayer();
         requestAudioFocus();
         try {
-            mediaPlayer = MediaPlayer.create(appContext, soundResId);
+            mediaPlayer = VoiceClips.createPlayer(appContext, index);
             if (mediaPlayer == null) {
                 abandonAudioFocus();
                 return;
@@ -136,16 +135,12 @@ public class VoiceRoastAlert {
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AudioAttributes playbackAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                    .build();
             audioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-                    .setAudioAttributes(playbackAttributes)
+                    .setAudioAttributes(VoiceClips.PLAYBACK_ATTRIBUTES)
                     .build();
             am.requestAudioFocus(audioFocusRequest);
         } else {
-            am.requestAudioFocus(null, AudioManager.STREAM_NOTIFICATION, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
+            am.requestAudioFocus(null, VoiceClips.VOLUME_STREAM, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
         }
     }
 

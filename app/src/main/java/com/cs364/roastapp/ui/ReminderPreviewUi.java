@@ -2,7 +2,6 @@ package com.cs364.roastapp.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
@@ -16,8 +15,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 
 /**
- * Shows what a reminder looks like and lets the user hear each voice line. Plays on the media
- * stream whatever the ringer mode is (the user asked to hear it), and never posts a notification.
+ * Shows what a reminder looks like and lets the user hear each voice line at the volume a real
+ * reminder uses. Plays whatever the ringer mode is (the user asked to hear it), and never posts
+ * a notification.
  */
 public final class ReminderPreviewUi {
     private static final String SAMPLE_APP = "Instagram";
@@ -74,14 +74,11 @@ public final class ReminderPreviewUi {
 
         private void start() {
             AudioManager audio = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-            boolean muted = audio != null && audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0;
-            content.findViewById(R.id.pid_preview_volume).setVisibility(muted ? View.VISIBLE : View.GONE);
-            AudioAttributes media = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_MEDIA)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                    .build();
-            int session = audio != null ? audio.generateAudioSessionId() : AudioManager.AUDIO_SESSION_ID_GENERATE;
-            player = MediaPlayer.create(activity, VoiceClips.clip(activity, index), media, session);
+            // Warn when it will be hard to hear: the alarm volume is in its lowest third.
+            boolean quiet = audio != null && audio.getStreamVolume(VoiceClips.VOLUME_STREAM) * 3
+                    <= audio.getStreamMaxVolume(VoiceClips.VOLUME_STREAM);
+            content.findViewById(R.id.pid_preview_volume).setVisibility(quiet ? View.VISIBLE : View.GONE);
+            player = VoiceClips.createPlayer(activity, index);
             if (player == null) return;
             player.setOnCompletionListener(mp -> stop());
             player.setOnErrorListener((mp, what, extra) -> { stop(); return true; });

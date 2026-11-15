@@ -33,8 +33,6 @@
     <string name="review_monitor_failed_note">ระบบยังเริ่มการทำงานไม่ได้ ลองอีกครั้งหรือตรวจสิทธิ์ในการตั้งค่า</string>
     <string name="review_monitor_retry">ลองเริ่มใหม่</string>
     <string name="review_monitor_settings">ตรวจสิทธิ์</string>
-    <string name="review_style">สไตล์การเตือน</string>
-    <string name="review_style_selected">สไตล์การเตือน: %1$s</string>
     <string name="review_focus_entry">เปิดโหมดโฟกัส</string>
     <string name="review_history_empty_note">เมื่อใช้แอปครบเวลาที่ตั้งไว้ การเตือนจะมารวมอยู่ตรงนี้</string>
   <string name="review_day_incomplete">ข้อมูลไม่ครบ</string>

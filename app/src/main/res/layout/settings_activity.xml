@@ -42,19 +42,12 @@
           <TextView android:id="@+id/text_settings_demo_header" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/pid_reminders" android:textAppearance="@style/TextAppearance.PutItDown.GroupLabel" />
           <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/pid_card_background" android:clipToOutline="true" android:layout_marginTop="8dp">
 
-            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="64dp">
-              <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="64dp" android:paddingStart="16dp" android:paddingEnd="16dp" android:gravity="center_vertical" android:orientation="horizontal" android:importantForAccessibility="noHideDescendants">
-                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/pid_ic_message" app:tint="@color/pid_on_surface_variant" />
-                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:orientation="vertical">
-                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/review_style" android:textAppearance="@style/TextAppearance.PutItDown.Body" />
-                  <TextView android:id="@+id/pid_persona_current" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" />
-                </LinearLayout>
-                <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/pid_ic_chevron" app:tint="@color/pid_outline" />
-              </LinearLayout>
-              <Button android:id="@+id/btn_nav_roast_persona" android:layout_width="match_parent" android:layout_height="match_parent" android:minHeight="64dp" android:background="?attr/selectableItemBackground" android:contentDescription="@string/review_style" />
-            </FrameLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="6dp" android:paddingBottom="12dp">
+              <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_voice_alerts" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/pid_voice" android:textAppearance="@style/TextAppearance.PutItDown.Body" />
+              <TextView android:id="@+id/text_settings_voice_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginEnd="64dp" android:text="@string/pid_voice_desc" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" />
+            </LinearLayout>
 
-            <View style="@style/Widget.PutItDown.RowDivider" android:layout_marginStart="56dp" />
+            <View style="@style/Widget.PutItDown.RowDivider" android:layout_marginStart="16dp" />
             <LinearLayout android:id="@+id/pid_reminder_preview" style="@style/Widget.PutItDown.ListRow">
               <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/pid_ic_bell" app:tint="@color/pid_on_surface_variant" android:importantForAccessibility="no" />
               <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/pid_reminder_preview" android:textAppearance="@style/TextAppearance.PutItDown.Body" />
@@ -65,9 +58,7 @@
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="6dp" android:paddingBottom="8dp">
               <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_demo_mode" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/pid_demo" android:textAppearance="@style/TextAppearance.PutItDown.Body" />
               <TextView android:id="@+id/text_settings_demo_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginEnd="64dp" android:text="@string/pid_demo_desc" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" />
-              <TextView android:id="@+id/pid_schedule_summary" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/pid_schedule_normal" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" />
-              <com.google.android.material.button.MaterialButton android:id="@+id/pid_thresholds_toggle" style="@style/Widget.PutItDown.Button.Link" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="0dp" android:text="@string/pid_show_thresholds" />
-              <TextView android:id="@+id/text_settings_thresholds_summary" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingBottom="8dp" android:text="@string/settings_thresholds_summary_normal" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" android:lineSpacingExtra="3dp" android:visibility="gone" />
+              <TextView android:id="@+id/pid_schedule_summary" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:layout_marginBottom="8dp" android:text="@string/pid_schedule_normal" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" />
             </LinearLayout>
           </LinearLayout>
         </LinearLayout>

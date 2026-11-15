@@ -51,16 +51,18 @@ public final class FinalSystemCapture extends Instrumentation {
             runOnMainSync(history::finish);pause();
             RoastNotifier notifier=new RoastNotifier(getTargetContext());
             NotificationManager nm=getTargetContext().getSystemService(NotificationManager.class);
-            for(int level=1;level<=3;level++) {
-                if(level==1)notifier.showLevel1("com.android.chrome");
-                else if(level==2)notifier.showLevel2("com.android.chrome");
-                else notifier.showLevel3("com.android.chrome",0);
-                pause(); final int expected=level;
-                boolean posted=Arrays.stream(nm.getActiveNotifications()).anyMatch(n->n.getNotification().getChannelId().equals("roast_level_"+expected)&&n.getNotification().getSmallIcon().getResId()==R.drawable.pid_ic_notification);
-                if(!posted)throw new AssertionError("Notification level "+level+" or branded icon missing");
-                getUiAutomation().executeShellCommand("cmd statusbar expand-notifications").close();pause();capture("notification-"+level);
-                getUiAutomation().executeShellCommand("cmd statusbar collapse").close();notifier.cancel("com.android.chrome");pause();
+            // One reminder type now: post three different lines so history has several rows.
+            for(int line=0;line<3;line++) {
+                notifier.showAlert("com.android.chrome",line);
+                pause();
+                boolean posted=Arrays.stream(nm.getActiveNotifications()).anyMatch(n->n.getNotification().getChannelId().equals(RoastNotifier.CHANNEL_ALERT)&&n.getNotification().getSmallIcon().getResId()==R.drawable.pid_ic_notification);
+                if(!posted)throw new AssertionError("Reminder "+line+" or branded icon missing");
+                if(line==0){getUiAutomation().executeShellCommand("cmd statusbar expand-notifications").close();pause();capture("notification");
+                getUiAutomation().executeShellCommand("cmd statusbar collapse").close();}
+                notifier.cancel("com.android.chrome");pause();
             }
+            for(String retired:new String[]{"roast_level_1","roast_level_2","roast_level_3"})
+                if(nm.getNotificationChannel(retired)!=null)throw new AssertionError("Old channel still registered: "+retired);
             HistoryActivity filled=launch(HistoryActivity.class);capture("history-filled");
             if(filled.findViewById(R.id.recycler_history_events).getVisibility()!=View.VISIBLE)throw new AssertionError("Posted notifications absent from history");
             runOnMainSync(()->((NestedScrollView)filled.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("history-list");
@@ -94,8 +96,10 @@ public final class FinalSystemCapture extends Instrumentation {
         runOnMainSync(()->home.renderAppUsage(java.util.Arrays.asList(UiReferenceCapture.installedApp(home,"com.google.android.youtube","YouTube",18,30),UiReferenceCapture.installedApp(home,"com.android.chrome","Chrome",12,45))));capture("home-priorities");
         runOnMainSync(()->((android.widget.ScrollView)home.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("home-summary");
         com.cs364.roastapp.settings.SettingsActivity settings=launch(com.cs364.roastapp.settings.SettingsActivity.class);
-        runOnMainSync(()->((android.widget.ScrollView)settings.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("settings-persona");
-        if(settings.findViewById(R.id.btn_nav_roast_persona)==null||home.findViewById(R.id.btn_nav_roast_persona)!=null)throw new AssertionError("Persona not moved to Settings");runOnMainSync(settings::finish);pause();
+        runOnMainSync(()->((android.widget.ScrollView)settings.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("settings-voice");
+        com.google.android.material.materialswitch.MaterialSwitch voice=settings.findViewById(R.id.switch_voice_alerts);
+        if(voice==null||voice.isChecked()!=new SettingsManager(getTargetContext()).isVoiceEnabled())throw new AssertionError("Voice switch missing or out of sync");
+        runOnMainSync(settings::finish);pause();
         com.cs364.roastapp.history.HistoryActivity history=launch(com.cs364.roastapp.history.HistoryActivity.class);
         java.lang.reflect.Constructor<com.cs364.roastapp.history.UsageHistorySnapshot> constructor=com.cs364.roastapp.history.UsageHistorySnapshot.class.getDeclaredConstructor(com.cs364.roastapp.history.UsageHistorySnapshot.State.class,java.util.List.class,long.class,long.class);constructor.setAccessible(true);
         java.util.List<com.cs364.roastapp.history.WeeklyUsageData.Day> mixed=new java.util.ArrayList<>();

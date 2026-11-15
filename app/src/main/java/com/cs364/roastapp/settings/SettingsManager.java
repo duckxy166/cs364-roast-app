@@ -15,6 +15,7 @@ public class SettingsManager {
 
     public static final String KEY_LANGUAGE = "app_language";
     public static final String KEY_NIGHT_MODE = "app_night_mode";
+    public static final String KEY_VOICE_ENABLED = "voice_enabled";
 
     public static final String LANG_EN = "en";
     public static final String LANG_TH = "th";
@@ -73,6 +74,15 @@ public class SettingsManager {
         if (AppCompatDelegate.getDefaultNightMode() != targetMode) {
             AppCompatDelegate.setDefaultNightMode(targetMode);
         }
+    }
+
+    /** Whether reminders play the recorded voice line. On unless the user turned it off. */
+    public boolean isVoiceEnabled() {
+        return prefs.getBoolean(KEY_VOICE_ENABLED, true);
+    }
+
+    public void setVoiceEnabled(boolean enabled) {
+        prefs.edit().putBoolean(KEY_VOICE_ENABLED, enabled).apply();
     }
 
     public boolean isDemoMode() {

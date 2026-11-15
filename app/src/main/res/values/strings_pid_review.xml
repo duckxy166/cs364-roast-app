@@ -33,8 +33,6 @@
     <string name="review_monitor_failed_note">The service could not start. Try again or review permissions in Settings.</string>
     <string name="review_monitor_retry">Try again</string>
     <string name="review_monitor_settings">Review permissions</string>
-    <string name="review_style">Reminder style</string>
-    <string name="review_style_selected">Reminder style: %1$s</string>
     <string name="review_focus_entry">Open focus</string>
     <string name="review_history_empty_note">Reminders appear here when you reach an app limit.</string>
   <string name="review_day_incomplete">Incomplete</string>

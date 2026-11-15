@@ -31,10 +31,8 @@
   <string name="pid_reminders">การเตือน</string>
   <string name="pid_demo">โหมดสาธิต</string>
   <string name="pid_demo_desc">ย่อเวลาเตือนเป็นวินาที สำหรับสาธิตการทำงาน</string>
-  <string name="pid_schedule_normal">ตอนนี้นับเวลาเตือนเป็นนาที</string>
-  <string name="pid_schedule_demo">ตอนนี้นับเวลาเตือนเป็นวินาที</string>
-  <string name="pid_show_thresholds">ดูเกณฑ์การเตือน</string>
-  <string name="pid_hide_thresholds">ซ่อนเกณฑ์การเตือน</string>
+  <string name="pid_schedule_normal">เตือนทันทีที่ใช้เกินเวลา แล้วเตือนซ้ำทุก 5 นาที</string>
+  <string name="pid_schedule_demo">เตือนทันทีที่ใช้เกินเวลา แล้วเตือนซ้ำทุก 20 วินาที</string>
   <string name="pid_app_placeholder">ชื่อแอป</string>
   <string name="pid_usage_pending">—</string>
   <string name="pid_edit_limit">แก้เวลา</string>
@@ -64,7 +62,7 @@
   <string name="pid_permission_notifications_desc">เตือนเมื่อครบเวลา รวมข้อความและเสียง</string>
   <string name="pid_enable_permission">เปิดสิทธิ์</string>
   <string name="pid_permission_allowed">ได้แล้ว</string>
-  <string name="pid_onboarding_note">การเตือนจะเพิ่มจากข้อความ → สั่น → เสียง เมื่อยังใช้แอปต่อเกินเวลา</string>
+  <string name="pid_onboarding_note">ใช้แอปเกินเวลาเมื่อไหร่ จะมีแจ้งเตือน สั่น และเสียงพากย์ทันที</string>
   <string name="pid_go_home">เข้าหน้าหลัก</string>
   <string name="pid_reminder_preview">ตัวอย่างการแจ้งเตือน</string>
   <string name="pid_app_language">ภาษาในแอป</string>
@@ -73,12 +71,17 @@
   <string name="pid_focusing">กำลังโฟกัส</string>
   <string name="pid_focus_intro">ให้เวลากับสิ่งตรงหน้า</string>
   <string name="pid_preview_title">ตัวอย่างการแจ้งเตือน</string>
-  <string name="pid_preview_note">ตัวอย่างหน้าตาเท่านั้น ไม่มีการส่งแจ้งเตือน สั่น หรือเล่นเสียง</string>
-  <string name="pid_next">ระดับถัดไป</string>
+  <string name="pid_preview_note">หน้าตาการแจ้งเตือนเวลาใช้แอปเกินเวลา กดฟังเสียงพากย์ได้เลย</string>
   <string name="pid_close">ปิด</string>
-  <string name="pid_preview_1">ครบเวลาแล้ว พักจากการไถหน่อย</string>
-  <string name="pid_preview_2">ยังไถอยู่เหรอ เวลาของคุณกำลังรออยู่</string>
-  <string name="pid_preview_3">วางเดี๋ยวนี้! ให้ชีวิตจริงได้คิวบ้าง</string>
   <string name="pid_view_all_format">ดูทั้งหมด (%1$d)</string>
   <string name="pid_keep_open">เปิดหน้านี้ค้างไว้</string>
+  <string name="pid_preview_delivery_demo">โหมดสาธิต: เตือนทันทีที่ใช้เกินเวลา แล้วซ้ำทุก 20 วินาทีจนกว่าจะออกจากแอป</string>
+  <string name="pid_preview_volume_off">เสียงสื่อปิดอยู่ เพิ่มเสียงก่อนจะได้ยิน</string>
+  <string name="pid_preview_next">ประโยคถัดไป</string>
+  <string name="pid_preview_counter">%1$d จาก %2$d</string>
+  <string name="pid_preview_delivery">เตือนทันทีที่ใช้เกินเวลา แล้วซ้ำทุก 5 นาทีจนกว่าจะออกจากแอป ปัดแจ้งเตือนทิ้งเพื่อหยุดเสียง</string>
+  <string name="pid_preview_play">ฟังเสียง</string>
+  <string name="pid_preview_stop">หยุด</string>
+  <string name="pid_voice">เสียงพากย์ตอนเตือน</string>
+  <string name="pid_voice_desc">เล่นเสียงพากย์ทุกครั้งที่เตือน ถ้าเครื่องปิดเสียงหรือเปิดห้ามรบกวนจะไม่มีเสียง</string>
 </resources>

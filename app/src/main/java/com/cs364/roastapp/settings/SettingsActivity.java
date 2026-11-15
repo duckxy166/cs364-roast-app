@@ -21,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioButton radioThemeDay;
     private RadioButton radioThemeNight;
     private MaterialSwitch demoModeSwitch;
-    private TextView thresholdsSummaryText;
+    private MaterialSwitch voiceSwitch;
 
     private boolean isBindingUi = false;
 
@@ -41,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         radioThemeNight = findViewById(R.id.radio_theme_night);
 
         demoModeSwitch = findViewById(R.id.switch_demo_mode);
-        thresholdsSummaryText = findViewById(R.id.text_settings_thresholds_summary);
+        voiceSwitch = findViewById(R.id.switch_voice_alerts);
 
         com.cs364.roastapp.ui.PutItDownNavigation.bind(this, R.id.btn_nav_settings);
         android.view.View languageRow = findViewById(R.id.pid_language_row);
@@ -79,11 +79,6 @@ public class SettingsActivity extends AppCompatActivity {
             sheet.setContentView(content);
             sheet.show();
         });
-        findViewById(R.id.pid_thresholds_toggle).setOnClickListener(v -> {
-            boolean expanded = thresholdsSummaryText.getVisibility() == android.view.View.VISIBLE;
-            thresholdsSummaryText.setVisibility(expanded ? android.view.View.GONE : android.view.View.VISIBLE);
-            ((Button) v).setText(expanded ? R.string.pid_show_thresholds : R.string.pid_hide_thresholds);
-        });
         bindCurrentSettingsToUi();
         setupListeners();
 
@@ -91,17 +86,6 @@ public class SettingsActivity extends AppCompatActivity {
         if (backBtn != null) {
             backBtn.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
         }
-    }
-
-    @Override protected void onResume(){
-        super.onResume();
-        String persona=com.cs364.roastapp.roast.RoastLineProvider.getInstance(this).getSelectedPersona();
-        int res=com.cs364.roastapp.roast.RoastLineProvider.PERSONA_MOM.equals(persona)?R.string.pid_persona_mom:com.cs364.roastapp.roast.RoastLineProvider.PERSONA_SARCASTIC.equals(persona)?R.string.pid_persona_sarcastic:R.string.pid_persona_strict;
-        String name=getString(res).split("\\n|\n",2)[0];
-        Button row=findViewById(R.id.btn_nav_roast_persona);
-        ((TextView)findViewById(R.id.pid_persona_current)).setText(name);
-        row.setContentDescription(getString(R.string.review_style_selected,name));
-        row.setOnClickListener(v->startActivity(new android.content.Intent(this,com.cs364.roastapp.roast.RoastPersonaActivity.class)));
     }
 
     private void bindCurrentSettingsToUi() {
@@ -134,6 +118,7 @@ public class SettingsActivity extends AppCompatActivity {
             demoModeSwitch.setChecked(isDemo);
         }
         updateThresholdsSummary(isDemo);
+        voiceSwitch.setChecked(settingsManager.isVoiceEnabled());
 
         isBindingUi = false;
     }
@@ -165,20 +150,16 @@ public class SettingsActivity extends AppCompatActivity {
                 updateThresholdsSummary(isChecked);
             });
         }
+
+        voiceSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isBindingUi) {
+                settingsManager.setVoiceEnabled(isChecked);
+            }
+        });
     }
 
     private void updateThresholdsSummary(boolean isDemoMode) {
         TextView summary = findViewById(R.id.pid_schedule_summary);
         summary.setText(isDemoMode ? R.string.pid_schedule_demo : R.string.pid_schedule_normal);
-        if (thresholdsSummaryText != null) {
-            thresholdsSummaryText.setVisibility(isDemoMode ? android.view.View.VISIBLE : android.view.View.GONE);
-            ((Button) findViewById(R.id.pid_thresholds_toggle)).setText(
-                    isDemoMode ? R.string.pid_hide_thresholds : R.string.pid_show_thresholds);
-            thresholdsSummaryText.setText(
-                    isDemoMode
-                            ? R.string.settings_thresholds_summary_demo
-                            : R.string.settings_thresholds_summary_normal
-            );
-        }
     }
 }

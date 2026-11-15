@@ -68,11 +68,6 @@
             android:parentActivityName=".core.HomeActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name=".roast.RoastPersonaActivity"
-            android:exported="false"
-            android:parentActivityName=".core.HomeActivity"
-            android:screenOrientation="portrait" />
 
         <activity
             android:name=".history.HistoryActivity"

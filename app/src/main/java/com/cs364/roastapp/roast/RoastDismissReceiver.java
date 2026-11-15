@@ -21,7 +21,7 @@ public class RoastDismissReceiver extends BroadcastReceiver {
         String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
         RoastTrigger trigger = AppServices.getRoastTrigger(context);
         if (trigger instanceof RoastManager rm) {
-            rm.resetPackage(packageName);
+            rm.silence(packageName);
         }
     }
 

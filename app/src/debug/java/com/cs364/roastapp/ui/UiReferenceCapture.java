@@ -76,7 +76,11 @@ public final class UiReferenceCapture extends Instrumentation {
             click(focus,R.id.btn_focus_back); capture("focus-exit-confirm"); back();
             SettingsActivity settings = launch(SettingsActivity.class); capture("settings");
             click(settings,R.id.pid_language_row); capture("settings-language"); back();
-            click(settings,R.id.pid_thresholds_toggle); capture("settings-thresholds");
+            boolean voiceBefore = manager.isVoiceEnabled();
+            click(settings,R.id.switch_voice_alerts); capture("settings-voice-off");
+            if (manager.isVoiceEnabled() == voiceBefore) throw new AssertionError("Voice switch did not save");
+            click(settings,R.id.switch_voice_alerts);
+            if (manager.isVoiceEnabled() != voiceBefore) throw new AssertionError("Voice switch did not restore");
             click(settings,R.id.switch_demo_mode); capture("settings-demo"); click(settings,R.id.switch_demo_mode);
             runOnMainSync(() -> ReminderPreviewUi.show(settings)); capture("reminder-preview"); back();
             result.putString("stream", "UI reference captures and custom-duration state checks passed: " + prefix);

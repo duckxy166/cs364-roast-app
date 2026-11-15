@@ -24,9 +24,12 @@ import java.util.Locale;
 
 public class RoastNotifier {
 
-    public static final String CHANNEL_LEVEL_1 = "roast_level_1";
-    public static final String CHANNEL_LEVEL_2 = "roast_level_2";
-    public static final String CHANNEL_LEVEL_3 = "roast_level_3";
+    /** The single reminder channel. */
+    public static final String CHANNEL_ALERT = "roast_alert";
+    /** Channels from the old three-level design; removed so they stop showing in system settings. */
+    private static final String[] RETIRED_CHANNELS = {"roast_level_1", "roast_level_2", "roast_level_3"};
+    /** Stored with every history record; reminders no longer have levels. */
+    private static final int EVENT_LEVEL = 1;
 
     private static final long[] VIBRATE_PATTERN = {0L, 400L, 200L, 400L};
 
@@ -36,65 +39,33 @@ public class RoastNotifier {
         this.appContext = context.getApplicationContext();
     }
 
-    public void showLevel1(String packageName) {
+    /**
+     * Posts the reminder for {@code packageName} showing voice line {@code lineIndex}, vibrates,
+     * and records it in history. Returns the line shown.
+     */
+    public String showAlert(String packageName, int lineIndex) {
         Context ctx = localizedContext();
         ensureChannels(ctx);
         String appLabel = getAppLabel(packageName);
-        String text = ctx.getString(R.string.roast_level1_text, appLabel);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_LEVEL_1)
-                .setSmallIcon(R.drawable.pid_ic_notification)
-                .setColor(ContextCompat.getColor(ctx, R.color.pid_brand_blue))
-                .setContentTitle(ctx.getString(R.string.roast_level1_title))
-                .setContentText(text)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true);
-        notifySafely(packageName, builder);
-        recordEvent(packageName, appLabel, 1, text);
-    }
+        String[] lines = ctx.getResources().getStringArray(R.array.roast_voice_lines);
+        String line = lines[Math.floorMod(lineIndex, lines.length)];
 
-    public void showLevel2(String packageName) {
-        Context ctx = localizedContext();
-        ensureChannels(ctx);
-        String appLabel = getAppLabel(packageName);
-        String line = pickLevel2Line(ctx);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_LEVEL_2)
+        PendingIntent deleteIntent = RoastDismissReceiver.createPendingIntent(ctx, packageName);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_ALERT)
                 .setSmallIcon(R.drawable.pid_ic_notification)
                 .setColor(ContextCompat.getColor(ctx, R.color.pid_brand_blue))
-                .setContentTitle(ctx.getString(R.string.roast_level2_title, appLabel))
+                .setContentTitle(ctx.getString(R.string.roast_alert_title, appLabel))
                 .setContentText(line)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(line))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setVibrate(VIBRATE_PATTERN)
-                .setAutoCancel(true);
-        notifySafely(packageName, builder);
-        vibrate();
-        recordEvent(packageName, appLabel, 2, line);
-    }
-
-    public String showLevel3(String packageName, int lineIndex) {
-        Context ctx = localizedContext();
-        ensureChannels(ctx);
-        String appLabel = getAppLabel(packageName);
-        String[] lines = ctx.getResources().getStringArray(R.array.roast_level3_lines);
-        String line = (lineIndex >= 0 && lineIndex < lines.length) ? lines[lineIndex] : "";
-
-        PendingIntent deleteIntent = RoastDismissReceiver.createPendingIntent(ctx, packageName);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx, CHANNEL_LEVEL_3)
-                .setSmallIcon(R.drawable.pid_ic_notification)
-                .setColor(ContextCompat.getColor(ctx, R.color.pid_brand_blue))
-                .setContentTitle(ctx.getString(R.string.roast_level3_title, appLabel))
-                .setContentText(line)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(line))
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setVibrate(VIBRATE_PATTERN)
                 .setDeleteIntent(deleteIntent)
                 .setAutoCancel(true);
         notifySafely(packageName, builder);
         vibrate();
-        recordEvent(packageName, appLabel, 3, line);
+        recordEvent(packageName, appLabel, EVENT_LEVEL, line);
         return line;
     }
 
@@ -136,35 +107,19 @@ public class RoastNotifier {
         if (nm == null) {
             return;
         }
-        NotificationChannel level1 = new NotificationChannel(
-                CHANNEL_LEVEL_1,
-                ctx.getString(R.string.roast_channel_level1_name),
-                NotificationManager.IMPORTANCE_DEFAULT);
-        level1.setDescription(ctx.getString(R.string.roast_channel_level1_desc));
-
-        NotificationChannel level2 = new NotificationChannel(
-                CHANNEL_LEVEL_2,
-                ctx.getString(R.string.roast_channel_level2_name),
+        for (String retired : RETIRED_CHANNELS) {
+            nm.deleteNotificationChannel(retired);
+        }
+        NotificationChannel alert = new NotificationChannel(
+                CHANNEL_ALERT,
+                ctx.getString(R.string.roast_channel_name),
                 NotificationManager.IMPORTANCE_HIGH);
-        level2.setDescription(ctx.getString(R.string.roast_channel_level2_desc));
-        level2.enableVibration(true);
-        level2.setVibrationPattern(VIBRATE_PATTERN);
-
-        NotificationChannel level3 = new NotificationChannel(
-                CHANNEL_LEVEL_3,
-                ctx.getString(R.string.roast_channel_level3_name),
-                NotificationManager.IMPORTANCE_HIGH);
-        level3.setDescription(ctx.getString(R.string.roast_channel_level3_desc));
-        level3.enableVibration(true);
-        level3.setVibrationPattern(VIBRATE_PATTERN);
-
-        nm.createNotificationChannel(level1);
-        nm.createNotificationChannel(level2);
-        nm.createNotificationChannel(level3);
-    }
-
-    private String pickLevel2Line(Context ctx) {
-        return RoastLineProvider.getInstance(appContext).getNextRoastLine(ctx);
+        alert.setDescription(ctx.getString(R.string.roast_channel_desc));
+        alert.enableVibration(true);
+        alert.setVibrationPattern(VIBRATE_PATTERN);
+        // The voice line is our sound; keep the channel's own sound from playing over it.
+        alert.setSound(null, null);
+        nm.createNotificationChannel(alert);
     }
 
     private String getAppLabel(String packageName) {

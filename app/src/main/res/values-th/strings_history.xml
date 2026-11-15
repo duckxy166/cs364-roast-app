@@ -1,12 +1,12 @@
 <resources>
     <string name="history_title">ประวัติและสถิติ</string>
-    <string name="history_subtitle">เวลาใช้งานรายสัปดาห์และรายการแจ้งเตือนที่ผ่านมา</string>
+    <string name="history_subtitle">เวลาใช้งานและรายการแจ้งเตือนที่ผ่านมา</string>
     <string name="history_weekly_section">เวลาใช้งาน 7 วันล่าสุด</string>
     <string name="history_weekly_total">รวมเวลาใช้งานแอปที่คุม: %1$d นาที</string>
     <string name="history_chart_minute_unit">น.</string>
-    <string name="history_events_section">ประวัติการโดนเตือน</string>
+    <string name="history_events_section">ประวัติการเตือน</string>
     <string name="history_item_header">%1$s · ระดับ %2$d</string>
-    <string name="history_empty">ยังไม่มีประวัติการโดนเตือน</string>
+    <string name="history_empty">ยังไม่มีการเตือน</string>
     <string name="history_delete_one_cd">ลบประวัตินี้</string>
     <string name="history_delete_one_title">ลบประวัตินี้ไหม?</string>
     <string name="history_delete_one_message">รายการแจ้งเตือนที่เลือกจะถูกลบออกถาวร</string>

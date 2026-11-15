@@ -62,7 +62,8 @@ public final class UiReferenceCapture extends Instrumentation {
             AppLimitsUi ui = new AppLimitsUi(apps, actions);
             runOnMainSync(() -> { ui.setAvailableApps(examples); ui.showPicker(); }); capture("app-picker"); back();
             runOnMainSync(() -> ui.showLimit(examples.get(0))); capture("daily-limit"); back();
-            runOnMainSync(() -> apps.findViewById(R.id.pid_app_remove).performClick()); capture("remove-confirm"); back();
+            awaitLoads();
+            runOnMainSync(() -> { apps.bindUi(tracked, examples, actions); apps.findViewById(R.id.pid_app_remove).performClick(); }); capture("remove-confirm"); back();
             runOnMainSync(() -> apps.bindUi(java.util.Collections.emptyList(),examples,actions)); capture("apps-empty");
             OnboardingActivity onboarding = launch(OnboardingActivity.class); capture("onboarding");
             FocusActivity focus = launch(FocusActivity.class); capture("focus");
@@ -89,12 +90,16 @@ public final class UiReferenceCapture extends Instrumentation {
     }
     private <T extends Activity> T launch(Class<T> type) {
         Activity activity = startActivitySync(new Intent(getTargetContext(),type).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        opened.add(activity); pause(); return type.cast(activity);
+        opened.add(activity); pause(); awaitLoads(); return type.cast(activity);
     }
     private void click(Activity activity, int id) {
         runOnMainSync(() -> activity.findViewById(id).performClick()); pause();
     }
-    private void back() { sendKeyDownUpSync(KeyEvent.KEYCODE_BACK); pause(); }
+    private void back() { sendKeyDownUpSync(KeyEvent.KEYCODE_BACK); pause(); awaitLoads(); }
+    private void awaitLoads() {
+        try { com.cs364.roastapp.tracking.TrackedAppsRepository.IO.submit(() -> {}).get(20, java.util.concurrent.TimeUnit.SECONDS); waitForIdleSync(); }
+        catch (Exception error) { throw new IllegalStateException("Repository did not settle", error); }
+    }
     private void pause() { try { Thread.sleep(550); } catch (InterruptedException error) { Thread.currentThread().interrupt(); } }
     private void capture(String name) throws Exception {
         pause(); Bitmap bitmap = getUiAutomation().takeScreenshot();

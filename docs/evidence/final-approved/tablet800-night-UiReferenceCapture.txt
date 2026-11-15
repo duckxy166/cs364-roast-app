@@ -1,0 +1,1 @@
+UI reference captures and custom-duration state checks passed: tablet800-night

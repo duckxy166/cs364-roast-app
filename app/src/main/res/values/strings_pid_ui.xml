@@ -31,8 +31,8 @@
   <string name="pid_reminders">Reminders</string>
   <string name="pid_demo">Demo mode</string>
   <string name="pid_demo_desc">Shorten reminder intervals to seconds for a demo</string>
-  <string name="pid_schedule_normal">Normal mode · reminders use minutes</string>
-  <string name="pid_schedule_demo">Demo mode · reminders use seconds</string>
+  <string name="pid_schedule_normal">Reminders currently count in minutes</string>
+  <string name="pid_schedule_demo">Reminders currently count in seconds</string>
   <string name="pid_show_thresholds">View reminder schedule</string>
   <string name="pid_hide_thresholds">Hide reminder schedule</string>
   <string name="pid_app_placeholder">App name</string>
@@ -43,7 +43,7 @@
   <string name="pid_app_count_zero">No apps selected</string>
   <string name="pid_empty_desc">Choose an app and set your first daily limit</string>
   <string name="pid_count_format">%1$d selected apps</string>
-  <string name="pid_usage_format">Used %1$d / %2$d min</string>
+  <string name="pid_usage_format">%1$d / %2$d min</string>
   <string name="pid_remaining_format">%1$d min left</string>
   <string name="pid_exceeded_format">%1$d min over</string>
   <string name="pid_at_limit">Limit reached</string>
@@ -79,6 +79,6 @@
   <string name="pid_preview_1">Time is up. Take a break from scrolling.</string>
   <string name="pid_preview_2">Still scrolling? Your time is waiting.</string>
   <string name="pid_preview_3">Put it down! Give real life a turn.</string>
-  <string name="pid_view_all_format">View all · %1$d</string>
+  <string name="pid_view_all_format">View all (%1$d)</string>
   <string name="pid_keep_open">Keep this screen open</string>
 </resources>

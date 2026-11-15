@@ -40,9 +40,9 @@ public final class UiReferenceCapture extends Instrumentation {
             pause();
             HomeActivity home = launch(HomeActivity.class);
             List<AppLimitsUi.App> examples = Arrays.asList(
-                new AppLimitsUi.App("fixture.instagram", "Instagram", home.getDrawable(R.drawable.pid_ic_apps), 18, 30),
-                new AppLimitsUi.App("fixture.youtube", "YouTube", home.getDrawable(R.drawable.pid_ic_play), 12, 45),
-                new AppLimitsUi.App("fixture.tiktok", "TikTok", home.getDrawable(R.drawable.pid_ic_apps), 0, 30));
+                installedApp(home, "com.google.android.youtube", "YouTube", 18, 30),
+                installedApp(home, "com.android.chrome", "Chrome", 12, 45),
+                installedApp(home, "com.google.android.gm", "Gmail", 0, 30));
             runOnMainSync(() -> home.renderAppUsage(examples)); capture("home");
             runOnMainSync(() -> home.renderPermissionWarning(true)); capture("home-permission");
             runOnMainSync(() -> { home.renderPermissionWarning(false); home.renderAppUsage(java.util.Collections.emptyList()); }); capture("home-empty");
@@ -87,6 +87,16 @@ public final class UiReferenceCapture extends Instrumentation {
                 manager.setDemoMode(false); manager.setLanguage(initialLanguage); manager.setNightMode(initialNight); });
         }
         finish(result.containsKey("error") ? 1 : Activity.RESULT_OK, result);
+    }
+    /** Fixture backed by an app that is really installed, so captures show its real launcher icon and label. */
+    static AppLimitsUi.App installedApp(Activity context, String packageName, String fallbackName, long used, long limit) {
+        android.content.pm.PackageManager pm = context.getPackageManager();
+        try {
+            android.content.pm.ApplicationInfo info = pm.getApplicationInfo(packageName, 0);
+            return new AppLimitsUi.App(packageName, pm.getApplicationLabel(info), pm.getApplicationIcon(info), used, limit);
+        } catch (android.content.pm.PackageManager.NameNotFoundException missing) {
+            return new AppLimitsUi.App(packageName, fallbackName, context.getDrawable(R.drawable.pid_ic_apps), used, limit);
+        }
     }
     private <T extends Activity> T launch(Class<T> type) {
         Activity activity = startActivitySync(new Intent(getTargetContext(),type).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

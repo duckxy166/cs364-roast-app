@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Recessed block for content that sits on a surface (e.g. a notification preview inside a sheet). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/pid_background" />
+    <corners android:radius="@dimen/pid_card_radius" />
+</shape>

@@ -38,6 +38,8 @@ public final class AppLimitsUi {
         void saveLimit(App app, long minutes);
         void remove(App app);
     }
+    /** Home shows the first few limits; the Apps tab lists them all. */
+    private static final int SUMMARY_ROWS = 4;
     private final Activity activity;
     private final Actions actions;
     private List<App> available = Collections.emptyList();
@@ -50,19 +52,31 @@ public final class AppLimitsUi {
     public void render(List<App> apps, boolean summary) {
         LinearLayout container = activity.findViewById(summary ? R.id.container_menu_buttons : R.id.pid_apps_container);
         container.removeAllViews();
-        View empty = activity.findViewById(summary ? R.id.pid_home_empty : R.id.pid_apps_empty);
-        empty.setVisibility(apps.isEmpty() ? View.VISIBLE : View.GONE);
-        if (!summary) {
-            ((TextView) activity.findViewById(R.id.pid_tracking_count)).setText(
-                    activity.getString(R.string.pid_count_format, apps.size()));
+        boolean none = apps.isEmpty();
+        // The rows share one grouped surface, so an empty group must not leave a blank card behind.
+        container.setVisibility(none ? View.GONE : View.VISIBLE);
+        activity.findViewById(summary ? R.id.pid_home_empty : R.id.pid_apps_empty)
+                .setVisibility(none ? View.VISIBLE : View.GONE);
+        if (summary) {
+            activity.findViewById(R.id.pid_home_hero).setVisibility(none ? View.GONE : View.VISIBLE);
+            activity.findViewById(R.id.pid_home_apps_header).setVisibility(none ? View.GONE : View.VISIBLE);
+            if (!none) {
+                long totalMinutes = 0;
+                for (App app : apps) totalMinutes += app.usedMinutes;
+                ((TextView) activity.findViewById(R.id.pid_home_total)).setText(
+                        UsageTimeText.format(activity, totalMinutes * 60000L));
+                ((TextView) activity.findViewById(R.id.pid_home_manage)).setText(
+                        activity.getString(R.string.pid_view_all_format, apps.size()));
+            }
+        } else {
+            TextView countLabel = activity.findViewById(R.id.pid_tracking_count);
+            countLabel.setText(activity.getString(R.string.pid_count_format, apps.size()));
+            countLabel.setVisibility(none ? View.GONE : View.VISIBLE);
         }
-        if (summary && !apps.isEmpty()) {
-            ((TextView) activity.findViewById(R.id.pid_home_manage)).setText(
-                    activity.getString(R.string.pid_view_all_format, apps.size()));
-        }
-        int count = summary ? Math.min(2, apps.size()) : apps.size();
+        int count = summary ? Math.min(SUMMARY_ROWS, apps.size()) : apps.size();
         for (int i = 0; i < count; i++) {
             App app = apps.get(i);
+            if (i > 0) container.addView(rowDivider());
             View card = LayoutInflater.from(activity).inflate(summary ? R.layout.pid_app_summary : R.layout.pid_app_card, container, false);
             ((TextView) card.findViewById(R.id.pid_app_name)).setText(app.name);
             ((TextView) card.findViewById(R.id.pid_app_usage)).setText(activity.getString(R.string.pid_usage_format, app.usedMinutes, app.limitMinutes));
@@ -93,22 +107,20 @@ public final class AppLimitsUi {
     }
     public void showPicker() {
         BottomSheetDialog sheet = new BottomSheetDialog(activity);
-        LinearLayout content = column();
-        TextView title = text(activity.getString(R.string.pid_choose_app), true); content.addView(title);
-        EditText search = new EditText(activity); search.setSingleLine(true);
-        search.setHint(R.string.pid_search_apps); content.addView(search);
-        LinearLayout rows = column(); rows.setPadding(0, 0, 0, 0);
-        android.widget.ScrollView scroll = new android.widget.ScrollView(activity);
-        scroll.addView(rows); content.addView(scroll);
+        View content = LayoutInflater.from(activity).inflate(R.layout.pid_sheet_picker, null, false);
+        EditText search = content.findViewById(R.id.pid_picker_search);
+        LinearLayout rows = content.findViewById(R.id.pid_picker_rows);
         Runnable refresh = () -> {
             rows.removeAllViews(); String query = search.getText().toString().toLowerCase(Locale.ROOT);
             for (App app : available) {
                 if (!app.name.toString().toLowerCase(Locale.ROOT).contains(query)) continue;
-                MaterialButton choice = button(app.name.toString(), false);
-                if (app.icon != null) choice.setIcon(app.icon);
+                View choice = LayoutInflater.from(activity).inflate(R.layout.pid_picker_row, rows, false);
+                ((TextView) choice.findViewById(R.id.pid_picker_name)).setText(app.name);
+                // Launcher icons keep their own colours; never tint them into silhouettes.
+                if (app.icon != null) ((ImageView) choice.findViewById(R.id.pid_picker_icon)).setImageDrawable(app.icon);
                 choice.setOnClickListener(v -> { sheet.dismiss(); showLimit(app); }); rows.addView(choice);
             }
-            if (rows.getChildCount() == 0) rows.addView(text(activity.getString(R.string.pid_no_matches), false));
+            if (rows.getChildCount() == 0) rows.addView(emptyNote(activity.getString(R.string.pid_no_matches)));
         };
         search.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s,int start,int count,int after) {}
@@ -119,23 +131,20 @@ public final class AppLimitsUi {
     }
     public void showLimit(App app) {
         BottomSheetDialog sheet = new BottomSheetDialog(activity);
-        LinearLayout content = column(); content.addView(text(app.name.toString(), true));
-        TextInputLayout input = new TextInputLayout(activity);
-        input.setHint(activity.getString(R.string.pid_daily_limit));
-        com.google.android.material.textfield.TextInputEditText edit = new com.google.android.material.textfield.TextInputEditText(activity);
-        edit.setInputType(android.text.InputType.TYPE_CLASS_NUMBER); edit.setText(String.valueOf(app.limitMinutes));
-        edit.setFilters(new android.text.InputFilter[]{new android.text.InputFilter.LengthFilter(3)});
-        input.addView(edit); content.addView(input);
-        LinearLayout presets = new LinearLayout(activity);
-        for (long minutes : new long[]{15,30,60,120}) {
-            MaterialButton preset = button(String.valueOf(minutes), false);
-            preset.setMinWidth(0); preset.setPadding(2, 0, 2, 0);
-            presets.addView(preset, new LinearLayout.LayoutParams(0, -2, 1));
+        View content = LayoutInflater.from(activity).inflate(R.layout.pid_sheet_limit, null, false);
+        ((TextView) content.findViewById(R.id.pid_limit_title)).setText(app.name);
+        TextInputLayout input = content.findViewById(R.id.pid_limit_input);
+        EditText edit = content.findViewById(R.id.pid_limit_edit);
+        edit.setText(String.valueOf(app.limitMinutes));
+        int[] presetIds = {R.id.pid_limit_preset_1, R.id.pid_limit_preset_2, R.id.pid_limit_preset_3, R.id.pid_limit_preset_4};
+        long[] presetMinutes = {15, 30, 60, 120};
+        for (int i = 0; i < presetIds.length; i++) {
+            long minutes = presetMinutes[i];
+            MaterialButton preset = content.findViewById(presetIds[i]);
+            preset.setText(String.valueOf(minutes));
             preset.setOnClickListener(v -> edit.setText(String.valueOf(minutes)));
         }
-        content.addView(presets);
-        content.addView(text(activity.getString(R.string.pid_daily_reset), false));
-        MaterialButton save = button(activity.getString(R.string.pid_save), true);
+        MaterialButton save = content.findViewById(R.id.pid_limit_save);
         save.setEnabled(actions != null);
         save.setOnClickListener(v -> {
             long minutes;
@@ -143,23 +152,23 @@ public final class AppLimitsUi {
             if (minutes < 1) { input.setError(activity.getString(R.string.pid_minimum)); return; }
             actions.saveLimit(app, minutes); sheet.dismiss();
         });
-        content.addView(save); sheet.setContentView(content); sheet.show();
+        sheet.setContentView(content); sheet.show();
     }
-    private LinearLayout column() {
-        LinearLayout view = new LinearLayout(activity); view.setOrientation(LinearLayout.VERTICAL);
-        int padding = (int) (24 * activity.getResources().getDisplayMetrics().density);
-        view.setPadding(padding,padding,padding,padding); return view;
+    /** Hairline between rows of the group, inset to line up with the app names. */
+    private View rowDivider() {
+        float density = activity.getResources().getDisplayMetrics().density;
+        View divider = new View(activity);
+        divider.setBackgroundColor(ContextCompat.getColor(activity, R.color.pid_outline_variant));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, Math.max(1, Math.round(density)));
+        params.setMarginStart(Math.round(64 * density));
+        divider.setLayoutParams(params);
+        return divider;
     }
-    private TextView text(String value, boolean title) {
+    private TextView emptyNote(String value) {
         TextView view = new TextView(activity); view.setText(value);
-        view.setTextAppearance(title ? R.style.TextAppearance_PutItDown_Section : R.style.TextAppearance_PutItDown_Supporting);
-        int pad = (int) (12 * activity.getResources().getDisplayMetrics().density);
-        view.setPadding(0,pad,0,pad); return view;
-    }
-    private MaterialButton button(String value, boolean primary) {
-        MaterialButton view = new MaterialButton(activity, null, primary
-                ? com.google.android.material.R.attr.materialButtonStyle
-                : com.google.android.material.R.attr.materialButtonOutlinedStyle);
-        view.setText(value); return view;
+        view.setTextAppearance(R.style.TextAppearance_PutItDown_Supporting);
+        int pad = (int) (24 * activity.getResources().getDisplayMetrics().density);
+        view.setPadding(pad, pad / 2, pad, pad / 2); return view;
     }
 }

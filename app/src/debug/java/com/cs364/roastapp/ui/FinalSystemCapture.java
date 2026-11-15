@@ -91,7 +91,7 @@ public final class FinalSystemCapture extends Instrumentation {
         runOnMainSync(()->{try{failure.invoke(home);}catch(Exception e){throw new RuntimeException(e);}});capture("monitor-failed");
         runOnMainSync(()->home.findViewById(R.id.btn_nav_onboarding).performClick());pause();pause();
         if(home.findViewById(R.id.pid_monitoring_panel).getVisibility()!=View.GONE)throw new AssertionError("Real retry with no tracked apps did not settle READY");capture("monitor-retry-success");
-        runOnMainSync(()->home.renderAppUsage(java.util.Arrays.asList(new AppLimitsUi.App("fixture.instagram","Instagram",home.getDrawable(R.drawable.pid_ic_apps),18,30),new AppLimitsUi.App("fixture.youtube","YouTube",home.getDrawable(R.drawable.pid_ic_play),12,45))));capture("home-priorities");
+        runOnMainSync(()->home.renderAppUsage(java.util.Arrays.asList(UiReferenceCapture.installedApp(home,"com.google.android.youtube","YouTube",18,30),UiReferenceCapture.installedApp(home,"com.android.chrome","Chrome",12,45))));capture("home-priorities");
         runOnMainSync(()->((android.widget.ScrollView)home.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("home-summary");
         com.cs364.roastapp.settings.SettingsActivity settings=launch(com.cs364.roastapp.settings.SettingsActivity.class);
         runOnMainSync(()->((android.widget.ScrollView)settings.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("settings-persona");

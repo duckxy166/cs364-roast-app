@@ -6,7 +6,7 @@
   <string name="pid_persona_strict">โค้ชสายเข้ม\nพูดตรง ชวนให้กลับไปลงมือ</string>
   <string name="pid_persona_sarcastic">เพื่อนสายแซว\nแซวขำ ๆ ให้รู้ตัวว่าไถนานแล้ว</string>
   <string name="pid_persona_mom">แม่สายห่วง\nบ่นด้วยความห่วง อยากให้พักบ้าง</string>
-  <string name="pid_persona_sample_label">ตัวอย่างข้อความ · ไม่เล่นเสียง</string>
+  <string name="pid_persona_sample_label">ตัวอย่างข้อความ (ไม่เล่นเสียง)</string>
   <string name="pid_persona_sample">ตั้งเวลาเองแล้ว ลองทำตามที่ตั้งใจไว้สิ</string>
   <string name="pid_persona_sample_next">ดูอีกข้อความ</string>
   <string name="pid_persona_your_lines">ข้อความของคุณ</string>

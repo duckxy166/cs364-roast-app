@@ -28,7 +28,7 @@ public class WeeklyChartView extends View {
     public WeeklyChartView(Context c,@Nullable AttributeSet a){super(c,a);init(c);}
     public WeeklyChartView(Context c,@Nullable AttributeSet a,int style){super(c,a,style);init(c);}
     private void init(Context c){
-        fill.setColor(ContextCompat.getColor(c,R.color.pid_brand_coral));
+        fill.setColor(ContextCompat.getColor(c,R.color.pid_progress_color));
         label.setColor(ContextCompat.getColor(c,R.color.pid_on_surface_variant));
         label.setTextAlign(Paint.Align.CENTER);
         label.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(c,R.font.pid_noto_sans_thai));

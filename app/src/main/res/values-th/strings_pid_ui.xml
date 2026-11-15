@@ -31,8 +31,8 @@
   <string name="pid_reminders">การเตือน</string>
   <string name="pid_demo">โหมดสาธิต</string>
   <string name="pid_demo_desc">ย่อเวลาเตือนเป็นวินาที สำหรับสาธิตการทำงาน</string>
-  <string name="pid_schedule_normal">โหมดปกติ · เตือนตามเกณฑ์นาที</string>
-  <string name="pid_schedule_demo">โหมดสาธิต · เตือนตามเกณฑ์วินาที</string>
+  <string name="pid_schedule_normal">ตอนนี้นับเวลาเตือนเป็นนาที</string>
+  <string name="pid_schedule_demo">ตอนนี้นับเวลาเตือนเป็นวินาที</string>
   <string name="pid_show_thresholds">ดูเกณฑ์การเตือน</string>
   <string name="pid_hide_thresholds">ซ่อนเกณฑ์การเตือน</string>
   <string name="pid_app_placeholder">ชื่อแอป</string>
@@ -43,7 +43,7 @@
   <string name="pid_app_count_zero">ยังไม่มีแอปที่เลือกไว้</string>
   <string name="pid_empty_desc">เลือกแอป แล้วตั้งเวลาใช้งานต่อวัน</string>
   <string name="pid_count_format">%1$d แอปที่เลือกไว้</string>
-  <string name="pid_usage_format">ใช้ไป %1$d / %2$d นาที</string>
+  <string name="pid_usage_format">%1$d / %2$d นาที</string>
   <string name="pid_remaining_format">เหลือ %1$d นาที</string>
   <string name="pid_exceeded_format">เกิน %1$d นาที</string>
   <string name="pid_at_limit">ครบเวลา</string>
@@ -79,6 +79,6 @@
   <string name="pid_preview_1">ครบเวลาแล้ว พักจากการไถหน่อย</string>
   <string name="pid_preview_2">ยังไถอยู่เหรอ เวลาของคุณกำลังรออยู่</string>
   <string name="pid_preview_3">วางเดี๋ยวนี้! ให้ชีวิตจริงได้คิวบ้าง</string>
-  <string name="pid_view_all_format">ดูทั้งหมด · %1$d</string>
+  <string name="pid_view_all_format">ดูทั้งหมด (%1$d)</string>
   <string name="pid_keep_open">เปิดหน้านี้ค้างไว้</string>
 </resources>

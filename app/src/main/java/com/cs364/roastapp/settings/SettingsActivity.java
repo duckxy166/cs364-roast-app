@@ -55,17 +55,24 @@ public class SettingsActivity extends AppCompatActivity {
             android.widget.LinearLayout content = new android.widget.LinearLayout(this);
             content.setOrientation(android.widget.LinearLayout.VERTICAL);
             int padding = (int) (24 * getResources().getDisplayMetrics().density);
-            content.setPadding(padding, padding, padding, padding);
+            content.setPadding(0, padding, 0, padding / 2);
             TextView title = new TextView(this);
             title.setText(R.string.pid_language);
             title.setTextAppearance(R.style.TextAppearance_PutItDown_Section);
+            title.setPadding(padding, 0, padding, padding / 2);
             content.addView(title);
+            // Same row anatomy as the app picker: label on the left, a check on the current choice.
             for (String language : new String[]{SettingsManager.LANG_TH, SettingsManager.LANG_EN}) {
-                com.google.android.material.button.MaterialButton choice = new com.google.android.material.button.MaterialButton(
-                        this, null, com.google.android.material.R.attr.borderlessButtonStyle);
-                choice.setText(SettingsManager.LANG_TH.equals(language) ? "ไทย" : "English");
-                choice.setMinHeight((int) (60 * getResources().getDisplayMetrics().density));
-                choice.setIconResource(settingsManager.getLanguage().equals(language) ? R.drawable.pid_ic_check : R.drawable.pid_ic_globe);
+                android.view.View choice = getLayoutInflater().inflate(R.layout.pid_picker_row, content, false);
+                ((TextView) choice.findViewById(R.id.pid_picker_name)).setText(
+                        SettingsManager.LANG_TH.equals(language) ? "ไทย" : "English");
+                android.widget.ImageView mark = choice.findViewById(R.id.pid_picker_icon);
+                boolean current = settingsManager.getLanguage().equals(language);
+                mark.setImageResource(R.drawable.pid_ic_check);
+                mark.setImageTintList(android.content.res.ColorStateList.valueOf(
+                        androidx.core.content.ContextCompat.getColor(this, R.color.pid_secondary)));
+                mark.setVisibility(current ? android.view.View.VISIBLE : android.view.View.INVISIBLE);
+                choice.setSelected(current);
                 choice.setOnClickListener(view -> { sheet.dismiss(); settingsManager.setLanguage(language); });
                 content.addView(choice);
             }

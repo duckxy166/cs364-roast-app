@@ -6,7 +6,7 @@
   <string name="pid_persona_strict">Strict coach\nDirect words to get you moving</string>
   <string name="pid_persona_sarcastic">Sarcastic friend\nA playful nudge when you keep scrolling</string>
   <string name="pid_persona_mom">Caring mom\nA caring reminder to take a break</string>
-  <string name="pid_persona_sample_label">Message preview · no audio</string>
+  <string name="pid_persona_sample_label">Message preview (no audio)</string>
   <string name="pid_persona_sample">You chose the limit. Stick to your plan.</string>
   <string name="pid_persona_sample_next">Another example</string>
   <string name="pid_persona_your_lines">Your messages</string>

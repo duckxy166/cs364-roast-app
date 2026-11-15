@@ -7,7 +7,7 @@
     <string name="review_usage_scope">เฉพาะแอปที่คุณเลือกคุม</string>
     <string name="review_date_range">%1$s – %2$s</string>
     <string name="review_known_total">รวมเฉพาะวันที่ข้อมูลครบ: %1$s</string>
-    <string name="review_coverage">มีข้อมูลครบ %1$d จาก 7 วัน · วันที่ข้อมูลไม่ครบแสดงเป็น —</string>
+    <string name="review_coverage">มีข้อมูลครบ %1$d จาก 7 วัน วันที่ข้อมูลไม่ครบจะแสดงเป็นขีด</string>
     <string name="review_no_daily_data">ยังไม่มีข้อมูลรายวันที่ครบ</string>
     <string name="review_no_daily_note">Android ยังไม่ส่งข้อมูลครบสำหรับแอปที่คุม จึงยังไม่สรุปเป็นศูนย์หรือเปรียบเทียบย้อนหลัง</string>
     <string name="review_no_apps">ยังไม่มีแอปที่คุม</string>
@@ -22,8 +22,8 @@
     <string name="review_enable_usage">ตรวจและเปิดสิทธิ์</string>
     <string name="review_daily_show">ดูข้อมูลรายวัน</string>
     <string name="review_daily_hide">ซ่อนข้อมูลรายวัน</string>
-    <string name="review_day_unknown">%1$s · ข้อมูลไม่ครบ</string>
-    <string name="review_day_value">%1$s · %2$s</string>
+    <string name="review_day_unknown">%1$s: ข้อมูลไม่ครบ</string>
+    <string name="review_day_value">%1$s: %2$s</string>
     <string name="review_today_summary">สรุปวันนี้</string>
     <string name="review_today_total">รวมแอปที่คุม %1$s</string>
     <string name="review_view_stats">ดูสถิติ</string>
@@ -34,7 +34,8 @@
     <string name="review_monitor_retry">ลองเริ่มใหม่</string>
     <string name="review_monitor_settings">ตรวจสิทธิ์</string>
     <string name="review_style">สไตล์การเตือน</string>
-    <string name="review_style_selected">สไตล์การเตือน · %1$s</string>
+    <string name="review_style_selected">สไตล์การเตือน: %1$s</string>
     <string name="review_focus_entry">เปิดโหมดโฟกัส</string>
     <string name="review_history_empty_note">เมื่อใช้แอปครบเวลาที่ตั้งไว้ การเตือนจะมารวมอยู่ตรงนี้</string>
+  <string name="review_day_incomplete">ข้อมูลไม่ครบ</string>
 </resources>

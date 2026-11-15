@@ -82,9 +82,20 @@ public class HistoryActivity extends AppCompatActivity {
         for(WeeklyUsageData.Day day:data.days){
             boolean known=day.usedMillis!=null;
             bars.add(new WeeklyChartView.DayBar(label.format(new Date(day.startMillis)),known?(int)(day.usedMillis/60000):0,known));
-            TextView row=new TextView(this);TextViewCompat.setTextAppearance(row,R.style.TextAppearance_PutItDown_Label);
-            row.setMinHeight(getResources().getDimensionPixelSize(R.dimen.pid_touch_target));row.setGravity(android.view.Gravity.CENTER_VERTICAL);
-            row.setText(known?getString(R.string.review_day_value,full.format(new Date(day.startMillis)),UsageTimeText.format(this,day.usedMillis)):getString(R.string.review_day_unknown,full.format(new Date(day.startMillis))));
+            // Date on the left, value on the right, like a settings row; read out as one sentence.
+            String date=full.format(new Date(day.startMillis));
+            String value=known?UsageTimeText.format(this,day.usedMillis):getString(R.string.review_day_incomplete);
+            android.widget.LinearLayout row=new android.widget.LinearLayout(this);
+            row.setOrientation(android.widget.LinearLayout.HORIZONTAL);row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+            row.setMinimumHeight(getResources().getDimensionPixelSize(R.dimen.pid_touch_target));
+            row.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            row.setContentDescription(known?getString(R.string.review_day_value,date,value):getString(R.string.review_day_unknown,date));
+            TextView dateText=new TextView(this);TextViewCompat.setTextAppearance(dateText,R.style.TextAppearance_PutItDown_Label);dateText.setText(date);
+            dateText.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            TextView valueText=new TextView(this);TextViewCompat.setTextAppearance(valueText,known?R.style.TextAppearance_PutItDown_Label:R.style.TextAppearance_PutItDown_Supporting);valueText.setText(value);
+            valueText.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            row.addView(dateText,new android.widget.LinearLayout.LayoutParams(0,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1f));
+            row.addView(valueText);
             dailyValues.addView(row);
         }
         chartView.setData(bars,getString(R.string.history_chart_minute_unit));chartView.setVisibility(data.knownDays>0?View.VISIBLE:View.GONE);

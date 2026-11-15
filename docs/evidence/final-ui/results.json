@@ -1,0 +1,167 @@
+[
+  {
+    "prefix": "phone390-day",
+    "runner": "FinalSystemCapture",
+    "theme": "day",
+    "language": "th",
+    "size": "1080x2280",
+    "density": "443",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 8
+  },
+  {
+    "prefix": "phone390-day",
+    "runner": "UiReferenceCapture",
+    "theme": "day",
+    "language": "th",
+    "size": "1080x2280",
+    "density": "443",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 18
+  },
+  {
+    "prefix": "phone390-day",
+    "runner": "RemainingUiCapture",
+    "theme": "day",
+    "language": "th",
+    "size": "1080x2280",
+    "density": "443",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 16
+  },
+  {
+    "prefix": "phone390-night",
+    "runner": "FinalSystemCapture",
+    "theme": "night",
+    "language": "th",
+    "size": "1080x2280",
+    "density": "443",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 8
+  },
+  {
+    "prefix": "phone390-night",
+    "runner": "UiReferenceCapture",
+    "theme": "night",
+    "language": "th",
+    "size": "1080x2280",
+    "density": "443",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 18
+  },
+  {
+    "prefix": "phone390-night",
+    "runner": "RemainingUiCapture",
+    "theme": "night",
+    "language": "th",
+    "size": "1080x2280",
+    "density": "443",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 16
+  },
+  {
+    "prefix": "tablet800-day",
+    "runner": "FinalSystemCapture",
+    "theme": "day",
+    "language": "th",
+    "size": "1600x2560",
+    "density": "320",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 8
+  },
+  {
+    "prefix": "tablet800-day",
+    "runner": "UiReferenceCapture",
+    "theme": "day",
+    "language": "th",
+    "size": "1600x2560",
+    "density": "320",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 18
+  },
+  {
+    "prefix": "tablet800-day",
+    "runner": "RemainingUiCapture",
+    "theme": "day",
+    "language": "th",
+    "size": "1600x2560",
+    "density": "320",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 16
+  },
+  {
+    "prefix": "tablet800-night",
+    "runner": "FinalSystemCapture",
+    "theme": "night",
+    "language": "en",
+    "size": "1600x2560",
+    "density": "320",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 8
+  },
+  {
+    "prefix": "tablet800-night",
+    "runner": "UiReferenceCapture",
+    "theme": "night",
+    "language": "en",
+    "size": "1600x2560",
+    "density": "320",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 18
+  },
+  {
+    "prefix": "tablet800-night",
+    "runner": "RemainingUiCapture",
+    "theme": "night",
+    "language": "en",
+    "size": "1600x2560",
+    "density": "320",
+    "fontScale": "1.0",
+    "passed": true,
+    "images": 16
+  },
+  {
+    "prefix": "compact360-large-text",
+    "runner": "FinalSystemCapture",
+    "theme": "day",
+    "language": "en",
+    "size": "900x1600",
+    "density": "400",
+    "fontScale": "1.3",
+    "passed": true,
+    "images": 8
+  },
+  {
+    "prefix": "compact360-large-text",
+    "runner": "UiReferenceCapture",
+    "theme": "day",
+    "language": "en",
+    "size": "900x1600",
+    "density": "400",
+    "fontScale": "1.3",
+    "passed": true,
+    "images": 18
+  },
+  {
+    "prefix": "compact360-large-text",
+    "runner": "RemainingUiCapture",
+    "theme": "day",
+    "language": "en",
+    "size": "900x1600",
+    "density": "400",
+    "fontScale": "1.3",
+    "passed": true,
+    "images": 16
+  }
+]

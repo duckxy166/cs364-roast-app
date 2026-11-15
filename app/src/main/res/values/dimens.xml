@@ -22,4 +22,5 @@
     <dimen name="pid_type_timer">48sp</dimen>
     <dimen name="pid_theme_preview_width">112dp</dimen>
     <dimen name="pid_theme_preview_height">76dp</dimen>
+    <dimen name="pid_type_chart">13sp</dimen>
 </resources>

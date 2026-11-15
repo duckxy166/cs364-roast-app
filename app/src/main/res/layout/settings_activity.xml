@@ -208,6 +208,17 @@
               android:text="@string/pid_reminders"
               android:textAppearance="@style/TextAppearance.PutItDown.Label"
               android:textStyle="bold" />
+          <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="72dp" android:layout_marginTop="8dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="72dp" android:gravity="center_vertical" android:orientation="horizontal" android:importantForAccessibility="noHideDescendants">
+              <ImageView android:layout_width="36dp" android:layout_height="36dp" android:padding="8dp" android:src="@drawable/pid_ic_message" android:background="@drawable/pid_soft_icon_background" app:tint="@color/pid_on_secondary_container" />
+              <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/review_style" android:textAppearance="@style/TextAppearance.PutItDown.Label" />
+                <TextView android:id="@+id/pid_persona_current" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:textAppearance="@style/TextAppearance.PutItDown.Supporting" />
+              </LinearLayout>
+              <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/pid_ic_chevron" app:tint="@color/pid_on_surface_variant" />
+            </LinearLayout>
+            <Button android:id="@+id/btn_nav_roast_persona" android:layout_width="match_parent" android:layout_height="match_parent" android:minHeight="72dp" android:background="?attr/selectableItemBackground" android:contentDescription="@string/review_style" />
+          </FrameLayout>
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"

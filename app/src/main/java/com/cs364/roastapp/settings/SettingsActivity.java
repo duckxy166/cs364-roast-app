@@ -86,6 +86,17 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    @Override protected void onResume(){
+        super.onResume();
+        String persona=com.cs364.roastapp.roast.RoastLineProvider.getInstance(this).getSelectedPersona();
+        int res=com.cs364.roastapp.roast.RoastLineProvider.PERSONA_MOM.equals(persona)?R.string.pid_persona_mom:com.cs364.roastapp.roast.RoastLineProvider.PERSONA_SARCASTIC.equals(persona)?R.string.pid_persona_sarcastic:R.string.pid_persona_strict;
+        String name=getString(res).split("\\n|\n",2)[0];
+        Button row=findViewById(R.id.btn_nav_roast_persona);
+        ((TextView)findViewById(R.id.pid_persona_current)).setText(name);
+        row.setContentDescription(getString(R.string.review_style_selected,name));
+        row.setOnClickListener(v->startActivity(new android.content.Intent(this,com.cs364.roastapp.roast.RoastPersonaActivity.class)));
+    }
+
     private void bindCurrentSettingsToUi() {
         isBindingUi = true;
 

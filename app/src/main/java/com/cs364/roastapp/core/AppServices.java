@@ -4,7 +4,7 @@ import android.content.Context;
 
 public final class AppServices {
 
-    private static volatile AppDatabase database;
+    private static volatile AppDbHelper database;
     private static volatile UsageSource usageSource;
     private static volatile RoastTrigger roastTrigger;
     private static volatile AlertThresholds alertThresholds;
@@ -12,11 +12,11 @@ public final class AppServices {
     private AppServices() {
     }
 
-    public static AppDatabase getDatabase(Context context) {
+    public static AppDbHelper getDatabase(Context context) {
         if (database == null) {
             synchronized (AppServices.class) {
                 if (database == null) {
-                    database = AppDatabase.getInstance(context);
+                    database = new AppDbHelper(context.getApplicationContext());
                 }
             }
         }

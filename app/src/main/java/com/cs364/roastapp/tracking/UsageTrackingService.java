@@ -97,7 +97,7 @@ public class UsageTrackingService extends Service {
         Context context = getApplicationContext();
         AlertThresholds thresholds = AppServices.getAlertThresholds(context);
         try {
-            List<TrackedAppEntity> tracked = AppServices.getDatabase(context).trackedAppDao().getAll();
+            List<TrackedAppEntity> tracked = AppServices.getDatabase(context).getAllTrackedApps();
             if (tracked.isEmpty()) {
                 stopSelf();
                 return;

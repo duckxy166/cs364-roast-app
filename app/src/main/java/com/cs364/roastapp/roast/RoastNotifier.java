@@ -74,14 +74,13 @@ public class RoastNotifier {
             return;
         }
         com.cs364.roastapp.core.AppServices.getDatabase(appContext)
-                .roastEventDao()
-                .insert(new com.cs364.roastapp.history.RoastEventEntity(
+                .insertRoastEvent(
                         packageName,
                         appLabel,
                         level,
                         message,
                         System.currentTimeMillis()
-                ));
+                );
     }
 
     public void cancel(String packageName) {

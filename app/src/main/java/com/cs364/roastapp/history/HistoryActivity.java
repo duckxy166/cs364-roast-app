@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.widget.TextViewCompat;
 import com.cs364.roastapp.R;
+import com.cs364.roastapp.core.AppDbHelper;
 import com.cs364.roastapp.core.AppServices;
 import com.cs364.roastapp.core.ConfirmDialog;
 import com.cs364.roastapp.onboarding.OnboardingActivity;
@@ -23,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class HistoryActivity extends AppCompatActivity {
-    private RoastEventDao roastEventDao;
+    private AppDbHelper dbHelper;
     private HistoryAdapter adapter;
     private WeeklyChartView chartView;
     private TextView textTotalUsage,usageNote,dateRange;
@@ -36,7 +37,7 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(state);setContentView(R.layout.history_activity);
         PutItDownNavigation.bind(this,R.id.pid_nav_home);
         ((com.google.android.material.navigation.NavigationBarView)findViewById(R.id.pid_bottom_nav)).setOnItemReselectedListener(item->PutItDownNavigation.open(this,item.getItemId()));
-        roastEventDao=AppServices.getDatabase(this).roastEventDao();
+        dbHelper=AppServices.getDatabase(this);
         chartView=findViewById(R.id.chart_history_weekly);textTotalUsage=findViewById(R.id.text_history_weekly_total);
         usageNote=findViewById(R.id.history_usage_note);dateRange=findViewById(R.id.history_date_range);
         btnClearAll=findViewById(R.id.btn_history_clear_all);layoutEmpty=findViewById(R.id.layout_history_empty);
@@ -55,7 +56,7 @@ public class HistoryActivity extends AppCompatActivity {
         usageAction.setEnabled(false);
         TrackedAppsRepository.IO.execute(()->{
             UsageHistorySnapshot snapshot=UsageHistorySnapshot.load(this);
-            List<RoastEventEntity> events=roastEventDao.getAllEvents();
+            List<RoastEventEntity> events=dbHelper.getAllRoastEvents();
             runOnUiThread(()->{if(isFinishing()||isDestroyed()||token!=request)return;
                 renderUsage(snapshot);adapter.submitList(events);boolean empty=events.isEmpty();
                 layoutEmpty.setVisibility(empty?View.VISIBLE:View.GONE);recyclerHistory.setVisibility(empty?View.GONE:View.VISIBLE);btnClearAll.setVisibility(empty?View.GONE:View.VISIBLE);
@@ -102,6 +103,29 @@ public class HistoryActivity extends AppCompatActivity {
         dailyToggle.setVisibility(View.VISIBLE);renderDailyExpansion();
     }
     private void renderDailyExpansion(){dailyValues.setVisibility(dailyExpanded?View.VISIBLE:View.GONE);dailyToggle.setText(dailyExpanded?R.string.review_daily_hide:R.string.review_daily_show);}
-    private void confirmDeleteSingle(RoastEventEntity item){ConfirmDialog.show(this,R.string.history_delete_one_title,R.string.history_delete_one_message,()->TrackedAppsRepository.IO.execute(()->{roastEventDao.delete(item);runOnUiThread(()->{if(!isFinishing()&&!isDestroyed())refreshAll();});}));}
-    private void confirmClearAll(){ConfirmDialog.show(this,R.string.history_clear_all_title,R.string.history_clear_all_message,()->TrackedAppsRepository.IO.execute(()->{roastEventDao.deleteAll();runOnUiThread(()->{if(!isFinishing()&&!isDestroyed())refreshAll();});}));}
+
+    private void confirmDeleteSingle(RoastEventEntity item) {
+        ConfirmDialog.show(this, R.string.history_delete_one_title, R.string.history_delete_one_message,
+                () -> TrackedAppsRepository.IO.execute(() -> {
+                    dbHelper.deleteRoastEvent(item.id);
+                    reloadAfterDelete();
+                }));
+    }
+
+    private void confirmClearAll() {
+        ConfirmDialog.show(this, R.string.history_clear_all_title, R.string.history_clear_all_message,
+                () -> TrackedAppsRepository.IO.execute(() -> {
+                    dbHelper.deleteAllRoastEvents();
+                    reloadAfterDelete();
+                }));
+    }
+
+    /** The list on screen only shows what SQLite holds, so read it again after a delete. */
+    private void reloadAfterDelete() {
+        runOnUiThread(() -> {
+            if (!isFinishing() && !isDestroyed()) {
+                refreshAll();
+            }
+        });
+    }
 }

@@ -33,7 +33,7 @@ public final class FinalSystemCapture extends Instrumentation {
         SettingsManager settings=new SettingsManager(getTargetContext());
         String lang=settings.getLanguage(); boolean night=settings.isNightMode();
         Set<Long> original=new HashSet<>();
-        for(RoastEventEntity item:AppServices.getDatabase(getTargetContext()).roastEventDao().getAllEvents())original.add(item.id);
+        for(RoastEventEntity item:AppServices.getDatabase(getTargetContext()).getAllRoastEvents())original.add(item.id);
         prefix=args.getString("prefix","phone390-day");
         try {
             getTargetContext().getSharedPreferences("onboarding",0).edit().putBoolean("done",true).commit(); // Dedicated emulator only.
@@ -66,14 +66,14 @@ public final class FinalSystemCapture extends Instrumentation {
             HistoryActivity filled=launch(HistoryActivity.class);capture("history-filled");
             if(filled.findViewById(R.id.recycler_history_events).getVisibility()!=View.VISIBLE)throw new AssertionError("Posted notifications absent from history");
             runOnMainSync(()->((NestedScrollView)filled.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("history-list");
-            int count=AppServices.getDatabase(getTargetContext()).roastEventDao().getAllEvents().size();
+            int count=AppServices.getDatabase(getTargetContext()).getAllRoastEvents().size();
             runOnMainSync(()->filled.findViewById(R.id.btn_history_clear_all).performClick());pause();capture("history-clear-confirm");
             sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);pause();
-            if(AppServices.getDatabase(getTargetContext()).roastEventDao().getAllEvents().size()!=count)throw new AssertionError("Cancel cleared history");
+            if(AppServices.getDatabase(getTargetContext()).getAllRoastEvents().size()!=count)throw new AssertionError("Cancel cleared history");
             result.putString("stream","Final system checks passed: "+prefix);
         }catch(Throwable error){result.putString("stream",android.util.Log.getStackTraceString(error));result.putString("error",error.toString());}
         finally {
-            for(RoastEventEntity item:AppServices.getDatabase(getTargetContext()).roastEventDao().getAllEvents())if(!original.contains(item.id))AppServices.getDatabase(getTargetContext()).roastEventDao().delete(item);
+            for(RoastEventEntity item:AppServices.getDatabase(getTargetContext()).getAllRoastEvents())if(!original.contains(item.id))AppServices.getDatabase(getTargetContext()).deleteRoastEvent(item.id);
             runOnMainSync(()->{for(Activity a:opened)if(!a.isFinishing())a.finish();settings.setLanguage(lang);settings.setNightMode(night);});
         }
         finish(result.containsKey("error")?1:Activity.RESULT_OK,result);

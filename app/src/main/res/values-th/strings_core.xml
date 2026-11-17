@@ -9,4 +9,5 @@
     <string name="core_press_back_again_to_exit">กดอีกครั้งเพื่อออก</string>
     <string name="core_confirm_yes">ยืนยัน</string>
     <string name="core_confirm_cancel">ยกเลิก</string>
+    <string name="home_press_back_again">กด Back อีกครั้งเพื่อออกจากแอป</string>
 </resources>

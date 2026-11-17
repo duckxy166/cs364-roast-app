@@ -84,4 +84,5 @@
   <string name="pid_preview_stop">หยุด</string>
   <string name="pid_voice">เสียงพากย์ตอนเตือน</string>
   <string name="pid_voice_desc">เล่นเสียงพากย์ทุกครั้งที่เตือน ดังตามระดับเสียงนาฬิกาปลุก ถ้าเครื่องปิดเสียงหรือเปิดห้ามรบกวนจะไม่มีเสียง</string>
+  <string name="pid_preview_now">ตอนนี้</string>
 </resources>

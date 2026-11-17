@@ -84,4 +84,5 @@
   <string name="pid_preview_stop">Stop</string>
   <string name="pid_voice">Voice reminders</string>
   <string name="pid_voice_desc">Play a voice line with every reminder, at your alarm volume. Phones on silent or Do Not Disturb stay quiet.</string>
+  <string name="pid_preview_now">now</string>
 </resources>

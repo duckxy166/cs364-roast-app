@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Themed-icon silhouette: face with eyes and mouth cut out. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
-    <group android:scaleX="0.26" android:scaleY="0.26" android:translateX="23.2" android:translateY="23.1">
+    <group android:scaleX="0.30" android:scaleY="0.30" android:translateX="18.45" android:translateY="18.3">
         <path android:fillColor="@android:color/white" android:fillType="evenOdd" android:pathData="M28,97C28,44 65,20 114,20S201,42 201,98V135C201,181 171,204 121,204C68,204 28,181 28,135ZM75,84L104,89L102,105L73,100ZM132,84L161,89L159,105L130,100ZM95,137Q121,142 141,127L145,135Q121,152 99,145Z" />
     </group>
 </vector>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tablets use a side rail, so the gesture area sits under page content, not the nav bar. -->
+    <color name="pid_system_nav">@color/pid_background</color>
+</resources>

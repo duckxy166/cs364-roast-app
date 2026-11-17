@@ -15,6 +15,4 @@
     <string name="settings_section_demo">Demo Mode</string>
     <string name="settings_demo_switch_label">Enable Demo Mode (Fast Thresholds)</string>
     <string name="settings_demo_description">Shortens alert intervals to seconds so all 3 roast levels trigger within 30 seconds after reaching the limit</string>
-    <string name="settings_thresholds_summary_normal">Current Mode: Normal\n• Level 1: At limit (0s)\n• Level 2: +5 minutes\n• Level 3: +10 minutes (repeats every 5m)</string>
-    <string name="settings_thresholds_summary_demo">Current Mode: Demo\n• Level 1: At limit (0s)\n• Level 2: +10 seconds\n• Level 3: +20 seconds (repeats every 20s)</string>
 </resources>

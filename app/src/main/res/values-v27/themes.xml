@@ -1,1 +1,1 @@
-<resources><style name="Theme.RoastApp" parent="Theme.RoastApp.Base"><item name="android:navigationBarColor">@color/pid_background</item><item name="android:windowLightNavigationBar">@bool/pid_light_system_bars</item></style></resources>
+<resources><style name="Theme.RoastApp" parent="Theme.RoastApp.Base"><item name="android:navigationBarColor">@color/pid_system_nav</item><item name="android:windowLightNavigationBar">@bool/pid_light_system_bars</item></style></resources>

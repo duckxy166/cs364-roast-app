@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The launcher icon as a circle (blue disc + face), like the app icon Android shows on a notification. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/pid_brand_blue" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/pid_logo" android:left="5dp" android:right="5dp" android:top="4.5dp" android:bottom="4.5dp" />
+</layer-list>

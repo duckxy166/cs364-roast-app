@@ -27,7 +27,7 @@ public final class UsageHistorySnapshot {
         long end=cursor.getTimeInMillis();cursor.add(Calendar.DAY_OF_YEAR,-6);long start=cursor.getTimeInMillis();
         List<Long> dates=new ArrayList<>();for(int i=0;i<7;i++){dates.add(cursor.getTimeInMillis());cursor.add(Calendar.DAY_OF_YEAR,1);}
         Set<String> packages=new HashSet<>();
-        for(TrackedAppEntity a:AppServices.getDatabase(context).trackedAppDao().getAll())if(a.packageName!=null)packages.add(a.packageName);
+        for(TrackedAppEntity a:AppServices.getDatabase(context).getAllTrackedApps())if(a.packageName!=null)packages.add(a.packageName);
         if(packages.isEmpty())return new UsageHistorySnapshot(State.NO_APPS,Collections.emptyList(),start,end);
         if(!PermissionChecker.hasUsageAccess(context))return new UsageHistorySnapshot(State.PERMISSION_REQUIRED,Collections.emptyList(),start,end);
         Map<Long,Map<String,Long>> buckets=new HashMap<>();

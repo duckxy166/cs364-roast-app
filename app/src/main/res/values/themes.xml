@@ -26,6 +26,7 @@
     <item name="android:statusBarColor">@color/pid_background</item>
     <item name="android:navigationBarColor">@color/pid_brand_ink</item>
     <item name="android:windowLightStatusBar">@bool/pid_light_system_bars</item>
+    <item name="elevationOverlayEnabled">false</item>
     <item name="materialButtonStyle">@style/Widget.PutItDown.Button.Primary</item>
     <item name="textInputStyle">@style/Widget.PutItDown.TextField</item>
     <item name="materialCardViewStyle">@style/Widget.PutItDown.Card</item>

@@ -1,27 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <color name="pid_background">#171725</color>
-  <color name="pid_surface">#252538</color>
-  <color name="pid_on_surface">#FFF3EB</color>
-  <color name="pid_on_surface_variant">#C3B8CB</color>
-  <color name="pid_primary">#FFAC91</color>
-  <color name="pid_on_primary">#321B15</color>
+  <color name="pid_background">#111114</color>
+  <color name="pid_surface">#1C1C21</color>
+  <color name="pid_on_surface">#ECECF1</color>
+  <color name="pid_on_surface_variant">#A3A2AE</color>
+  <color name="pid_primary">#AEB6FF</color>
+  <color name="pid_on_primary">#151B5E</color>
   <color name="pid_primary_container">#FF795C</color>
-  <color name="pid_on_primary_container">#252033</color>
-  <color name="pid_secondary">#C2C5FF</color>
-  <color name="pid_on_secondary">#232760</color>
-  <color name="pid_secondary_container">#323052</color>
-  <color name="pid_on_secondary_container">#C2C5FF</color>
-  <color name="pid_outline">#9C8AA8</color>
-  <color name="pid_outline_variant">#51445E</color>
-  <color name="pid_error">#FFACB2</color>
-  <color name="pid_on_error">#45191F</color>
-  <color name="pid_error_container">#452A35</color>
-  <color name="pid_on_error_container">#FFACB2</color>
+  <color name="pid_on_primary_container">#1C1B22</color>
+  <color name="pid_secondary">#AEB6FF</color>
+  <color name="pid_on_secondary">#151B5E</color>
+  <color name="pid_secondary_container">#2A2A31</color>
+  <color name="pid_on_secondary_container">#ECECF1</color>
+  <color name="pid_outline">#7A7986</color>
+  <color name="pid_outline_variant">#2F2F37</color>
+  <color name="pid_error">#FFB4AB</color>
+  <color name="pid_on_error">#5C1410</color>
+  <color name="pid_error_container">#3A1D1D</color>
+  <color name="pid_on_error_container">#FFB4AB</color>
   <color name="pid_brand_blue">#3448F0</color>
   <color name="pid_brand_coral">#FF795C</color>
   <color name="pid_on_brand_blue">#FFF8F0</color>
-  <color name="pid_success">#A3D7AD</color>
+  <color name="pid_success">#8FD3A4</color>
   <color name="pid_brand_ink">#252033</color>
-  <color name="pid_progress_color">#9C96FF</color>
+  <color name="pid_progress_color">#8F9BFF</color>
 </resources>

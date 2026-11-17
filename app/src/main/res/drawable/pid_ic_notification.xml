@@ -1,4 +1,7 @@
-<?xml version='1.0' encoding='utf-8'?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
-    <path android:fillColor="#FFFFFFFF" android:pathData="M9,2H15L14,15H10ZM14.25,20A2.25,2.25 0,1 1,9.75 20A2.25,2.25 0,1 1,14.25 20Z" />
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Status-bar icon: the logo face as a silhouette (system tints it). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="240" android:viewportHeight="240">
+    <group android:translateX="6" android:translateY="8">
+        <path android:fillColor="#FFFFFFFF" android:fillType="evenOdd" android:pathData="M28,97C28,44 65,20 114,20S201,42 201,98V135C201,181 171,204 121,204C68,204 28,181 28,135ZM75,84L104,89L102,105L73,100ZM132,84L161,89L159,105L130,100ZM95,137Q121,142 141,127L145,135Q121,152 99,145Z" />
+    </group>
 </vector>

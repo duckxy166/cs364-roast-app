@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,4 +18,8 @@
       app:itemTextAppearanceInactive="@style/TextAppearance.PutItDown.Nav"
       app:itemIconSize="22dp"
       app:elevation="0dp" />
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/pid_outline_variant" />
 </FrameLayout>

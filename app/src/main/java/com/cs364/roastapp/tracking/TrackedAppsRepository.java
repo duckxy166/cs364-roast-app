@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 
+import com.cs364.roastapp.core.AppDbHelper;
 import com.cs364.roastapp.core.AppServices;
 import com.cs364.roastapp.core.UsageSource;
 import com.cs364.roastapp.ui.AppLimitsUi;
@@ -26,19 +27,19 @@ public final class TrackedAppsRepository {
 
     private final Context context;
     private final PackageManager packageManager;
-    private final TrackedAppDao dao;
+    private final AppDbHelper dbHelper;
 
     public TrackedAppsRepository(Context context) {
         this.context = context.getApplicationContext();
         this.packageManager = this.context.getPackageManager();
-        this.dao = AppServices.getDatabase(this.context).trackedAppDao();
+        this.dbHelper = AppServices.getDatabase(this.context);
     }
 
     /** Tracked apps with today's usage; apps that were uninstalled are dropped from the table. */
     public List<AppLimitsUi.App> loadTracked() {
         UsageSource usage = AppServices.getUsageSource(context);
         List<AppLimitsUi.App> result = new ArrayList<>();
-        for (TrackedAppEntity entity : dao.getAll()) {
+        for (TrackedAppEntity entity : dbHelper.getAllTrackedApps()) {
             try {
                 CharSequence label = packageManager.getApplicationLabel(
                         packageManager.getApplicationInfo(entity.packageName, 0));
@@ -47,7 +48,7 @@ public final class TrackedAppsRepository {
                 result.add(new AppLimitsUi.App(entity.packageName, label, icon,
                         usedMinutes, entity.limitMinutes));
             } catch (PackageManager.NameNotFoundException e) {
-                dao.deleteByPackage(entity.packageName);
+                dbHelper.deleteTrackedApp(entity.packageName);
             }
         }
         return result;
@@ -57,7 +58,7 @@ public final class TrackedAppsRepository {
     public List<AppLimitsUi.App> loadAvailable() {
         Set<String> skip = new HashSet<>();
         skip.add(context.getPackageName());
-        for (TrackedAppEntity entity : dao.getAll()) {
+        for (TrackedAppEntity entity : dbHelper.getAllTrackedApps()) {
             skip.add(entity.packageName);
         }
         Intent launcher = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER);
@@ -78,15 +79,12 @@ public final class TrackedAppsRepository {
     /** Adds the app, or updates its limit when it is already tracked. */
     public void saveLimit(String packageName, long minutes) {
         long limit = Math.max(1L, minutes);
-        if (dao.updateLimit(packageName, limit) == 0) {
-            TrackedAppEntity entity = new TrackedAppEntity();
-            entity.packageName = packageName;
-            entity.limitMinutes = limit;
-            dao.insert(entity);
+        if (dbHelper.updateTrackedAppLimit(packageName, limit) == 0) {
+            dbHelper.insertTrackedApp(packageName, limit);
         }
     }
 
     public void remove(String packageName) {
-        dao.deleteByPackage(packageName);
+        dbHelper.deleteTrackedApp(packageName);
     }
 }

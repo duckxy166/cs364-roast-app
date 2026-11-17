@@ -14,6 +14,11 @@
     <item name="android:textSize">@dimen/pid_type_heading</item>
     <item name="android:textStyle">bold</item>
   </style>
+  <!-- The one number a screen is about (today's total). -->
+  <style name="TextAppearance.PutItDown.Hero" parent="TextAppearance.PutItDown.Heading">
+    <item name="android:textSize">@dimen/pid_type_hero</item>
+    <item name="android:fontFeatureSettings">tnum</item>
+  </style>
   <style name="TextAppearance.PutItDown.Section" parent="TextAppearance.PutItDown.Body">
     <item name="android:textSize">@dimen/pid_type_section</item>
     <item name="android:textStyle">bold</item>
@@ -24,6 +29,10 @@
   <style name="TextAppearance.PutItDown.Supporting" parent="TextAppearance.PutItDown.Body">
     <item name="android:textSize">@dimen/pid_type_supporting</item>
     <item name="android:textColor">@color/pid_on_surface_variant</item>
+  </style>
+  <!-- Quiet caption above a group of rows. -->
+  <style name="TextAppearance.PutItDown.GroupLabel" parent="TextAppearance.PutItDown.Supporting">
+    <item name="android:textStyle">bold</item>
   </style>
   <style name="TextAppearance.PutItDown.Timer" parent="TextAppearance.PutItDown.Heading">
     <item name="android:textSize">@dimen/pid_type_timer</item>
@@ -39,16 +48,29 @@
     <item name="iconTint">@color/pid_primary_text</item>
     <item name="cornerRadius">@dimen/pid_button_radius</item>
     <item name="iconSize">@dimen/pid_icon_size</item>
+    <item name="iconGravity">textStart</item>
   </style>
   <style name="Widget.PutItDown.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
     <item name="android:minHeight">@dimen/pid_touch_target</item>
     <item name="android:textAppearance">@style/TextAppearance.PutItDown.Label</item>
     <item name="android:textAllCaps">false</item>
-    <item name="android:textColor">@color/pid_on_surface</item>
-    <item name="iconTint">@color/pid_on_surface</item>
-    <item name="strokeColor">@color/pid_outline_variant</item>
+    <item name="android:textColor">@color/pid_chip_text</item>
+    <item name="iconTint">@color/pid_chip_text</item>
+    <item name="backgroundTint">@color/pid_chip_background</item>
+    <item name="strokeColor">@color/pid_chip_stroke</item>
     <item name="cornerRadius">@dimen/pid_button_radius</item>
     <item name="iconSize">@dimen/pid_icon_size</item>
+  </style>
+  <!-- Compact preset choice; the checked one inverts instead of adding a third colour. -->
+  <style name="Widget.PutItDown.Button.Chip" parent="Widget.PutItDown.Button.Secondary">
+    <item name="android:minHeight">40dp</item>
+    <item name="android:minWidth">0dp</item>
+    <item name="android:paddingStart">4dp</item>
+    <item name="android:paddingEnd">4dp</item>
+    <item name="android:insetTop">0dp</item>
+    <item name="android:insetBottom">0dp</item>
+    <item name="android:textSize">@dimen/pid_type_supporting</item>
+    <item name="cornerRadius">20dp</item>
   </style>
   <style name="Widget.PutItDown.Button.Destructive" parent="Widget.PutItDown.Button.Secondary">
     <item name="android:textColor">@color/pid_error</item>
@@ -65,24 +87,49 @@
     <item name="icon">@drawable/pid_ic_back</item>
     <item name="iconGravity">textStart</item>
   </style>
+  <!-- Inline text action ("View all"). -->
+  <style name="Widget.PutItDown.Button.Link" parent="Widget.PutItDown.Button.Back">
+    <item name="android:textColor">@color/pid_secondary</item>
+    <item name="iconTint">@color/pid_secondary</item>
+    <item name="icon">@drawable/pid_ic_chevron</item>
+    <item name="iconGravity">textEnd</item>
+    <item name="iconSize">16dp</item>
+    <item name="android:paddingStart">8dp</item>
+    <item name="android:paddingEnd">0dp</item>
+  </style>
   <style name="Widget.PutItDown.Card" parent="Widget.Material3.CardView.Outlined">
     <item name="cardBackgroundColor">@color/pid_surface</item>
-    <item name="strokeColor">@color/pid_outline_variant</item>
+    <item name="strokeWidth">0dp</item>
     <item name="cardCornerRadius">@dimen/pid_card_radius</item>
     <item name="cardElevation">0dp</item>
     <item name="contentPadding">@dimen/pid_card_padding</item>
   </style>
   <style name="Widget.PutItDown.TextField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
     <item name="boxBackgroundColor">@color/pid_surface</item>
+    <item name="boxStrokeColor">@color/pid_field_stroke</item>
     <item name="boxCornerRadiusTopStart">@dimen/pid_button_radius</item>
     <item name="boxCornerRadiusTopEnd">@dimen/pid_button_radius</item>
     <item name="boxCornerRadiusBottomStart">@dimen/pid_button_radius</item>
     <item name="boxCornerRadiusBottomEnd">@dimen/pid_button_radius</item>
   </style>
+  <!-- One line inside a grouped surface: icon, label, optional value, chevron. -->
   <style name="Widget.PutItDown.ListRow" parent="">
-    <item name="android:minHeight">@dimen/pid_touch_target</item>
-    <item name="android:padding">@dimen/pid_card_padding</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">56dp</item>
+    <item name="android:paddingStart">@dimen/pid_card_padding</item>
+    <item name="android:paddingEnd">@dimen/pid_card_padding</item>
+    <item name="android:orientation">horizontal</item>
+    <item name="android:gravity">center_vertical</item>
     <item name="android:background">?attr/selectableItemBackground</item>
+    <item name="android:clickable">true</item>
+    <item name="android:focusable">true</item>
+  </style>
+  <style name="Widget.PutItDown.RowDivider" parent="">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+    <item name="android:layout_marginStart">@dimen/pid_card_padding</item>
+    <item name="android:background">@color/pid_outline_variant</item>
   </style>
   <style name="Widget.PutItDown.ThemeChoice" parent="Widget.Material3.CompoundButton.RadioButton">
     <item name="android:minHeight">@dimen/pid_touch_target</item>
@@ -97,19 +144,21 @@
     <item name="android:textSize">11sp</item>
   </style>
   <style name="Widget.PutItDown.NavigationIndicator" parent="">
-    <item name="android:color">@color/pid_brand_coral</item>
+    <item name="android:color">@color/pid_secondary_container</item>
     <item name="android:width">52dp</item>
     <item name="android:height">32dp</item>
     <item name="shapeAppearance">@style/ShapeAppearance_PutItDown</item>
   </style>
   <style name="Widget.PutItDown.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
-    <item name="backgroundTint">@color/pid_background</item>
+    <item name="backgroundTint">@color/pid_surface</item>
   </style>
   <style name="ThemeOverlay.PutItDown.BottomSheet" parent="ThemeOverlay.Material3.BottomSheetDialog">
     <item name="bottomSheetStyle">@style/Widget.PutItDown.BottomSheet</item>
-    <item name="colorSurface">@color/pid_background</item>
+    <item name="colorSurface">@color/pid_surface</item>
   </style>
   <style name="ThemeOverlay.PutItDown.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
-    <item name="colorSurface">@color/pid_background</item>
+    <item name="colorSurface">@color/pid_surface</item>
+    <!-- M3 dialogs paint colorSurfaceContainerHigh, which would otherwise fall back to a purple-tinted default. -->
+    <item name="colorSurfaceContainerHigh">@color/pid_surface</item>
   </style>
 </resources>

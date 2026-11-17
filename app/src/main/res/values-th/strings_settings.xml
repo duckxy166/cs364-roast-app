@@ -15,6 +15,4 @@
     <string name="settings_section_demo">โหมดสาธิต (Demo Mode)</string>
     <string name="settings_demo_switch_label">เปิดใช้งานโหมดสาธิต (ย่อเวลาเป็นวินาที)</string>
     <string name="settings_demo_description">ย่อเกณฑ์การเตือนเป็นหน่วยวินาที เพื่อให้เกิดการเตือนครบ 3 ระดับภายใน 30 วินาทีหลังครบเวลา</string>
-    <string name="settings_thresholds_summary_normal">โหมดปัจจุบัน: ปกติ\n• ระดับ 1: เมื่อครบเวลา (0 วินาที)\n• ระดับ 2: เกินเวลา 5 นาที\n• ระดับ 3: เกินเวลา 10 นาที (ซ้ำทุก 5 นาที)</string>
-    <string name="settings_thresholds_summary_demo">โหมดปัจจุบัน: สาธิต (Demo)\n• ระดับ 1: เมื่อครบเวลา (0 วินาที)\n• ระดับ 2: เกินเวลา 10 วินาที\n• ระดับ 3: เกินเวลา 20 วินาที (ซ้ำทุก 20 วินาที)</string>
 </resources>

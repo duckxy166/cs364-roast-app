@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- App logo: the orange face. Used in the Home header; same artwork as the launcher icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="32dp" android:height="34dp" android:viewportWidth="190" android:viewportHeight="204">
+    <group android:translateX="-24" android:translateY="-16">
+        <path android:fillColor="#D9573C" android:pathData="M35,107C33,50 70,25 121,25S209,47 209,110V148C209,196 180,218 128,218C73,218 34,195 34,148Z" />
+        <path android:fillColor="#FF795C" android:pathData="M28,97C28,44 65,20 114,20S201,42 201,98V135C201,181 171,204 121,204C68,204 28,181 28,135Z" />
+        <path android:fillColor="#252033" android:pathData="M75,84L104,89L102,105L73,100ZM132,84L161,89L159,105L130,100Z" />
+        <path android:fillColor="@android:color/transparent" android:strokeColor="#252033" android:strokeWidth="9" android:strokeLineCap="round" android:pathData="M97,141Q121,146 143,131" />
+    </group>
+</vector>

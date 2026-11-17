@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.widget.TextViewCompat;
 import com.cs364.roastapp.R;
+import com.cs364.roastapp.core.AppDbHelper;
 import com.cs364.roastapp.core.AppServices;
 import com.cs364.roastapp.core.ConfirmDialog;
 import com.cs364.roastapp.onboarding.OnboardingActivity;
@@ -23,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class HistoryActivity extends AppCompatActivity {
-    private RoastEventDao roastEventDao;
+    private AppDbHelper dbHelper;
     private HistoryAdapter adapter;
     private WeeklyChartView chartView;
     private TextView textTotalUsage,usageNote,dateRange;
@@ -36,7 +37,7 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(state);setContentView(R.layout.history_activity);
         PutItDownNavigation.bind(this,R.id.pid_nav_home);
         ((com.google.android.material.navigation.NavigationBarView)findViewById(R.id.pid_bottom_nav)).setOnItemReselectedListener(item->PutItDownNavigation.open(this,item.getItemId()));
-        roastEventDao=AppServices.getDatabase(this).roastEventDao();
+        dbHelper=AppServices.getDatabase(this);
         chartView=findViewById(R.id.chart_history_weekly);textTotalUsage=findViewById(R.id.text_history_weekly_total);
         usageNote=findViewById(R.id.history_usage_note);dateRange=findViewById(R.id.history_date_range);
         btnClearAll=findViewById(R.id.btn_history_clear_all);layoutEmpty=findViewById(R.id.layout_history_empty);
@@ -55,7 +56,7 @@ public class HistoryActivity extends AppCompatActivity {
         usageAction.setEnabled(false);
         TrackedAppsRepository.IO.execute(()->{
             UsageHistorySnapshot snapshot=UsageHistorySnapshot.load(this);
-            List<RoastEventEntity> events=roastEventDao.getAllEvents();
+            List<RoastEventEntity> events=dbHelper.getAllRoastEvents();
             runOnUiThread(()->{if(isFinishing()||isDestroyed()||token!=request)return;
                 renderUsage(snapshot);adapter.submitList(events);boolean empty=events.isEmpty();
                 layoutEmpty.setVisibility(empty?View.VISIBLE:View.GONE);recyclerHistory.setVisibility(empty?View.GONE:View.VISIBLE);btnClearAll.setVisibility(empty?View.GONE:View.VISIBLE);
@@ -82,15 +83,49 @@ public class HistoryActivity extends AppCompatActivity {
         for(WeeklyUsageData.Day day:data.days){
             boolean known=day.usedMillis!=null;
             bars.add(new WeeklyChartView.DayBar(label.format(new Date(day.startMillis)),known?(int)(day.usedMillis/60000):0,known));
-            TextView row=new TextView(this);TextViewCompat.setTextAppearance(row,R.style.TextAppearance_PutItDown_Label);
-            row.setMinHeight(getResources().getDimensionPixelSize(R.dimen.pid_touch_target));row.setGravity(android.view.Gravity.CENTER_VERTICAL);
-            row.setText(known?getString(R.string.review_day_value,full.format(new Date(day.startMillis)),UsageTimeText.format(this,day.usedMillis)):getString(R.string.review_day_unknown,full.format(new Date(day.startMillis))));
+            // Date on the left, value on the right, like a settings row; read out as one sentence.
+            String date=full.format(new Date(day.startMillis));
+            String value=known?UsageTimeText.format(this,day.usedMillis):getString(R.string.review_day_incomplete);
+            android.widget.LinearLayout row=new android.widget.LinearLayout(this);
+            row.setOrientation(android.widget.LinearLayout.HORIZONTAL);row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+            row.setMinimumHeight(getResources().getDimensionPixelSize(R.dimen.pid_touch_target));
+            row.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            row.setContentDescription(known?getString(R.string.review_day_value,date,value):getString(R.string.review_day_unknown,date));
+            TextView dateText=new TextView(this);TextViewCompat.setTextAppearance(dateText,R.style.TextAppearance_PutItDown_Label);dateText.setText(date);
+            dateText.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            TextView valueText=new TextView(this);TextViewCompat.setTextAppearance(valueText,known?R.style.TextAppearance_PutItDown_Label:R.style.TextAppearance_PutItDown_Supporting);valueText.setText(value);
+            valueText.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            row.addView(dateText,new android.widget.LinearLayout.LayoutParams(0,android.view.ViewGroup.LayoutParams.WRAP_CONTENT,1f));
+            row.addView(valueText);
             dailyValues.addView(row);
         }
         chartView.setData(bars,getString(R.string.history_chart_minute_unit));chartView.setVisibility(data.knownDays>0?View.VISIBLE:View.GONE);
         dailyToggle.setVisibility(View.VISIBLE);renderDailyExpansion();
     }
     private void renderDailyExpansion(){dailyValues.setVisibility(dailyExpanded?View.VISIBLE:View.GONE);dailyToggle.setText(dailyExpanded?R.string.review_daily_hide:R.string.review_daily_show);}
-    private void confirmDeleteSingle(RoastEventEntity item){ConfirmDialog.show(this,R.string.history_delete_one_title,R.string.history_delete_one_message,()->TrackedAppsRepository.IO.execute(()->{roastEventDao.delete(item);runOnUiThread(()->{if(!isFinishing()&&!isDestroyed())refreshAll();});}));}
-    private void confirmClearAll(){ConfirmDialog.show(this,R.string.history_clear_all_title,R.string.history_clear_all_message,()->TrackedAppsRepository.IO.execute(()->{roastEventDao.deleteAll();runOnUiThread(()->{if(!isFinishing()&&!isDestroyed())refreshAll();});}));}
+
+    private void confirmDeleteSingle(RoastEventEntity item) {
+        ConfirmDialog.show(this, R.string.history_delete_one_title, R.string.history_delete_one_message,
+                () -> TrackedAppsRepository.IO.execute(() -> {
+                    dbHelper.deleteRoastEvent(item.id);
+                    reloadAfterDelete();
+                }));
+    }
+
+    private void confirmClearAll() {
+        ConfirmDialog.show(this, R.string.history_clear_all_title, R.string.history_clear_all_message,
+                () -> TrackedAppsRepository.IO.execute(() -> {
+                    dbHelper.deleteAllRoastEvents();
+                    reloadAfterDelete();
+                }));
+    }
+
+    /** The list on screen only shows what SQLite holds, so read it again after a delete. */
+    private void reloadAfterDelete() {
+        runOnUiThread(() -> {
+            if (!isFinishing() && !isDestroyed()) {
+                refreshAll();
+            }
+        });
+    }
 }

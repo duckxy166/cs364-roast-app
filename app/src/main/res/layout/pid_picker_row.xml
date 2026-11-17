@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/Widget.PutItDown.ListRow" android:paddingStart="24dp" android:paddingEnd="24dp">
+    <ImageView android:id="@+id/pid_picker_icon" android:layout_width="32dp" android:layout_height="32dp" android:src="@drawable/pid_ic_apps" android:importantForAccessibility="no" />
+    <TextView android:id="@+id/pid_picker_name" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:maxLines="1" android:ellipsize="end" android:textAppearance="@style/TextAppearance.PutItDown.Body" />
+</LinearLayout>

@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:text="@string/pid_onboarding_title"
             android:textAppearance="@style/TextAppearance.PutItDown.Heading"
+            android:lineSpacingMultiplier="1.15"
             android:layout_marginTop="22dp" />
         <TextView
             android:id="@+id/pid_onboarding_desc"

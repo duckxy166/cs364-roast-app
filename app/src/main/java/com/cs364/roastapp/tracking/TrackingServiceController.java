@@ -24,7 +24,7 @@ public final class TrackingServiceController {
      */
     public static boolean sync(Context context) {
         Context app = context.getApplicationContext();
-        if (AppServices.getDatabase(app).trackedAppDao().count() == 0) {
+        if (AppServices.getDatabase(app).countTrackedApps() == 0) {
             app.stopService(new Intent(app, UsageTrackingService.class));
             return true;
         }

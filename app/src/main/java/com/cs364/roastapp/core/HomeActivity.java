@@ -2,7 +2,11 @@ package com.cs364.roastapp.core;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.activity.OnBackPressedCallback;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +17,9 @@ import com.cs364.roastapp.settings.SettingsActivity;
 import com.cs364.roastapp.tracking.TrackedAppsActivity;
 
 public class HomeActivity extends AppCompatActivity {
+    /** A second Back press within this time closes the app. */
+    private static final long EXIT_CONFIRM_MILLIS = 2000L;
+    private long lastBackPressedAt;
     private int monitorRequest;
     public void renderAppUsage(java.util.List<com.cs364.roastapp.ui.AppLimitsUi.App> apps) {
         new com.cs364.roastapp.ui.AppLimitsUi(this, null).render(apps, true);
@@ -56,6 +63,21 @@ public class HomeActivity extends AppCompatActivity {
 
         findViewById(R.id.btn_roast_test).setOnClickListener(v ->
                 com.cs364.roastapp.roast.RoastTestHelper.nextStep(this));
+
+        // Back on the home screen would leave the app, so ask for a second press first.
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                long now = SystemClock.elapsedRealtime();
+                if (lastBackPressedAt != 0L && now - lastBackPressedAt < EXIT_CONFIRM_MILLIS) {
+                    finishAffinity();
+                    return;
+                }
+                lastBackPressedAt = now;
+                Toast.makeText(HomeActivity.this, R.string.home_press_back_again,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override protected void onResume() {

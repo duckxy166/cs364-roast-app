@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- System-notification-shaped card (large radius, like the Android shade) for the reminder preview. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/pid_background" />
+    <corners android:radius="28dp" />
+</shape>

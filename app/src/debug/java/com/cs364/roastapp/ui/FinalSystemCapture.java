@@ -33,7 +33,7 @@ public final class FinalSystemCapture extends Instrumentation {
         SettingsManager settings=new SettingsManager(getTargetContext());
         String lang=settings.getLanguage(); boolean night=settings.isNightMode();
         Set<Long> original=new HashSet<>();
-        for(RoastEventEntity item:AppServices.getDatabase(getTargetContext()).roastEventDao().getAllEvents())original.add(item.id);
+        for(RoastEventEntity item:AppServices.getDatabase(getTargetContext()).getAllRoastEvents())original.add(item.id);
         prefix=args.getString("prefix","phone390-day");
         try {
             getTargetContext().getSharedPreferences("onboarding",0).edit().putBoolean("done",true).commit(); // Dedicated emulator only.
@@ -51,27 +51,29 @@ public final class FinalSystemCapture extends Instrumentation {
             runOnMainSync(history::finish);pause();
             RoastNotifier notifier=new RoastNotifier(getTargetContext());
             NotificationManager nm=getTargetContext().getSystemService(NotificationManager.class);
-            for(int level=1;level<=3;level++) {
-                if(level==1)notifier.showLevel1("com.android.chrome");
-                else if(level==2)notifier.showLevel2("com.android.chrome");
-                else notifier.showLevel3("com.android.chrome",0);
-                pause(); final int expected=level;
-                boolean posted=Arrays.stream(nm.getActiveNotifications()).anyMatch(n->n.getNotification().getChannelId().equals("roast_level_"+expected)&&n.getNotification().getSmallIcon().getResId()==R.drawable.pid_ic_notification);
-                if(!posted)throw new AssertionError("Notification level "+level+" or branded icon missing");
-                getUiAutomation().executeShellCommand("cmd statusbar expand-notifications").close();pause();capture("notification-"+level);
-                getUiAutomation().executeShellCommand("cmd statusbar collapse").close();notifier.cancel("com.android.chrome");pause();
+            // One reminder type now: post three different lines so history has several rows.
+            for(int line=0;line<3;line++) {
+                notifier.showAlert("com.android.chrome",line);
+                pause();
+                boolean posted=Arrays.stream(nm.getActiveNotifications()).anyMatch(n->n.getNotification().getChannelId().equals(RoastNotifier.CHANNEL_ALERT)&&n.getNotification().getSmallIcon().getResId()==R.drawable.pid_ic_notification);
+                if(!posted)throw new AssertionError("Reminder "+line+" or branded icon missing");
+                if(line==0){getUiAutomation().executeShellCommand("cmd statusbar expand-notifications").close();pause();capture("notification");
+                getUiAutomation().executeShellCommand("cmd statusbar collapse").close();}
+                notifier.cancel("com.android.chrome");pause();
             }
+            for(String retired:new String[]{"roast_level_1","roast_level_2","roast_level_3"})
+                if(nm.getNotificationChannel(retired)!=null)throw new AssertionError("Old channel still registered: "+retired);
             HistoryActivity filled=launch(HistoryActivity.class);capture("history-filled");
             if(filled.findViewById(R.id.recycler_history_events).getVisibility()!=View.VISIBLE)throw new AssertionError("Posted notifications absent from history");
             runOnMainSync(()->((NestedScrollView)filled.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("history-list");
-            int count=AppServices.getDatabase(getTargetContext()).roastEventDao().getAllEvents().size();
+            int count=AppServices.getDatabase(getTargetContext()).getAllRoastEvents().size();
             runOnMainSync(()->filled.findViewById(R.id.btn_history_clear_all).performClick());pause();capture("history-clear-confirm");
             sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);pause();
-            if(AppServices.getDatabase(getTargetContext()).roastEventDao().getAllEvents().size()!=count)throw new AssertionError("Cancel cleared history");
+            if(AppServices.getDatabase(getTargetContext()).getAllRoastEvents().size()!=count)throw new AssertionError("Cancel cleared history");
             result.putString("stream","Final system checks passed: "+prefix);
         }catch(Throwable error){result.putString("stream",android.util.Log.getStackTraceString(error));result.putString("error",error.toString());}
         finally {
-            for(RoastEventEntity item:AppServices.getDatabase(getTargetContext()).roastEventDao().getAllEvents())if(!original.contains(item.id))AppServices.getDatabase(getTargetContext()).roastEventDao().delete(item);
+            for(RoastEventEntity item:AppServices.getDatabase(getTargetContext()).getAllRoastEvents())if(!original.contains(item.id))AppServices.getDatabase(getTargetContext()).deleteRoastEvent(item.id);
             runOnMainSync(()->{for(Activity a:opened)if(!a.isFinishing())a.finish();settings.setLanguage(lang);settings.setNightMode(night);});
         }
         finish(result.containsKey("error")?1:Activity.RESULT_OK,result);
@@ -91,11 +93,13 @@ public final class FinalSystemCapture extends Instrumentation {
         runOnMainSync(()->{try{failure.invoke(home);}catch(Exception e){throw new RuntimeException(e);}});capture("monitor-failed");
         runOnMainSync(()->home.findViewById(R.id.btn_nav_onboarding).performClick());pause();pause();
         if(home.findViewById(R.id.pid_monitoring_panel).getVisibility()!=View.GONE)throw new AssertionError("Real retry with no tracked apps did not settle READY");capture("monitor-retry-success");
-        runOnMainSync(()->home.renderAppUsage(java.util.Arrays.asList(new AppLimitsUi.App("fixture.instagram","Instagram",home.getDrawable(R.drawable.pid_ic_apps),18,30),new AppLimitsUi.App("fixture.youtube","YouTube",home.getDrawable(R.drawable.pid_ic_play),12,45))));capture("home-priorities");
+        runOnMainSync(()->home.renderAppUsage(java.util.Arrays.asList(UiReferenceCapture.installedApp(home,"com.google.android.youtube","YouTube",18,30),UiReferenceCapture.installedApp(home,"com.android.chrome","Chrome",12,45))));capture("home-priorities");
         runOnMainSync(()->((android.widget.ScrollView)home.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("home-summary");
         com.cs364.roastapp.settings.SettingsActivity settings=launch(com.cs364.roastapp.settings.SettingsActivity.class);
-        runOnMainSync(()->((android.widget.ScrollView)settings.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("settings-persona");
-        if(settings.findViewById(R.id.btn_nav_roast_persona)==null||home.findViewById(R.id.btn_nav_roast_persona)!=null)throw new AssertionError("Persona not moved to Settings");runOnMainSync(settings::finish);pause();
+        runOnMainSync(()->((android.widget.ScrollView)settings.findViewById(R.id.pid_scroll)).fullScroll(View.FOCUS_DOWN));pause();capture("settings-voice");
+        com.google.android.material.materialswitch.MaterialSwitch voice=settings.findViewById(R.id.switch_voice_alerts);
+        if(voice==null||voice.isChecked()!=new SettingsManager(getTargetContext()).isVoiceEnabled())throw new AssertionError("Voice switch missing or out of sync");
+        runOnMainSync(settings::finish);pause();
         com.cs364.roastapp.history.HistoryActivity history=launch(com.cs364.roastapp.history.HistoryActivity.class);
         java.lang.reflect.Constructor<com.cs364.roastapp.history.UsageHistorySnapshot> constructor=com.cs364.roastapp.history.UsageHistorySnapshot.class.getDeclaredConstructor(com.cs364.roastapp.history.UsageHistorySnapshot.State.class,java.util.List.class,long.class,long.class);constructor.setAccessible(true);
         java.util.List<com.cs364.roastapp.history.WeeklyUsageData.Day> mixed=new java.util.ArrayList<>();

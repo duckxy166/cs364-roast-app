@@ -5,7 +5,6 @@
     <string name="history_weekly_total">Total tracked usage: %1$d min</string>
     <string name="history_chart_minute_unit">m</string>
     <string name="history_events_section">Reminder history</string>
-    <string name="history_item_header">%1$s · Level %2$d</string>
     <string name="history_empty">No reminders yet.</string>
     <string name="history_delete_one_cd">Delete this history item</string>
     <string name="history_delete_one_title">Delete this record?</string>

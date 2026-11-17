@@ -15,10 +15,11 @@
     <dimen name="pid_brand_size">40dp</dimen>
     <dimen name="pid_content_width">560dp</dimen>
     <dimen name="pid_type_heading">28sp</dimen>
+    <dimen name="pid_type_hero">40sp</dimen>
     <dimen name="pid_type_section">18sp</dimen>
     <dimen name="pid_type_body">16sp</dimen>
     <dimen name="pid_type_label">14sp</dimen>
-    <dimen name="pid_type_supporting">12sp</dimen>
+    <dimen name="pid_type_supporting">13sp</dimen>
     <dimen name="pid_type_timer">48sp</dimen>
     <dimen name="pid_theme_preview_width">112dp</dimen>
     <dimen name="pid_theme_preview_height">76dp</dimen>

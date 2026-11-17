@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cs364.roastapp.R;
+import com.cs364.roastapp.core.AppDbHelper;
 import com.cs364.roastapp.core.AppServices;
 import com.cs364.roastapp.core.ConfirmDialog;
 
@@ -270,7 +271,10 @@ public class FocusActivity extends AppCompatActivity {
     protected void onPause() {
         if (isSessionActive) {
             pauseTickerAndSaveRemaining();
-            wasPausedDuringSession = true;
+            // Rotating the screen recreates the Activity; that is not leaving the app.
+            if (!isChangingConfigurations()) {
+                wasPausedDuringSession = true;
+            }
         }
         super.onPause();
     }
@@ -301,12 +305,11 @@ public class FocusActivity extends AppCompatActivity {
         wasPausedDuringSession = false;
         timerHandler.removeCallbacks(tickRunnable);
 
-        FocusSessionEntity entity = new FocusSessionEntity(
+        AppServices.getDatabase(this).insertFocusSession(
                 selectedDurationMinutes,
                 System.currentTimeMillis(),
                 true
         );
-        AppServices.getDatabase(this).focusSessionDao().insert(entity);
 
         remainingMillis = selectedDurationMinutes * MILLIS_PER_MINUTE;
         showCompletedFeedback = true;
@@ -385,14 +388,14 @@ public class FocusActivity extends AppCompatActivity {
     }
 
     private void refreshSessionHistory() {
-        FocusSessionDao dao = AppServices.getDatabase(this).focusSessionDao();
-        int completedCount = dao.getCompletedCount();
+        AppDbHelper dbHelper = AppServices.getDatabase(this);
+        int completedCount = dbHelper.countCompletedFocusSessions();
         if (completedCountText != null) {
             completedCountText.setText(getString(R.string.pid_session_count, completedCount));
         }
 
         if (historyListText != null) {
-            List<FocusSessionEntity> sessions = dao.getAllSessions();
+            List<FocusSessionEntity> sessions = dbHelper.getAllFocusSessions();
             if (sessions == null || sessions.isEmpty()) {
                 historyListText.setText(R.string.pid_first_session);
             } else {

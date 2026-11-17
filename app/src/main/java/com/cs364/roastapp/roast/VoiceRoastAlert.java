@@ -2,143 +2,94 @@ package com.cs364.roastapp.roast;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.media.AudioAttributes;
 import android.media.AudioFocusRequest;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 
-import com.cs364.roastapp.R;
 import com.cs364.roastapp.core.AlertThresholds;
 import com.cs364.roastapp.core.AppServices;
 import com.cs364.roastapp.settings.SettingsManager;
 
 import java.util.Random;
 
-public class VoiceRoastAlert implements Level3Alert {
-
-    private static final int[] THAI_VOICE_RES_IDS = {
-            R.raw.roast_th_01,
-            R.raw.roast_th_02,
-            R.raw.roast_th_03,
-            R.raw.roast_th_04,
-            R.raw.roast_th_05,
-            R.raw.roast_th_06,
-            R.raw.roast_th_07,
-            R.raw.roast_th_08
-    };
-
-    private static final int[] ENGLISH_VOICE_RES_IDS = {
-            R.raw.roast_en_01,
-            R.raw.roast_en_02,
-            R.raw.roast_en_03,
-            R.raw.roast_en_04,
-            R.raw.roast_en_05,
-            R.raw.roast_en_06,
-            R.raw.roast_en_07,
-            R.raw.roast_en_08
-    };
-
+/**
+ * The over-limit reminder: notification + vibration + a voice line, the moment an app goes over
+ * its limit, repeated every {@link AlertThresholds#getRepeatIntervalMillis()} while it stays in
+ * front. Repeats are driven by the tracking service's checks, so nothing fires after the user
+ * has left the app.
+ */
+public class VoiceRoastAlert {
     private final Context appContext;
     private final RoastNotifier notifier;
     private final Random random = new Random();
-    private final Handler handler = new Handler(Looper.getMainLooper());
 
     private MediaPlayer mediaPlayer;
     private AudioFocusRequest audioFocusRequest;
     private int lastLineIndex = -1;
-    private long lastPlayedTimeMillis = 0L;
+    private long lastAlertMillis = 0L;
     private String activePackageName;
-    private Runnable repeatRunnable;
 
     public VoiceRoastAlert(Context context, RoastNotifier notifier) {
         this.appContext = context.getApplicationContext();
         this.notifier = notifier;
     }
 
-    @Override
-    public synchronized void onLevel3(String packageName, long millisOver) {
+    /** Called on every tracking check while {@code packageName} is in front and over its limit. */
+    public synchronized void onOverLimit(String packageName) {
         if (packageName == null) {
             return;
         }
-        this.activePackageName = packageName;
-        AlertThresholds thresholds = AppServices.getAlertThresholds(appContext);
-        long now = System.currentTimeMillis();
-        long interval = thresholds.getRepeatVoiceIntervalMillis();
-
-        if (lastPlayedTimeMillis == 0L || (now - lastPlayedTimeMillis >= interval)) {
-            playVoiceAndNotify(packageName);
+        if (!packageName.equals(activePackageName)) {
+            stop(activePackageName);
+            activePackageName = packageName;
         }
-
-        scheduleRepeat(packageName, interval);
+        long interval = AppServices.getAlertThresholds(appContext).getRepeatIntervalMillis();
+        long now = System.currentTimeMillis();
+        if (lastAlertMillis == 0L || now - lastAlertMillis >= interval) {
+            alert(packageName);
+        }
     }
 
-    @Override
+    /** The user left the app (or the day reset): end the cycle so the next overrun alerts at once. */
     public synchronized void stop(String packageName) {
         if (packageName != null && !packageName.equals(activePackageName)) {
             return;
         }
-        cancelRepeat();
         releasePlayer();
         activePackageName = null;
-        lastPlayedTimeMillis = 0L;
+        lastAlertMillis = 0L;
     }
 
-    private synchronized void scheduleRepeat(String packageName, long interval) {
-        cancelRepeat();
-        repeatRunnable = () -> {
-            synchronized (VoiceRoastAlert.this) {
-                if (packageName.equals(activePackageName)) {
-                    playVoiceAndNotify(packageName);
-                    scheduleRepeat(packageName, interval);
-                }
-            }
-        };
-        handler.postDelayed(repeatRunnable, interval);
-    }
-
-    private synchronized void cancelRepeat() {
-        if (repeatRunnable != null) {
-            handler.removeCallbacks(repeatRunnable);
-            repeatRunnable = null;
+    /** The notification was swiped away: stop this clip, but keep the repeat schedule. */
+    public synchronized void silence(String packageName) {
+        if (packageName == null || packageName.equals(activePackageName)) {
+            releasePlayer();
         }
     }
 
-    private synchronized void playVoiceAndNotify(String packageName) {
-        String lang = new SettingsManager(appContext).getLanguage();
-        boolean isThai = SettingsManager.LANG_TH.equalsIgnoreCase(lang);
-
-        int count = isThai ? THAI_VOICE_RES_IDS.length : ENGLISH_VOICE_RES_IDS.length;
-        if (count == 0) {
-            return;
-        }
-
+    private void alert(String packageName) {
+        int count = VoiceClips.count();
         int index = random.nextInt(count);
         if (count > 1 && index == lastLineIndex) {
             index = (index + 1) % count;
         }
         lastLineIndex = index;
-        lastPlayedTimeMillis = System.currentTimeMillis();
+        lastAlertMillis = System.currentTimeMillis();
 
-        String line = notifier.showLevel3(packageName, index);
+        notifier.showAlert(packageName, index);
 
-        if (isSilentOrDnd()) {
+        if (!new SettingsManager(appContext).isVoiceEnabled() || isSilentOrDnd()) {
             return;
         }
+        play(index);
+    }
 
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            return;
-        }
-
+    private void play(int index) {
         releasePlayer();
-
-        int soundResId = isThai ? THAI_VOICE_RES_IDS[index] : ENGLISH_VOICE_RES_IDS[index];
         requestAudioFocus();
-
         try {
-            mediaPlayer = MediaPlayer.create(appContext, soundResId);
+            mediaPlayer = VoiceClips.createPlayer(appContext, index);
             if (mediaPlayer == null) {
                 abandonAudioFocus();
                 return;
@@ -168,16 +119,12 @@ public class VoiceRoastAlert implements Level3Alert {
                 return true;
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            NotificationManager nm = appContext.getSystemService(NotificationManager.class);
-            if (nm != null) {
-                int filter = nm.getCurrentInterruptionFilter();
-                if (filter == NotificationManager.INTERRUPTION_FILTER_NONE
-                        || filter == NotificationManager.INTERRUPTION_FILTER_ALARMS
-                        || filter == NotificationManager.INTERRUPTION_FILTER_PRIORITY) {
-                    return true;
-                }
-            }
+        NotificationManager nm = appContext.getSystemService(NotificationManager.class);
+        if (nm != null) {
+            int filter = nm.getCurrentInterruptionFilter();
+            return filter == NotificationManager.INTERRUPTION_FILTER_NONE
+                    || filter == NotificationManager.INTERRUPTION_FILTER_ALARMS
+                    || filter == NotificationManager.INTERRUPTION_FILTER_PRIORITY;
         }
         return false;
     }
@@ -188,16 +135,12 @@ public class VoiceRoastAlert implements Level3Alert {
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            AudioAttributes playbackAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                    .build();
             audioFocusRequest = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
-                    .setAudioAttributes(playbackAttributes)
+                    .setAudioAttributes(VoiceClips.PLAYBACK_ATTRIBUTES)
                     .build();
             am.requestAudioFocus(audioFocusRequest);
         } else {
-            am.requestAudioFocus(null, AudioManager.STREAM_NOTIFICATION, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
+            am.requestAudioFocus(null, VoiceClips.VOLUME_STREAM, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
         }
     }
 

@@ -271,7 +271,10 @@ public class FocusActivity extends AppCompatActivity {
     protected void onPause() {
         if (isSessionActive) {
             pauseTickerAndSaveRemaining();
-            wasPausedDuringSession = true;
+            // Rotating the screen recreates the Activity; that is not leaving the app.
+            if (!isChangingConfigurations()) {
+                wasPausedDuringSession = true;
+            }
         }
         super.onPause();
     }

@@ -31,8 +31,7 @@
         <activity
             android:name=".core.HomeActivity"
             android:exported="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -41,39 +40,33 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
 
         <activity
             android:name=".onboarding.OnboardingActivity"
             android:exported="false"
-            android:parentActivityName=".core.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".core.HomeActivity" />
 
         <activity
             android:name=".tracking.TrackedAppsActivity"
             android:exported="false"
-            android:parentActivityName=".core.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".core.HomeActivity" />
 
         <activity
             android:name=".focus.FocusActivity"
             android:exported="false"
-            android:parentActivityName=".core.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".core.HomeActivity" />
 
         <activity
             android:name=".settings.SettingsActivity"
             android:exported="false"
-            android:parentActivityName=".core.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".core.HomeActivity" />
 
 
         <activity
             android:name=".history.HistoryActivity"
             android:exported="false"
-            android:parentActivityName=".core.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".core.HomeActivity" />
 
         <receiver
             android:name=".roast.RoastDismissReceiver"

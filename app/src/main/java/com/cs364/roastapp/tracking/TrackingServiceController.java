@@ -42,4 +42,21 @@ public final class TrackingServiceController {
             return false;
         }
     }
+
+    /**
+     * Asks a running service to post its ongoing notification again, so the text follows the
+     * language just chosen in Settings. Does nothing when the service is not running.
+     */
+    public static void refreshNotification(Context context) {
+        Context app = context.getApplicationContext();
+        if (!UsageTrackingService.isRunning()) {
+            return;
+        }
+        try {
+            // onStartCommand() builds the notification again and calls startForeground() with it.
+            ContextCompat.startForegroundService(app, new Intent(app, UsageTrackingService.class));
+        } catch (RuntimeException e) {
+            Log.w(TAG, "could not refresh tracking notification", e);
+        }
+    }
 }

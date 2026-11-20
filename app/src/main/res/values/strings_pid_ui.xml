@@ -51,6 +51,9 @@
   <string name="pid_choose_app">Choose an app</string>
   <string name="pid_remove_title">Remove this app?</string>
   <string name="pid_remove_message">This removes its daily limit. The app stays installed.</string>
+  <string name="pid_reset_usage">Reset today\'s time</string>
+  <string name="pid_reset_title">Reset today\'s usage?</string>
+  <string name="pid_reset_message">This starts today\'s counted time for this app back at 0.</string>
   <string name="pid_search_apps">Search apps</string>
   <string name="pid_no_matches">No apps to show</string>
   <string name="pid_daily_reset">Your limit starts fresh every day.</string>

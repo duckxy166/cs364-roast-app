@@ -24,12 +24,13 @@ import java.util.List;
 public class AppDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "put_it_down.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     // Table tracked_app: apps the user chose to limit
     private static final String TABLE_TRACKED_APP = "tracked_app";
     private static final String COL_APP_PACKAGE = "packageName";
     private static final String COL_APP_LIMIT = "limitMinutes";
+    private static final String COL_APP_RESET_AT = "resetAtMillis";
 
     // Table focus_session: finished focus timers
     private static final String TABLE_FOCUS_SESSION = "focus_session";
@@ -75,6 +76,11 @@ public class AppDbHelper extends SQLiteOpenHelper {
             // Version 5: user-written reminder lines were removed.
             db.execSQL("DROP TABLE IF EXISTS custom_roast");
         }
+        if (oldVersion < 6) {
+            // Version 6: each tracked app can reset today's counted usage independently.
+            db.execSQL("ALTER TABLE " + TABLE_TRACKED_APP + " ADD COLUMN "
+                    + COL_APP_RESET_AT + " INTEGER NOT NULL DEFAULT 0");
+        }
         // Version 4 added roast_event; create any table that is still missing.
         createTables(db);
     }
@@ -82,7 +88,8 @@ public class AppDbHelper extends SQLiteOpenHelper {
     private void createTables(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_TRACKED_APP + " ("
                 + COL_APP_PACKAGE + " TEXT NOT NULL PRIMARY KEY, "
-                + COL_APP_LIMIT + " INTEGER NOT NULL DEFAULT 30)");
+                + COL_APP_LIMIT + " INTEGER NOT NULL DEFAULT 30, "
+                + COL_APP_RESET_AT + " INTEGER NOT NULL DEFAULT 0)");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_FOCUS_SESSION + " ("
                 + COL_FOCUS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
@@ -110,6 +117,7 @@ public class AppDbHelper extends SQLiteOpenHelper {
                 TrackedAppEntity item = new TrackedAppEntity();
                 item.packageName = c.getString(c.getColumnIndexOrThrow(COL_APP_PACKAGE));
                 item.limitMinutes = c.getLong(c.getColumnIndexOrThrow(COL_APP_LIMIT));
+                item.resetAtMillis = c.getLong(c.getColumnIndexOrThrow(COL_APP_RESET_AT));
                 items.add(item);
             }
         }
@@ -122,9 +130,15 @@ public class AppDbHelper extends SQLiteOpenHelper {
 
     /** Returns the new row id, or -1 when the app is already in the table. */
     public long insertTrackedApp(String packageName, long limitMinutes) {
+        return insertTrackedApp(packageName, limitMinutes, 0L);
+    }
+
+    /** Returns the new row id, or -1 when the app is already in the table. */
+    public long insertTrackedApp(String packageName, long limitMinutes, long resetAtMillis) {
         ContentValues values = new ContentValues();
         values.put(COL_APP_PACKAGE, packageName);
         values.put(COL_APP_LIMIT, limitMinutes);
+        values.put(COL_APP_RESET_AT, resetAtMillis);
         return getWritableDatabase().insertWithOnConflict(TABLE_TRACKED_APP, null, values,
                 SQLiteDatabase.CONFLICT_IGNORE);
     }
@@ -133,6 +147,14 @@ public class AppDbHelper extends SQLiteOpenHelper {
     public int updateTrackedAppLimit(String packageName, long limitMinutes) {
         ContentValues values = new ContentValues();
         values.put(COL_APP_LIMIT, limitMinutes);
+        return getWritableDatabase().update(TABLE_TRACKED_APP, values,
+                COL_APP_PACKAGE + "=?", new String[]{packageName});
+    }
+
+    /** Starts counting today's usage for this app fresh from {@code resetAtMillis}. */
+    public int resetTrackedAppUsage(String packageName, long resetAtMillis) {
+        ContentValues values = new ContentValues();
+        values.put(COL_APP_RESET_AT, resetAtMillis);
         return getWritableDatabase().update(TABLE_TRACKED_APP, values,
                 COL_APP_PACKAGE + "=?", new String[]{packageName});
     }

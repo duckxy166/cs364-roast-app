@@ -77,6 +77,9 @@ public class SettingsActivity extends AppCompatActivity {
                 content.addView(choice);
             }
             sheet.setContentView(content);
+            sheet.getBehavior().setSkipCollapsed(true);
+            sheet.getBehavior().setState(
+                    com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED);
             sheet.show();
         });
         bindCurrentSettingsToUi();

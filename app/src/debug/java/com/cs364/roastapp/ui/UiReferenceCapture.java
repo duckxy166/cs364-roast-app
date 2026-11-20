@@ -54,6 +54,11 @@ public final class UiReferenceCapture extends Instrumentation {
                     tracked.add(new AppLimitsUi.App(app.packageName, app.name, app.icon, app.usedMinutes, minutes));
                     apps.bindUi(tracked, examples, this);
                 }
+                public void resetUsage(AppLimitsUi.App app) {
+                    tracked.removeIf(item -> item.packageName.equals(app.packageName));
+                    tracked.add(new AppLimitsUi.App(app.packageName, app.name, app.icon, 0, app.limitMinutes));
+                    apps.bindUi(tracked, examples, this);
+                }
                 public void remove(AppLimitsUi.App app) {
                     tracked.removeIf(item -> item.packageName.equals(app.packageName)); apps.bindUi(tracked, examples, this);
                 }

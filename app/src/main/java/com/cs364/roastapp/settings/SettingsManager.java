@@ -8,6 +8,7 @@ import androidx.core.os.LocaleListCompat;
 
 import com.cs364.roastapp.core.AlertThresholds;
 import com.cs364.roastapp.core.AppServices;
+import com.cs364.roastapp.tracking.TrackingServiceController;
 
 import java.util.Locale;
 
@@ -56,6 +57,8 @@ public class SettingsManager {
         prefs.edit().putString(KEY_LANGUAGE, normalized).apply();
         LocaleListCompat appLocale = LocaleListCompat.forLanguageTags(normalized);
         AppCompatDelegate.setApplicationLocales(appLocale);
+        // The ongoing notification was built in the old language; post it again in the new one.
+        TrackingServiceController.refreshNotification(appContext);
     }
 
     public boolean isNightMode() {

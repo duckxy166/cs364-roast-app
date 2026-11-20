@@ -9,4 +9,10 @@ public class TrackedAppEntity {
 
     /** Daily limit in minutes (minimum 1). */
     public long limitMinutes = DEFAULT_LIMIT_MINUTES;
+
+    /**
+     * Epoch millis from which today's usage starts counting. Values earlier than local midnight
+     * (including 0) count from local midnight as normal.
+     */
+    public long resetAtMillis = 0L;
 }

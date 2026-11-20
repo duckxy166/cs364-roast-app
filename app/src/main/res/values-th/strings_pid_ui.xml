@@ -51,6 +51,9 @@
   <string name="pid_choose_app">เลือกแอป</string>
   <string name="pid_remove_title">นำแอปนี้ออก?</string>
   <string name="pid_remove_message">แอปนี้จะถูกนำออกจากรายการที่คุม โดยยังติดตั้งอยู่ในเครื่อง</string>
+  <string name="pid_reset_usage">รีเซ็ตเวลาวันนี้</string>
+  <string name="pid_reset_title">รีเซ็ตเวลาใช้งานวันนี้?</string>
+  <string name="pid_reset_message">เวลาที่นับของแอปนี้ในวันนี้จะกลับไปเริ่มที่ 0 นาที</string>
   <string name="pid_search_apps">ค้นหาแอป</string>
   <string name="pid_no_matches">ยังไม่มีแอปให้แสดง</string>
   <string name="pid_daily_reset">เริ่มนับเวลาใหม่ทุกวัน</string>

@@ -36,6 +36,7 @@ public final class AppLimitsUi {
     }
     public interface Actions {
         void saveLimit(App app, long minutes);
+        void resetUsage(App app);
         void remove(App app);
     }
     /** Home shows the first few limits; the Apps tab lists them all. */
@@ -94,6 +95,11 @@ public final class AppLimitsUi {
                 progress.setProgressTintList(android.content.res.ColorStateList.valueOf(ContextCompat.getColor(activity, R.color.pid_error)));
             }
             if (!summary) {
+                View reset = card.findViewById(R.id.pid_app_reset);
+                reset.setEnabled(actions != null);
+                reset.setContentDescription(activity.getString(R.string.pid_reset_usage) + " " + app.name);
+                reset.setOnClickListener(v -> ConfirmDialog.show(activity,
+                        R.string.pid_reset_title, R.string.pid_reset_message, () -> actions.resetUsage(app)));
                 card.findViewById(R.id.pid_app_edit).setEnabled(actions != null);
                 card.findViewById(R.id.pid_app_remove).setEnabled(actions != null);
                 card.findViewById(R.id.pid_app_edit).setContentDescription(activity.getString(R.string.pid_edit_limit) + " " + app.name);
@@ -127,7 +133,7 @@ public final class AppLimitsUi {
             public void onTextChanged(CharSequence s,int start,int before,int count) { refresh.run(); }
             public void afterTextChanged(Editable e) {}
         });
-        refresh.run(); sheet.setContentView(content); sheet.show();
+        refresh.run(); sheet.setContentView(content); expand(sheet); sheet.show();
     }
     public void showLimit(App app) {
         BottomSheetDialog sheet = new BottomSheetDialog(activity);
@@ -152,7 +158,13 @@ public final class AppLimitsUi {
             if (minutes < 1) { input.setError(activity.getString(R.string.pid_minimum)); return; }
             actions.saveLimit(app, minutes); sheet.dismiss();
         });
-        sheet.setContentView(content); sheet.show();
+        sheet.setContentView(content); expand(sheet); sheet.show();
+    }
+    /** Landscape tablets otherwise open bottom sheets collapsed to a thin strip at the bottom. */
+    private static void expand(BottomSheetDialog sheet) {
+        sheet.getBehavior().setSkipCollapsed(true);
+        sheet.getBehavior().setState(
+                com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED);
     }
     /** Hairline between rows of the group, inset to line up with the app names. */
     private View rowDivider() {

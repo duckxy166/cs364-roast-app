@@ -25,6 +25,14 @@ public class TrackedAppsActivity extends AppCompatActivity {
         }
 
         @Override
+        public void resetUsage(AppLimitsUi.App app) {
+            TrackedAppsRepository.IO.execute(() -> {
+                repository.resetUsage(app.packageName);
+                reload();
+            });
+        }
+
+        @Override
         public void remove(AppLimitsUi.App app) {
             TrackedAppsRepository.IO.execute(() -> {
                 repository.remove(app.packageName);

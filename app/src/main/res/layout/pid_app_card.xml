@@ -35,6 +35,16 @@
         android:ellipsize="end"
         tools:text="Instagram" />
     <ImageButton
+        android:id="@+id/pid_app_reset"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="13dp"
+        android:scaleType="fitCenter"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/pid_ic_refresh"
+        android:contentDescription="@string/pid_reset_usage"
+        app:tint="@color/pid_on_surface_variant" />
+    <ImageButton
         android:id="@+id/pid_app_edit"
         android:layout_width="48dp"
         android:layout_height="48dp"

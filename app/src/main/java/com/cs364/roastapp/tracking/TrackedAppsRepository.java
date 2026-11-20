@@ -44,7 +44,7 @@ public final class TrackedAppsRepository {
                 CharSequence label = packageManager.getApplicationLabel(
                         packageManager.getApplicationInfo(entity.packageName, 0));
                 Drawable icon = packageManager.getApplicationIcon(entity.packageName);
-                long usedMinutes = usage.getUsedMillisToday(entity.packageName) / 60_000L;
+                long usedMinutes = usage.getUsedMillisToday(entity.packageName, entity.resetAtMillis) / 60_000L;
                 result.add(new AppLimitsUi.App(entity.packageName, label, icon,
                         usedMinutes, entity.limitMinutes));
             } catch (PackageManager.NameNotFoundException e) {
@@ -76,15 +76,22 @@ public final class TrackedAppsRepository {
         return result;
     }
 
-    /** Adds the app, or updates its limit when it is already tracked. */
+    /** Adds the app (starting usage from now), or updates its limit when it is already tracked. */
     public void saveLimit(String packageName, long minutes) {
         long limit = Math.max(1L, minutes);
         if (dbHelper.updateTrackedAppLimit(packageName, limit) == 0) {
-            dbHelper.insertTrackedApp(packageName, limit);
+            dbHelper.insertTrackedApp(packageName, limit, System.currentTimeMillis());
         }
+    }
+
+    /** Resets today's counted usage for this app back to 0 starting from now. */
+    public void resetUsage(String packageName) {
+        dbHelper.resetTrackedAppUsage(packageName, System.currentTimeMillis());
+        AppServices.getRoastTrigger(context).onLeftApp(packageName);
     }
 
     public void remove(String packageName) {
         dbHelper.deleteTrackedApp(packageName);
+        AppServices.getRoastTrigger(context).onLeftApp(packageName);
     }
 }
